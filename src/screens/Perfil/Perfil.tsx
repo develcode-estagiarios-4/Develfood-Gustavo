@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
 
-export default function Perfil() {
+export const Perfil: React.FC<undefined> = () => {
   return <Text>Profile</Text>
 }

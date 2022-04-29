@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
 
-export default function Inicio() {
+export const Inicio: React.FC<undefined> = () => {
   return <Text>Inicio</Text>
 }

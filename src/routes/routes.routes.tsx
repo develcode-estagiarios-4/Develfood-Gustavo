@@ -2,10 +2,10 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Inicio from '../screens/Inicio/Inicio';
-import Historico from '../screens/Historico/Historico';
-import Favoritos from '../screens/Favoritos/Favoritos';
-import Perfil from '../screens/Perfil/Perfil';
+import { Inicio } from '../screens/Inicio/Inicio';
+import { Historico } from '../screens/Historico/Historico';
+import { Favoritos } from '../screens/Favoritos/Favoritos';
+import { Perfil } from '../screens/Perfil/Perfil';
 
 const Tab = createBottomTabNavigator();
 

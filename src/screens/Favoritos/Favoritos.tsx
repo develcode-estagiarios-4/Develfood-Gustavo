@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-export default function Favoritos() {
+export const Favoritos: React.FC<undefined> = () => {
   return (
     <View>
       <Text>Fav</Text>
