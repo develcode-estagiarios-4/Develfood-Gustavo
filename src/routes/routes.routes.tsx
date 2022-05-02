@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import RNBootSplash from 'react-native-bootsplash';
 
 import { Inicio } from '../screens/Inicio/Inicio';
 import { Historico } from '../screens/Historico/Historico';
 import { Favoritos } from '../screens/Favoritos/Favoritos';
 import { Perfil } from '../screens/Perfil/Perfil';
 
+
+export default function AppRoutes() {
+
 const Tab = createBottomTabNavigator();
 
-export default function Routes() {
+  useEffect(() => {
+    RNBootSplash.hide({ fade: true });
+  }, []);
+
   return (
     <Tab.Navigator>
       <Tab.Screen name="Início" component={Inicio} />
