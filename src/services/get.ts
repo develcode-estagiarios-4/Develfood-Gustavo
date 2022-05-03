@@ -1,9 +1,15 @@
-import { AxiosRequestConfig } from "axios";
-import React, {useEffect, useState} from "react";
-import { api } from "./api";
+import { AxiosRequestConfig } from 'axios';
+import React, { useEffect, useState } from 'react';
 
-export function useGet(url: string, options?: AxiosRequestConfig) {
-  const [data, setData] = useState(null);
+import axios from 'axios';
+
+export const api = axios.create({
+  baseURL: 'https://gorest.co.in'
+});
+
+
+export function useGet<T = unknown>(url: string, options?: AxiosRequestConfig) {
+  const [data, setData] = useState<T>({} as T);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -11,23 +17,16 @@ export function useGet(url: string, options?: AxiosRequestConfig) {
     async function fetchData() {
       try {
         await api.get(url, options)
-        .then((response) =>
-          setData(response.data))
+        .then((response) => setData(response.data));
       } catch (erro) {
-
-        setError(error)
-
+        setError(error);
+        console.log(error)
       } finally {
-
-        setLoading(false)
-
+        setLoading(false);
       }
-
     }
-
-    fetchData()
-
+    fetchData();
   }, []);
 
-  return {data, loading, error}
+  return { data, loading, error };
 }

@@ -1,6 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, Button, View } from 'react-native';
+import { usePost } from '../../services/post';
 
 export const Perfil: React.FC<undefined> = () => {
-  return <Text>Profile</Text>;
+
+const { data, loading, error, handlerPost } = usePost('/public/v2/users' )
+
+  return (
+    <View>
+      <Text>Alo</Text>
+    </View>
+  );
 };
