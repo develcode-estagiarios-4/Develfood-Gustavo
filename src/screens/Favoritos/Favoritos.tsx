@@ -1,10 +1,11 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import {  View } from 'react-native';
+import { Titulo } from './styles';
 
 export const Favoritos: React.FC<undefined> = () => {
   return (
     <View>
-      <Text>Fav</Text>
+      <Titulo>Favoritos</Titulo>
     </View>
   )
 }

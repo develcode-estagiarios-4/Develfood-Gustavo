@@ -1,12 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-
-export const api = axios.create({
-  baseURL: 'https://gorest.co.in'
-});
-
+import { api } from './api';
 
 export function useGet<T = unknown>(url: string, options?: AxiosRequestConfig) {
   const [data, setData] = useState<T>({} as T);

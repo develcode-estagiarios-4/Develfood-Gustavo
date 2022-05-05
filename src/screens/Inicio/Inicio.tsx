@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View, Button } from 'react-native';
-import { useGet } from '../../services/get';
-import { usePost } from '../../services/post';
-import { usePut } from '../../services/put';
-import { useDelete } from '../../services/delete';
+import { FlatList, View, Button } from 'react-native';
+import { Texto } from './styles'
+import { useGet, usePost, usePut, useDelete } from '../../services';
 
 interface IData {
   name: string;
@@ -25,22 +23,11 @@ interface CreateUserRequest {
   status: string;
 }
 
-// interface DResponse {
-//   name: string;
-//   email: string;
-//   gender: string;
-//   status: string;
-// }
-
-// interface DeleteUserRequest {
-//   name: string;
-//   email: string;
-//   gender: string;
-//   status: string;
-// }
-
 export const Inicio: React.FC<undefined> = () => {
-  const { data, loading, error } = useGet<IData[]>('/public/v2/users');
+  const { 
+    data, 
+    loading, 
+    error } = useGet<IData[]>('/public/v2/users');
 
   const {
     data: dataPost,
@@ -50,8 +37,8 @@ export const Inicio: React.FC<undefined> = () => {
   } = usePost<TResponse, CreateUserRequest>(
     '/public/v2/users',
     {
-      email: 'gustavo@develcode.com.br',
-      name: 'Lucas',
+      email: 'gustavoluc@develcode.com.br',
+      name: 'Gustavo Lucas Sobbrero',
       gender: 'male',
       status: 'active',
     },
@@ -70,10 +57,10 @@ export const Inicio: React.FC<undefined> = () => {
     error: errorPut,
     handlerPut,
   } = usePut<TResponse, CreateUserRequest>(
-    '/public/v2/users/5437',
+    '/public/v2/users/7814',
     {
-      email: 'lucas@gmail.com',
-      name: 'lucas',
+      email: 'gus@develcode.com.br',
+      name: 'Gus Sobbrero',
       gender: 'female',
       status: 'active',
     },
@@ -91,7 +78,7 @@ export const Inicio: React.FC<undefined> = () => {
     loading: loadingDelete,
     error: errorDelete,
     handlerDelete,
-  } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/5435', {
+  } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/7814', {
     headers: {
       'Content-type': 'application/json',
       Authorization:
@@ -105,13 +92,23 @@ export const Inicio: React.FC<undefined> = () => {
         data={data}
         renderItem={({ item }) => (
           <>
-            <Text>{item.name}</Text>
+            <Texto>{item.name}</Texto>
           </>
         )}
       />
       <Button title="Enviar" onPress={() => handlerPost()} />
+      <Button title="Atualizar" onPress={() => handlerPut()} />
       <Button title="Excluir" onPress={() => handlerDelete()} />
-      <Button title="Atualizar  " onPress={() => handlerPut()} />
+
+      {loadingPost ? (
+        <Texto>Carregando postagem de usuário</Texto>
+      ) : (
+        <View>
+          <Texto>{dataPost.name}</Texto>
+          <Texto>{dataPost.email}</Texto>
+          <Texto>{dataPost.gender}</Texto>
+        </View>
+      )}
     </View>
   );
 };

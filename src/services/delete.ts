@@ -1,11 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-export const api = axios.create({
-  baseURL: 'https://gorest.co.in'
-});
-
+import { api } from './api';
 
 export function useDelete<T = unknown, TResponse = unknown>(url: string, options?: AxiosRequestConfig) {
   const [data, setData] = useState<TResponse>({} as TResponse);
@@ -17,7 +12,7 @@ export function useDelete<T = unknown, TResponse = unknown>(url: string, options
         setLoading(true)
         const response = await api.delete(url, options)
         setData(response.data);
-        console.log(response.data);
+        console.log("Usuário deletado!");
       } catch (error) {
         setError(error);
         console.log(error)
