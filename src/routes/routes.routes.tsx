@@ -4,13 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import RNBootSplash from 'react-native-bootsplash';
 
-import { Inicio } from '../screens/Inicio/Inicio';
-import { Historico } from '../screens/Historico/Historico';
-import { Favoritos } from '../screens/Favoritos/Favoritos';
-import { Perfil } from '../screens/Perfil/Perfil';
+import { Home } from '../screens/Home/Home';
+import { History } from '../screens/History/History';
+import { Favorites } from '../screens/Favorites/Favorites';
+import { Profile } from '../screens/Profile/Profile';
 
 import { TabBarIcon } from '../components/TabBarIcon';
 import { RFValue } from 'react-native-responsive-fontsize';
+import theme from '../theme';
 
 export default function AppRoutes() {
   const Tab = createBottomTabNavigator();
@@ -23,7 +24,7 @@ export default function AppRoutes() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#C20C18',
+        tabBarActiveTintColor: theme.COLORS.PRIMARY_900,
         tabBarLabelStyle: {
           fontSize: RFValue(12.5),
           fontWeight: '600',
@@ -32,7 +33,7 @@ export default function AppRoutes() {
     >
       <Tab.Screen
         name="Início"
-        component={Inicio}
+        component={Home}
         options={{
           tabBarIcon: ({ focused }) => {
             return <TabBarIcon focused={focused} name={'home'} />;
@@ -41,7 +42,7 @@ export default function AppRoutes() {
       />
       <Tab.Screen
         name="Favoritos"
-        component={Favoritos}
+        component={Favorites}
         options={{
           tabBarIcon: ({ focused }) => {
             return <TabBarIcon focused={focused} name={'heart'} />;
@@ -50,7 +51,7 @@ export default function AppRoutes() {
       />
       <Tab.Screen
         name="Histórico"
-        component={Historico}
+        component={History}
         options={{
           tabBarIcon: ({ focused }) => {
             return <TabBarIcon focused={focused} name={'historic'} />;
@@ -59,7 +60,7 @@ export default function AppRoutes() {
       />
       <Tab.Screen
         name="Perfil"
-        component={Perfil}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused }) => {
             return <TabBarIcon focused={focused} name={'werever'} />;

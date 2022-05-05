@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Titulo = styled.Text`
+export const Title = styled.Text`
 textAlign: center
 fontSize: 18px
 marginTop: 40px

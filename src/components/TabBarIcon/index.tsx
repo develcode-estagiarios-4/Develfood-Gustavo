@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import theme from '../../theme';
 
 interface Props {
   focused: boolean;
@@ -20,7 +21,7 @@ export function TabBarIcon({ focused, name }: Props) {
           : require('../../assets/perfil.png')
       }
       style={{
-        tintColor: focused ? '#C20C18' : 'gray',
+        tintColor: focused ? theme.COLORS.PRIMARY_900 : theme.COLORS.SECONDARY_400,
         height: focused ? RFValue(25) : RFValue(20),
         width: focused ? RFValue(36) : RFValue(32),
         resizeMode: 'contain',

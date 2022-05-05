@@ -23,7 +23,7 @@ interface CreateUserRequest {
   status: string;
 }
 
-export const Inicio: React.FC<undefined> = () => {
+export const Home: React.FC<undefined> = () => {
   const { 
     data, 
     loading, 
@@ -37,8 +37,8 @@ export const Inicio: React.FC<undefined> = () => {
   } = usePost<TResponse, CreateUserRequest>(
     '/public/v2/users',
     {
-      email: 'gustavoluc@develcode.com.br',
-      name: 'Gustavo Lucas Sobbrero',
+      email: 'funcionando@develcode.com.br',
+      name: 'Joao Dias',
       gender: 'male',
       status: 'active',
     },
@@ -57,11 +57,11 @@ export const Inicio: React.FC<undefined> = () => {
     error: errorPut,
     handlerPut,
   } = usePut<TResponse, CreateUserRequest>(
-    '/public/v2/users/7814',
+    '/public/v2/users/5773',
     {
-      email: 'gus@develcode.com.br',
-      name: 'Gus Sobbrero',
-      gender: 'female',
+      email: 'atualizando@develcode.com.br',
+      name: 'Gustavo L Sobbrero',
+      gender: 'male',
       status: 'active',
     },
     {
@@ -78,7 +78,8 @@ export const Inicio: React.FC<undefined> = () => {
     loading: loadingDelete,
     error: errorDelete,
     handlerDelete,
-  } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/7814', {
+  } = useDelete<TResponse, CreateUserRequest>(
+    '/public/v2/users/5773', {
     headers: {
       'Content-type': 'application/json',
       Authorization:
