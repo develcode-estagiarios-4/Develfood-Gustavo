@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, View, Button } from 'react-native';
-import { Texto } from './styles'
+import { Texto } from './styles';
 import { useGet, usePost, usePut, useDelete } from '../../services';
 
 interface IData {
@@ -24,10 +24,7 @@ interface CreateUserRequest {
 }
 
 export const Home: React.FC<undefined> = () => {
-  const { 
-    data, 
-    loading, 
-    error } = useGet<IData[]>('/public/v2/users');
+  const { data, loading, error } = useGet<IData[]>('/public/v2/users');
 
   const {
     data: dataPost,
@@ -37,7 +34,7 @@ export const Home: React.FC<undefined> = () => {
   } = usePost<TResponse, CreateUserRequest>(
     '/public/v2/users',
     {
-      email: 'funcionando@develcode.com.br',
+      email: 'dsaasd@develcode.com.br',
       name: 'Joao Dias',
       gender: 'male',
       status: 'active',
@@ -78,8 +75,7 @@ export const Home: React.FC<undefined> = () => {
     loading: loadingDelete,
     error: errorDelete,
     handlerDelete,
-  } = useDelete<TResponse, CreateUserRequest>(
-    '/public/v2/users/5773', {
+  } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/5773', {
     headers: {
       'Content-type': 'application/json',
       Authorization:
@@ -88,28 +84,32 @@ export const Home: React.FC<undefined> = () => {
   });
 
   return (
-    <View>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <>
-            <Texto>{item.name}</Texto>
-          </>
-        )}
-      />
-      <Button title="Enviar" onPress={() => handlerPost()} />
-      <Button title="Atualizar" onPress={() => handlerPut()} />
-      <Button title="Excluir" onPress={() => handlerDelete()} />
-
-      {loadingPost ? (
-        <Texto>Carregando postagem de usuário</Texto>
-      ) : (
+    <>
+      { loading ? <Texto>Carregando dados...</Texto> :
         <View>
-          <Texto>{dataPost.name}</Texto>
-          <Texto>{dataPost.email}</Texto>
-          <Texto>{dataPost.gender}</Texto>
+          <FlatList
+            data={data}
+            renderItem={({ item }) => (
+              <>
+                <Texto>{item.name}</Texto>
+              </>
+            )}
+          />
+          <Button title="Enviar" onPress={() => handlerPost()} />
+          <Button title="Atualizar" onPress={() => handlerPut()} />
+          <Button title="Excluir" onPress={() => handlerDelete()} />
+
+          {loadingPost ? (
+            <Texto>Carregando postagem de usuário</Texto>
+          ) : (
+            <View>
+              <Texto>{dataPost.name}</Texto>
+              <Texto>{dataPost.email}</Texto>
+              <Texto>{dataPost.gender}</Texto>
+            </View>
+          )}
         </View>
-      )}
-    </View>
+      }
+    </>
   );
 };

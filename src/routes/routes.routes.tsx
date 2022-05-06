@@ -9,64 +9,47 @@ import { History } from '../screens/History/History';
 import { Favorites } from '../screens/Favorites/Favorites';
 import { Profile } from '../screens/Profile/Profile';
 
-import { TabBarIcon } from '../components/TabBarIcon';
+import { TabBarWrapper } from '../components/NavigationBar/TabBarWrapper';
 import { RFValue } from 'react-native-responsive-fontsize';
 import theme from '../theme';
+import { NavigationBar } from '../components/NavigationBar';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 export default function AppRoutes() {
-  const Tab = createBottomTabNavigator();
+  const { Navigator, Screen } = createNativeStackNavigator()
 
   useEffect(() => {
     RNBootSplash.hide({ fade: true });
   }, []);
 
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: theme.COLORS.PRIMARY_900,
-        tabBarLabelStyle: {
-          fontSize: RFValue(12.5),
-          fontWeight: '600',
-        }
-      }}
+    <>
+    <Navigator screenOptions={{headerShown: false}}
     >
-      <Tab.Screen
+      <Screen
         name="Início"
         component={Home}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return <TabBarIcon focused={focused} name={'home'} />;
-          },
-        }}
       />
-      <Tab.Screen
+
+      <Screen
         name="Favoritos"
         component={Favorites}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return <TabBarIcon focused={focused} name={'heart'} />;
-          },
-        }}
       />
-      <Tab.Screen
+
+      <Screen
         name="Histórico"
         component={History}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return <TabBarIcon focused={focused} name={'historic'} />;
-          },
-        }}
       />
-      <Tab.Screen
+
+      <Screen
         name="Perfil"
         component={Profile}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return <TabBarIcon focused={focused} name={'werever'} />;
-          },
-        }}
       />
-    </Tab.Navigator>
+
+    </Navigator>
+
+    <NavigationBar  />
+    </>
   );
 }

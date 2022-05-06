@@ -28,4 +28,11 @@ export default {
     TITLE: 'DMSerifDisplay_400Regular',
     TEXT: 'DMSans_400Regular',
   },
+
+  ICONS: {
+    HOME: require('../assets/inicio.png'),
+    FAVORITES: require('../assets/favoritos.png'),
+    HISTORY: require('../assets/historico.png'),
+    PROFILE: require('../assets/perfil.png')
+  }
 };
