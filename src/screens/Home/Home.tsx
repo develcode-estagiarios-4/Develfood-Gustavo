@@ -86,7 +86,7 @@ export const Home: React.FC<undefined> = () => {
   return (
     <>
       { loading ? <Texto>Carregando dados...</Texto> :
-        <View>
+        <View style={{flex: 1}}>
           <FlatList
             data={data}
             renderItem={({ item }) => (
