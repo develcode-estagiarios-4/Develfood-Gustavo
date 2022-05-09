@@ -9,5 +9,4 @@ margin-top: ${RFValue(10)}px;
 
 export const TabSpace = styled.View`
 width: 25%;
-
 `

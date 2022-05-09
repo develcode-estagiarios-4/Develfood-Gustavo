@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, View, Button } from 'react-native';
-import { Texto } from './styles';
+import { Texto, Container } from './styles';
 import { useGet, usePost, usePut, useDelete } from '../../services';
 
 interface IData {
@@ -84,32 +84,34 @@ export const Home: React.FC<undefined> = () => {
   });
 
   return (
-    <>
-      { loading ? <Texto>Carregando dados...</Texto> :
-        <View style={{flex: 1}}>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <>
-                <Texto>{item.name}</Texto>
-              </>
-            )}
-          />
-          <Button title="Enviar" onPress={() => handlerPost()} />
-          <Button title="Atualizar" onPress={() => handlerPut()} />
-          <Button title="Excluir" onPress={() => handlerDelete()} />
+    <Container>
+        {loading ? (
+          <Texto>Carregando dados...</Texto>
+        ) : (
+          <View>
+            <FlatList
+              data={data}
+              renderItem={({ item }) => (
+                <>
+                  <Texto>{item.name}</Texto>
+                </>
+              )}
+            />
+            <Button title="Enviar" onPress={() => handlerPost()} />
+            <Button title="Atualizar" onPress={() => handlerPut()} />
+            <Button title="Excluir" onPress={() => handlerDelete()} />
 
-          {loadingPost ? (
-            <Texto>Carregando postagem de usuário</Texto>
-          ) : (
-            <View>
-              <Texto>{dataPost.name}</Texto>
-              <Texto>{dataPost.email}</Texto>
-              <Texto>{dataPost.gender}</Texto>
-            </View>
-          )}
-        </View>
-      }
-    </>
+            {loadingPost ? (
+              <Texto>Carregando postagem de usuário</Texto>
+            ) : (
+              <View>
+                <Texto>{dataPost.name}</Texto>
+                <Texto>{dataPost.email}</Texto>
+                <Texto>{dataPost.gender}</Texto>
+              </View>
+            )}
+          </View>
+        )}
+    </Container>
   );
 };
