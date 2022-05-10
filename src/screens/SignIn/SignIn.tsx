@@ -18,6 +18,7 @@ import {
   ForgotPasswordButton,
   ForgotPasswordLabel,
 } from './styles';
+import theme from '../../theme';
 
 export default function SignIn() {
   return (
@@ -43,6 +44,7 @@ export default function SignIn() {
           />
           <Input
             placeholder="**********"
+            placeholderTextColor= {'blue'}
             type="primary"
             autoCorrect={false}
             autoCapitalize="none"
