@@ -21,6 +21,7 @@ export const Container = styled(TextInput).attrs<Props>(({ theme, type }) => ({
   padding: 7px 0;
   padding-left: 20px;
   margin-bottom: 16px;
+  margin-top: 10px;
 
   ${({ theme, type }) => css`
     border: 1px solid ${theme.COLORS.SHAPE};
