@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInputProps, Text, View } from 'react-native';
+import { TextInputProps, Text, View, KeyboardTypeOptions } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import {
@@ -13,9 +13,13 @@ import {
 
 interface Props extends TextInputProps {
   name: string;
+  placeholder: string;
+  placeholderTextColor: string;
+  keyboardType?: KeyboardTypeOptions;
+
 }
 
-export function Input({ name }: Props) {
+export function Input({ name, placeholder, placeholderTextColor, keyboardType }: Props) {
   const theme = useTheme();
 
   const [data, setData] = useState({
@@ -65,7 +69,9 @@ export function Input({ name }: Props) {
 
   return (
     <View>
+      
       <Container>
+       
         <LoginIcon
           source={
             name === 'email'
@@ -75,20 +81,24 @@ export function Input({ name }: Props) {
               : null
           }
         />
-        <InputLogin
-          placeholder={name === 'email' ? 'exemplo@email.com' : '***********'}
-          placeholderTextColor={theme.COLORS.SECONDARY_500}
-          autoCapitalize="none"
-          keyboardType={name === 'email' ? 'email-address' : 'default'}
-          secureTextEntry={data.secureTextEntry ? true : false}
-          onEndEditing={ name === 'email' ? (e) => handleValidEmail(e.nativeEvent.text) : (e) => handleValidPassword(e.nativeEvent.text) }
+
+        <InputLogin 
+        placeholder={placeholder}
+        placeholderTextColor={placeholderTextColor}
+        keyboardType={keyboardType}
+        secureTextEntry={data.secureTextEntry ? true : false}
+        onEndEditing={ name === 'email' ? (e) => handleValidEmail(e.nativeEvent.text) : (e) => handleValidPassword(e.nativeEvent.text) }
        />
 
         <IconPassword onPress={updateSecureTextEntry}>
           <HideIcon source={name === 'password' ? theme.ICONS.HIDE : null} />
         </IconPassword>
+     
       </Container>
+
       { name === 'email' && data.isValidEmail ? <ErrorMessage></ErrorMessage> : name === 'email' && data.isValidEmail === false ? <ErrorMessage>O campo e-mail está vazio</ErrorMessage> : name === 'password' && data.isValidPassword ? <ErrorMessage></ErrorMessage> : name === 'password' && data.isValidPassword === false ? <ErrorMessage>O campo de senha está vazio</ErrorMessage> : null }
+    
     </View>
+
   );
 }
