@@ -42,7 +42,7 @@ import {
   RegisterButton,
   RegisterButtonLabel,
   FooterImage,
-  Title,
+  
 } from './styles';
 
 import { usePost } from '../../services';

@@ -70,9 +70,4 @@ export const RegisterButtonLabel = styled.Text`
 export const FooterImage = styled.Image`
   margin-top: -43px;
 `;
-export const Title = styled.Text`
-  font-size: 16px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.COLORS.TITLE};
-`;
 
