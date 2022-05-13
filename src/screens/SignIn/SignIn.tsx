@@ -9,6 +9,7 @@ import {
   Alert,
   Text,
   View,
+  ActivityIndicator,
 } from 'react-native';
 
 import * as Yup from 'yup';
@@ -41,6 +42,7 @@ import {
   RegisterButton,
   RegisterButtonLabel,
   FooterImage,
+  Title,
 } from './styles';
 
 import { usePost } from '../../services';
@@ -61,9 +63,8 @@ const schema = Yup.object().shape({
 });
 
 export default function SignIn() {
-
-  const dataContext = useAuth();
-  console.log(dataContext);
+  const { user } = useAuth();
+  console.log(user);
 
   const {
     data: dataPost,
@@ -71,7 +72,7 @@ export default function SignIn() {
     error: errorPost,
     handlerPost,
   } = usePost<CreateUserRequest, TResponse>('/auth', {
-    email: 'exemaplo@email.com',
+    email: 'exemplo@email.com',
     password: '123456',
   });
 
@@ -134,7 +135,7 @@ export default function SignIn() {
             <ButtonTouchable
               onPressed={handleSubmit(handleLogin)}
               title="Entrar"
-              loadingPost={loadingPost}
+              isLoading={loadingPost}
             />
 
             <RegisterWrapper>
