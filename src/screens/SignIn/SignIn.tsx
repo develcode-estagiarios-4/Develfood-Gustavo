@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useAuth } from '../../hooks/auth';
 
 import {
@@ -30,7 +30,8 @@ import { ButtonTouchable } from '../../components/ButtonTouchable';
 import {
   Container,
   Content,
-  Brand,
+  Salad,
+  Pizza,
   Logo,
   LabelLogo,
   Brands,
@@ -48,14 +49,14 @@ import {
 import { usePost } from '../../services';
 import theme from '../../theme';
 
-interface CreateUserRequest {
-  email: string;
-  password: string;
-}
-interface TResponse {
-  token: string;
-  type: string;
-}
+// interface CreateUserRequest {
+//   email: string;
+//   password: string;
+// }
+// interface TResponse {
+//   token: string;
+//   type: string;
+// }
 
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
@@ -63,25 +64,32 @@ const schema = Yup.object().shape({
 });
 
 export default function SignIn() {
-  const { user } = useAuth();
+  const { user, signIn, loading, token } = useAuth();
   console.log(user);
 
-  const {
-    data: dataPost,
-    loading: loadingPost,
-    error: errorPost,
-    handlerPost,
-  } = usePost<CreateUserRequest, TResponse>('/auth', {
-    email: 'exemplo@email.com',
-    password: '123456',
-  });
+  // const {
+  //   data: dataPost,
+  //   loading: loadingPost,
+  //   error: errorPost,
+  //   handlerPost,
+  // } = usePost<CreateUserRequest, TResponse>('/auth', {
+  //   email: 'exemplo@email.com',
+  //   password: '123456',
+  // });
 
   function handleLogin() {
-    handlerPost({
-      title: 'Erro de autenticação',
-      message: 'E-mail e/ou senha inválidos',
-    });
+    // handlerPost({
+    //   title: 'Erro de autenticação',
+    //   message: 'E-mail e/ou senha inválidos',
+    // });
+    const values = getValues() 
+    signIn(values.email, values.password)
+
   }
+  useEffect(() => {
+    console.log('==>', token);
+
+  })
 
   const {
     control,
@@ -99,8 +107,8 @@ export default function SignIn() {
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
           <Brands>
-            <Brand source={brandsalada} />
-            <Brand source={pizza} />
+            <Salad source={brandsalada} />
+            <Pizza source={pizza} />
           </Brands>
 
           <Content>
@@ -116,7 +124,8 @@ export default function SignIn() {
               keyboardType="email-address"
               control={control}
               error={errors.email && errors.email.message}
-              editable={!loadingPost}
+              editable={!loading}
+              src={theme.ICONS.EMAIL}
             />
 
             <Input
@@ -125,22 +134,23 @@ export default function SignIn() {
               placeholderTextColor={theme.COLORS.SECONDARY_400}
               control={control}
               error={errors.password && errors.password.message}
-              editable={!loadingPost}
+              editable={!loading}
+              src={theme.ICONS.PASSWORD}
             />
 
-            <ForgotPasswordButton disabled={loadingPost}>
+            <ForgotPasswordButton disabled={loading}>
               <ForgotPasswordLabel>Esqueci minha senha</ForgotPasswordLabel>
             </ForgotPasswordButton>
 
             <ButtonTouchable
               onPressed={handleSubmit(handleLogin)}
               title="Entrar"
-              isLoading={loadingPost}
+              isLoading={loading}
             />
 
             <RegisterWrapper>
               <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
-              <RegisterButton disabled={loadingPost}>
+              <RegisterButton disabled={loading}>
                 <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
               </RegisterButton>
             </RegisterWrapper>

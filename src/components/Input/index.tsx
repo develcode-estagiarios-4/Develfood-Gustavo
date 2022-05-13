@@ -20,6 +20,7 @@ interface Props extends TextInputProps {
   control: Control;
   error: string;
   editable: boolean;
+  src: any;
 }
 
 export function Input({
@@ -29,7 +30,8 @@ export function Input({
   placeholder,
   placeholderTextColor,
   keyboardType,
-  editable
+  editable,
+  src
 }: Props) {
   const theme = useTheme();
 
@@ -50,13 +52,7 @@ export function Input({
     <View>
       <Container>
         <LoginIcon
-          source={
-            name === 'email'
-              ? theme.ICONS.EMAIL
-              : name === 'password'
-              ? theme.ICONS.PASSWORD
-              : null
-          }
+          source={src}
         />
         <Controller
           control={control}
@@ -70,6 +66,7 @@ export function Input({
               onChangeText={onChange}
               value={value}
               editable={editable}
+              hasRightIcon={name === 'password'}
             />
           )}
           name={name}

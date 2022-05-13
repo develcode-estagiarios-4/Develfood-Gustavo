@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components/native';
 
 import theme from './src/theme';
 import SignIn from './src/screens/SignIn/SignIn';
+import { Routes } from './src/routes';
 
 export default function App() {
   useEffect(() => {
@@ -17,10 +18,8 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <AuthProvider>
-          <SignIn />
+          <Routes />
         </AuthProvider>
-        
-        {/* <AppRoutes /> */}
       </NavigationContainer>
     </ThemeProvider>
   );
