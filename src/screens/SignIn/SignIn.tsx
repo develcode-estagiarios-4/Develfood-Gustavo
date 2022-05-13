@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { useAuth } from '../../hooks/auth';
+
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,8 +12,8 @@ import {
 } from 'react-native';
 
 import * as Yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {useForm} from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
 import brandsalada from '../../assets/brandsalada.png';
 import pizza from '../../assets/pizza.png';
@@ -53,101 +55,99 @@ interface TResponse {
   type: string;
 }
 
-  const schema = Yup.object().shape({
-    email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
-    password: Yup.string().required('Informe sua senha.'),
-  });
+const schema = Yup.object().shape({
+  email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
+  password: Yup.string().required('Informe sua senha.'),
+});
 
 export default function SignIn() {
+
+  const dataContext = useAuth();
+  console.log(dataContext);
+
   const {
     data: dataPost,
     loading: loadingPost,
     error: errorPost,
     handlerPost,
   } = usePost<CreateUserRequest, TResponse>('/auth', {
-    email: 'exemplo@email.com',
+    email: 'exemaplo@email.com',
     password: '123456',
   });
 
-function handleLogin() {
-handlerPost({title: 'Erro de autenticação', message: 'E-mail e/ou senha inválidos'})
-}
+  function handleLogin() {
+    handlerPost({
+      title: 'Erro de autenticação',
+      message: 'E-mail e/ou senha inválidos',
+    });
+  }
 
   const {
     control,
     getValues,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   return (
     <Container>
-
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-
           <Brands>
             <Brand source={brandsalada} />
             <Brand source={pizza} />
           </Brands>
 
           <Content>
-
             <LogoWrapper>
               <Logo source={logodevel} />
               <LabelLogo source={develfood} />
             </LogoWrapper>
 
-              <Input 
-              name='email' 
-              placeholder='exemplo@email.com' 
-              placeholderTextColor={theme.COLORS.SECONDARY_400} 
-              keyboardType='email-address'
+            <Input
+              name="email"
+              placeholder="exemplo@email.com"
+              placeholderTextColor={theme.COLORS.SECONDARY_400}
+              keyboardType="email-address"
               control={control}
               error={errors.email && errors.email.message}
               editable={!loadingPost}
-               />
+            />
 
-              <Input 
-              name='password' 
-              placeholder='********' 
+            <Input
+              name="password"
+              placeholder="********"
               placeholderTextColor={theme.COLORS.SECONDARY_400}
               control={control}
               error={errors.password && errors.password.message}
               editable={!loadingPost}
-              />
+            />
 
-            <ForgotPasswordButton>
+            <ForgotPasswordButton disabled={loadingPost}>
               <ForgotPasswordLabel>Esqueci minha senha</ForgotPasswordLabel>
             </ForgotPasswordButton>
 
-            <ButtonTouchable 
-            onPressed={handleSubmit(handleLogin)}
-            
-            title='Entrar'
-            loadingPost={loadingPost}  
+            <ButtonTouchable
+              onPressed={handleSubmit(handleLogin)}
+              title="Entrar"
+              loadingPost={loadingPost}
             />
-            
+
             <RegisterWrapper>
               <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
-              <RegisterButton>
+              <RegisterButton disabled={loadingPost}>
                 <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
               </RegisterButton>
             </RegisterWrapper>
 
             <FooterImage source={povermelho} />
-
           </Content>
-
         </KeyboardAvoidingView>
-
       </TouchableWithoutFeedback>
-
     </Container>
   );
 }

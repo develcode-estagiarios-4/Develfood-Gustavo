@@ -1,39 +1,23 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Alert } from 'react-native'; 
+import React, { createContext, ReactNode, useContext } from "react";
 
-type AuthContextData = {};
-
-type AuthProviderProps = {
-  children: ReactNode;
-};
-
-export const AuthContext = createContext({} as AuthContextData);
-
-function AuthProvider({ children }: AuthProviderProps) {
-
-    const [isLogging, setIsLogging] = useState(false);
-
-    async function signIn(email:string, password: string) {
-        if (!email || !password) {
-            return Alert.alert('Login', 'Informe o e-mail e a senha');
-        }
-
-        setIsLogging(true);
-
-        
-    }
-
-  return (
-    <AuthContext.Provider value={{}}>
-      {children}
-    </AuthContext.Provider>
-  )
+interface AuthProviderProps {
+    children: ReactNode;
 }
 
-function useAuth() {
-  const context = useContext(AuthContext);
+export const AuthContext = createContext([]);
 
-  return context;
+function AuthProvider({ children }: AuthProviderProps){
+    return (
+        <AuthContext.Provider value={[]}>
+          { children }
+        </AuthContext.Provider>
+    )
 }
 
-export { AuthProvider, useAuth };
+function useAuth(){
+    const context = useContext(AuthContext);
+    
+    return context;
+}
+
+export { AuthProvider, useAuth }
