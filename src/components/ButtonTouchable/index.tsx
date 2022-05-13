@@ -19,7 +19,7 @@ export function ButtonTouchable({onPressed, title, loadingPost}: ButtonProps) {
 
 
     return (
-        <Container onPress={() => onPressed()}>
+        <Container onPress={() => onPressed({})}>
          { loadingPost ? <ActivityIndicator color={theme.COLORS.TITLE} size={25}/> : <Title>{title}</Title> }
         </Container>
     )

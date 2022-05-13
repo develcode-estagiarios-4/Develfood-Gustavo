@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Control, Controller } from 'react-hook-form';
 import { TextInputProps, Text, View, KeyboardTypeOptions } from 'react-native';
 import { useTheme } from 'styled-components';
 
@@ -8,7 +9,7 @@ import {
   LoginIcon,
   IconPassword,
   HideIcon,
-  ErrorMessage
+  ErrorMessage,
 } from './styles';
 
 interface Props extends TextInputProps {
@@ -16,10 +17,20 @@ interface Props extends TextInputProps {
   placeholder: string;
   placeholderTextColor: string;
   keyboardType?: KeyboardTypeOptions;
-
+  control: Control;
+  error: string;
+  editable: boolean;
 }
 
-export function Input({ name, placeholder, placeholderTextColor, keyboardType }: Props) {
+export function Input({
+  name,
+  control,
+  error,
+  placeholder,
+  placeholderTextColor,
+  keyboardType,
+  editable
+}: Props) {
   const theme = useTheme();
 
   const [data, setData] = useState({
@@ -38,40 +49,36 @@ export function Input({ name, placeholder, placeholderTextColor, keyboardType }:
   };
 
   const handleValidEmail = (val: string) => {
-    if ( val.trim().length >= 4 ) {
+    if (val.trim().length >= 1) {
       setData({
         ...data,
-        isValidEmail: true
+        isValidEmail: true,
       });
     } else {
-      setData ({
+      setData({
         ...data,
-        isValidEmail: false
-      })
+        isValidEmail: false,
+      });
     }
-
-  }
+  };
 
   const handleValidPassword = (val: string) => {
-    if ( val.trim().length >= 3 ) {
+    if (val.trim().length >= 1) {
       setData({
         ...data,
-        isValidPassword: true
+        isValidPassword: true,
       });
     } else {
-      setData ({
+      setData({
         ...data,
-        isValidPassword: false
-      })
+        isValidPassword: false,
+      });
     }
-
-  }
+  };
 
   return (
     <View>
-      
       <Container>
-       
         <LoginIcon
           source={
             name === 'email'
@@ -81,24 +88,28 @@ export function Input({ name, placeholder, placeholderTextColor, keyboardType }:
               : null
           }
         />
+        <Controller
+          control={control}
+          rules={{required: true}}
+          render={({ field: { onChange, value } }) => (
+            <InputLogin
+              placeholder={placeholder}
+              placeholderTextColor={placeholderTextColor}
+              keyboardType={keyboardType}
+              secureTextEntry={data.secureTextEntry ? true : false}
+              onChangeText={onChange}
+              value={value}
+              editable={editable}
+            />
+          )}
+          name={name}
+        />
 
-        <InputLogin 
-        placeholder={placeholder}
-        placeholderTextColor={placeholderTextColor}
-        keyboardType={keyboardType}
-        secureTextEntry={data.secureTextEntry ? true : false}
-        onEndEditing={ name === 'email' ? (e) => handleValidEmail(e.nativeEvent.text) : (e) => handleValidPassword(e.nativeEvent.text) }
-       />
-
-        <IconPassword onPress={updateSecureTextEntry}>
+        <IconPassword onPress={() => updateSecureTextEntry()}>
           <HideIcon source={name === 'password' ? theme.ICONS.HIDE : null} />
         </IconPassword>
-     
       </Container>
-
-      { name === 'email' && data.isValidEmail ? <ErrorMessage></ErrorMessage> : name === 'email' && data.isValidEmail === false ? <ErrorMessage>O campo e-mail está vazio</ErrorMessage> : name === 'password' && data.isValidPassword ? <ErrorMessage></ErrorMessage> : name === 'password' && data.isValidPassword === false ? <ErrorMessage>O campo de senha está vazio</ErrorMessage> : null }
-    
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </View>
-
   );
 }

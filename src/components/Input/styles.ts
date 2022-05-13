@@ -26,7 +26,6 @@ export const InputLogin = styled.TextInput`
   margin-left: ${RFValue(7)}px;
   color: ${({ theme }) => theme.COLORS.SECONDARY_500};
   font-size: ${RFValue(14)}px;
-
 `;
 
 export const IconPassword = styled.TouchableOpacity`
@@ -40,5 +39,8 @@ export const HideIcon = styled.Image`
 `;
 
 export const ErrorMessage = styled.Text`
-color: ${({ theme }) => theme.COLORS.ERROR}
+color: ${({ theme }) => theme.COLORS.ERROR};
+font-size: 16px;
+margin-top: 4px;
+align-self: flex-start;
 `;
