@@ -37,8 +37,6 @@ export function Input({
     email: '',
     password: '',
     secureTextEntry: true,
-    isValidEmail: true,
-    isValidPassword: true,
   });
 
   const updateSecureTextEntry = () => {
