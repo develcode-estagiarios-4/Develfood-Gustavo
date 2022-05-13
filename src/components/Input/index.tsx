@@ -48,34 +48,6 @@ export function Input({
     });
   };
 
-  const handleValidEmail = (val: string) => {
-    if (val.trim().length >= 1) {
-      setData({
-        ...data,
-        isValidEmail: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidEmail: false,
-      });
-    }
-  };
-
-  const handleValidPassword = (val: string) => {
-    if (val.trim().length >= 1) {
-      setData({
-        ...data,
-        isValidPassword: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidPassword: false,
-      });
-    }
-  };
-
   return (
     <View>
       <Container>
