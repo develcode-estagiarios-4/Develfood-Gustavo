@@ -31,32 +31,35 @@ export function Input({
   placeholderTextColor,
   keyboardType,
   editable,
-  src
+  src,
 }: Props) {
   const theme = useTheme();
+
+  const [isPressed, setIsPressed] = useState(false);
 
   const [data, setData] = useState({
     email: '',
     password: '',
     secureTextEntry: true,
+    isPressed: false
   });
 
   const updateSecureTextEntry = () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
+      isPressed: !data.isPressed
+
     });
   };
 
   return (
     <View>
       <Container>
-        <LoginIcon
-          source={src}
-        />
+        <LoginIcon source={src} />
         <Controller
           control={control}
-          rules={{required: true}}
+          rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <InputLogin
               placeholder={placeholder}
@@ -73,7 +76,16 @@ export function Input({
         />
 
         <IconPassword onPress={() => updateSecureTextEntry()}>
-          <HideIcon source={name === 'password' ? theme.ICONS.HIDE : null} />
+          <HideIcon
+            source={
+              name === 'password' && data.isPressed == false
+                ? theme.ICONS.HIDE
+                : name === 'password' && data.isPressed == true
+                ? require('../../assets/visibility_FILL0_wght400_GRAD0_opsz48.png')
+                : null
+            }
+            style={{ tintColor: theme.COLORS.SECONDARY_100 }}
+          />
         </IconPassword>
       </Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}

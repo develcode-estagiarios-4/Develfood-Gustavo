@@ -11,6 +11,7 @@ export default {
     SECONDARY_900: '#572D31',
     SECONDARY_500: '#7A6769',
     SECONDARY_400: '#93797B',
+    SECONDARY_100: '#BFBABA',
 
     SUCCESS_900: '#528F33',
     SUCCESS_50: '#F7FFF9',
@@ -37,6 +38,6 @@ export default {
     PROFILE: require('../assets/perfil.png'),
     EMAIL: require('../assets/msg.png'),
     PASSWORD: require('../assets/password.png'),
-    HIDE: require('../assets/hide.png'),
+    HIDE: require('../assets/visibility_off_FILL0_wght400_GRAD0_opsz48.png'),
   }
 };
