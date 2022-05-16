@@ -1,11 +1,13 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+`;
 
 export const Brands = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  z-index: 1;
 `;
 
 export const Salad = styled.Image`
@@ -15,20 +17,24 @@ width: ${RFValue(80)}px;
 
 
 export const Pizza = styled.Image`
-height: ${RFValue(200)}px;
+height: ${RFValue(235)}px;
 width: ${RFValue(150)}px;
 `;
 
 
 export const Content = styled.View`
-  top: ${RFValue(-85)}px;
+  top: ${RFValue(-50)}px;
   padding: 0 ${RFValue(36)}px;
+  margin-top: ${RFValue(10)}px;
+  z-index: 1;
+
 `;
 
 export const LogoWrapper = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin: 0 60px;
 `;
 
 export const Logo = styled.Image``;
@@ -41,7 +47,6 @@ export const ForgotPasswordButton = styled.TouchableOpacity`
   align-self: flex-end;
   margin-bottom: ${RFValue(22)}px;
   margin-top: ${RFValue(-8)}px;
-  z-index: 1;
 
 `;
 
@@ -66,7 +71,6 @@ export const NoRegisterLabel = styled.Text`
 `;
 
 export const RegisterButton = styled.TouchableOpacity`
-  z-index: 1;
 `;
 
 export const RegisterButtonLabel = styled.Text`
@@ -76,6 +80,6 @@ export const RegisterButtonLabel = styled.Text`
 `;
 
 export const FooterImage = styled.Image`
-  margin-top: ${RFValue(43)}px;
+  margin-top: ${RFValue(-40)}px;
 `;
 

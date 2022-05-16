@@ -13,6 +13,7 @@ export const Container = styled.View`
   flex-direction: row;
 
   margin-top: ${RFValue(10)}px;
+  margin-bottom: ${RFValue(5)}px;
 
   border: 1px;
   border-radius: ${RFValue(10)}px;
@@ -47,7 +48,7 @@ export const HideIcon = styled.Image`
 
 export const ErrorMessage = styled.Text`
 color: ${({ theme }) => theme.COLORS.ERROR};
-font-size: ${RFValue(16)}px;
-margin-top: ${RFValue(4)}px;
+font-size: ${RFValue(15)}px;
+margin-top: ${RFValue(1)}px;
 align-self: flex-start;
 `;
