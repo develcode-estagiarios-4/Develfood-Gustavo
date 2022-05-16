@@ -79,9 +79,9 @@ export function Input({
           <HideIcon
             source={
               name === 'password' && data.isPressed == false
-                ? theme.ICONS.HIDE
+                ? theme.ICONS.NOHIDE
                 : name === 'password' && data.isPressed == true
-                ? require('../../assets/visibility_FILL0_wght400_GRAD0_opsz48.png')
+                ? theme.ICONS.HIDE
                 : null
             }
             style={{ tintColor: theme.COLORS.SECONDARY_100 }}

@@ -39,5 +39,6 @@ export default {
     EMAIL: require('../assets/msg.png'),
     PASSWORD: require('../assets/password.png'),
     HIDE: require('../assets/visibility_off_FILL0_wght400_GRAD0_opsz48.png'),
+    NOHIDE: require('../assets/visibility_FILL0_wght400_GRAD0_opsz48.png')
   }
 };
