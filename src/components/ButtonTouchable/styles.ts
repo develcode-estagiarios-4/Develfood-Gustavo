@@ -1,9 +1,10 @@
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  max-height: 56px;
-  min-height: 56px;
-  border-radius: 10px;
+  max-height: ${RFValue(56)}px;
+  min-height: ${RFValue(56)}px;
+  border-radius: ${RFValue(10)}px;
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_900 };
@@ -12,7 +13,7 @@ export const Container = styled.TouchableOpacity`
 `;
 
 export const Title = styled.Text`
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
   font-weight: 600;
   color: ${({ theme }) => theme.COLORS.TITLE};
 `;

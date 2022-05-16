@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, View, Button } from 'react-native';
 import { Texto, Container } from './styles';
 import { useGet, usePost, usePut, useDelete } from '../../services';
+import { useAuth } from '../../hooks/auth';
 
 interface IData {
   name: string;
@@ -82,6 +83,12 @@ export const Home: React.FC<undefined> = () => {
         'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
     },
   });
+  const { token } = useAuth();
+
+  useEffect(() => {
+    console.log('teste de acesso ao token: ', token) 
+
+  })
 
   return (
     <Container>

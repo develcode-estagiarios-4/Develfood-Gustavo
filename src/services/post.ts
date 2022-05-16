@@ -4,8 +4,8 @@ import { Alert } from 'react-native';
 import { api } from './api';
 
 interface ErrorText {
-  title: string;
-  message: string;
+  title?: string;
+  message?: string;
 }
 
 export function usePost<T = unknown, TResponse = unknown>(url: string, body?: T, options?: AxiosRequestConfig) {
@@ -13,8 +13,9 @@ export function usePost<T = unknown, TResponse = unknown>(url: string, body?: T,
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null | unknown>(null);
 
-    async function handlerPost({title, message}: ErrorText) {
+    async function handlerPost(title = '', message = '') {
       let response 
+      console.log('seta--->', url, body)
       try {
         setLoading(true)
          response = await api.post(url, body, options)

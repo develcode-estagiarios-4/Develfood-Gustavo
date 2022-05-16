@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
+import { AuthProvider } from './src/hooks/auth';
 
 import { NavigationContainer } from '@react-navigation/native';
 import AppRoutes from './src/routes/routes.routes';
 import { ThemeProvider } from 'styled-components/native';
-import { AuthProvider } from './src/hooks/auth';
 
 import theme from './src/theme';
 import SignIn from './src/screens/SignIn/SignIn';
+import { Routes } from './src/routes';
 
 export default function App() {
   useEffect(() => {
@@ -15,12 +16,11 @@ export default function App() {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <SignIn />
-      </AuthProvider>
-      {/* <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer> */}
+      <NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </NavigationContainer>
     </ThemeProvider>
   );
 }

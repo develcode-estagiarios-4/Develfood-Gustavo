@@ -20,47 +20,46 @@ interface Props extends TextInputProps {
   control: Control;
   error: string;
   editable: boolean;
+  src: any;
 }
 
-export function Input({
+export function InputForm({
   name,
   control,
   error,
   placeholder,
   placeholderTextColor,
   keyboardType,
-  editable
+  editable,
+  src,
 }: Props) {
   const theme = useTheme();
+
+  const [isPressed, setIsPressed] = useState(false);
 
   const [data, setData] = useState({
     email: '',
     password: '',
     secureTextEntry: true,
+    isPressed: false
   });
 
   const updateSecureTextEntry = () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
+      isPressed: !data.isPressed
+
     });
   };
 
   return (
     <View>
       <Container>
-        <LoginIcon
-          source={
-            name === 'email'
-              ? theme.ICONS.EMAIL
-              : name === 'password'
-              ? theme.ICONS.PASSWORD
-              : null
-          }
-        />
+        <LoginIcon source={src} />
         <Controller
           control={control}
-          rules={{required: true}}
+          rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <InputLogin
               placeholder={placeholder}
@@ -70,13 +69,23 @@ export function Input({
               onChangeText={onChange}
               value={value}
               editable={editable}
+              hasRightIcon={name === 'password'}
             />
           )}
           name={name}
         />
 
         <IconPassword onPress={() => updateSecureTextEntry()}>
-          <HideIcon source={name === 'password' ? theme.ICONS.HIDE : null} />
+          <HideIcon
+            source={
+              name === 'password' && data.isPressed == false
+                ? theme.ICONS.NOHIDE
+                : name === 'password' && data.isPressed == true
+                ? theme.ICONS.HIDE
+                : null
+            }
+            style={{ tintColor: theme.COLORS.SECONDARY_100 }}
+          />
         </IconPassword>
       </Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
