@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../../hooks/auth';
 
 import {
@@ -6,15 +6,11 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
-  Text,
-  View,
-  ActivityIndicator,
 } from 'react-native';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import brandsalada from '../../assets/brandsalada.png';
 import pizza from '../../assets/pizza.png';
@@ -22,8 +18,7 @@ import povermelho from '../../assets/povermelho.png';
 import develfood from '../../assets/DEVELFOOD.png';
 import logodevel from '../../assets/image.png';
 
-import { Input } from '../../components/Input';
-import { ErrorMessage } from '../../components/Input/styles';
+import { InputForm } from '../../components/InputForm';
 
 import { ButtonTouchable } from '../../components/ButtonTouchable';
 
@@ -46,17 +41,7 @@ import {
   
 } from './styles';
 
-import { usePost } from '../../services';
 import theme from '../../theme';
-
-// interface CreateUserRequest {
-//   email: string;
-//   password: string;
-// }
-// interface TResponse {
-//   token: string;
-//   type: string;
-// }
 
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
@@ -65,23 +50,9 @@ const schema = Yup.object().shape({
 
 export default function SignIn() {
   const { user, signIn, loading, token } = useAuth();
-  console.log(user);
-
-  // const {
-  //   data: dataPost,
-  //   loading: loadingPost,
-  //   error: errorPost,
-  //   handlerPost,
-  // } = usePost<CreateUserRequest, TResponse>('/auth', {
-  //   email: 'exemplo@email.com',
-  //   password: '123456',
-  // });
 
   function handleLogin() {
-    // handlerPost({
-    //   title: 'Erro de autenticação',
-    //   message: 'E-mail e/ou senha inválidos',
-    // });
+    
     const values = getValues() 
     signIn(values.email, values.password)
 
@@ -117,7 +88,7 @@ export default function SignIn() {
               <LabelLogo source={develfood} />
             </LogoWrapper>
 
-            <Input
+            <InputForm
               name="email"
               placeholder="exemplo@email.com"
               placeholderTextColor={theme.COLORS.SECONDARY_400}
@@ -128,7 +99,7 @@ export default function SignIn() {
               src={theme.ICONS.EMAIL}
             />
 
-            <Input
+            <InputForm
               name="password"
               placeholder="********"
               placeholderTextColor={theme.COLORS.SECONDARY_400}

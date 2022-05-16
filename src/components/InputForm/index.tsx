@@ -23,7 +23,7 @@ interface Props extends TextInputProps {
   src: any;
 }
 
-export function Input({
+export function InputForm({
   name,
   control,
   error,

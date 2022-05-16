@@ -32,24 +32,36 @@ interface TResponse {
   type: string;
 }
 
+interface RequestProps {
+  endpoint: string;
+  body: {};
+  error: {
+    title: string;
+    message: string;
+  }
+}
+
 export const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(false);
+  const [request, setRequest] = useState({} as RequestProps)
 
   const {
     data: dataPost,
     loading: loadingPost,
     error: errorPost,
     handlerPost,
-  } = usePost<CreateUserRequest, TResponse>('/auth', {
-    email: 'exemplo@email.com',
-    password: '123456',
-  });
+  } = usePost<any, any>(request.endpoint, request.body);
 
   useEffect(() => {
     setLoading(loadingPost);
   }, [loadingPost]);
+
+  useEffect(()=>{
+    !!request.endpoint &&
+    handlerPost(request.error.title, request.error.message)
+  }, [request])
 
   const user = {
     token: '123',
@@ -58,12 +70,15 @@ function AuthProvider({ children }: AuthProviderProps) {
   };
 
   async function signIn(email: string, password: string) {
-    await handlerPost({
-      title: 'Erro de autenticação',
-      message: 'E-mail e/ou senha inválidos', 
-    });
-    
-  }
+    setRequest({
+      endpoint: '/auth',
+      body: {
+        email,
+        password
+      },
+      error: {title: 'Erro de autenticação', message: 'E-mail e/ou senha inválidos'}
+    })
+    }
 
   return (
     <AuthContext.Provider
@@ -71,7 +86,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         user,
         loading,
         signIn,
-        token: dataPost.token
+        token: dataPost.token,
       }}
     >
       {children}

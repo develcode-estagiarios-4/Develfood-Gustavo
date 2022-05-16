@@ -104,7 +104,7 @@ export const Home: React.FC<undefined> = () => {
                 </>
               )}
             />
-            <Button title="Enviar" onPress={() => handlerPost({title:'', message:''})} />
+            <Button title="Enviar" onPress={() => handlerPost()} />
             <Button title="Atualizar" onPress={() => handlerPut()} />
             <Button title="Excluir" onPress={() => handlerDelete()} />
 
