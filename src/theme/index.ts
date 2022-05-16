@@ -6,6 +6,7 @@ export default {
     PRIMARY_800: '#E03F50',
     PRIMARY_100: '#D16470',
     PRIMARY_50: '#FFABB3',
+    ERROR: '#F60A0A',
 
     SECONDARY_900: '#572D31',
     SECONDARY_500: '#7A6769',
@@ -33,6 +34,9 @@ export default {
     HOME: require('../assets/inicio.png'),
     FAVORITES: require('../assets/favoritos.png'),
     HISTORY: require('../assets/historico.png'),
-    PROFILE: require('../assets/perfil.png')
+    PROFILE: require('../assets/perfil.png'),
+    EMAIL: require('../assets/msg.png'),
+    PASSWORD: require('../assets/password.png'),
+    HIDE: require('../assets/hide.png'),
   }
 };

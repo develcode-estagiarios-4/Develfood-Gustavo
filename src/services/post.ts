@@ -1,20 +1,28 @@
 import { AxiosRequestConfig } from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { api } from './api';
+
+interface ErrorText {
+  title: string;
+  message: string;
+}
 
 export function usePost<T = unknown, TResponse = unknown>(url: string, body?: T, options?: AxiosRequestConfig) {
   const [data, setData] = useState<TResponse>({} as TResponse);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null | unknown>(null);
 
-    async function handlerPost() {
+    async function handlerPost({title, message}: ErrorText) {
+      let response 
       try {
         setLoading(true)
-        const response = await api.post(url, body, options)
+         response = await api.post(url, body, options)
         setData(response.data);
         console.log(response.data);
       } catch (error) {
         setError(error);
+        Alert.alert(title, message)
         console.log(error)
       } finally {
         setLoading(false);

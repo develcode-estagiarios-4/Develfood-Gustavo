@@ -9,9 +9,6 @@ import { History } from '../screens/History/History';
 import { Favorites } from '../screens/Favorites/Favorites';
 import { Profile } from '../screens/Profile/Profile';
 
-import { TabBarWrapper } from '../components/NavigationBar/TabBarWrapper';
-import { RFValue } from 'react-native-responsive-fontsize';
-import theme from '../theme';
 import { NavigationBar } from '../components/NavigationBar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
