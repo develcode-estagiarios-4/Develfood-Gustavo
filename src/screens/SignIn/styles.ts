@@ -55,6 +55,7 @@ export const ForgotPasswordLabel = styled.Text`
   font-size: ${RFValue(14)}px;
   font-weight: bold;
   margin-top: ${RFValue(0)}px;
+  margin-bottom: ${RFValue(22)}px;
 `;
 
 export const RegisterWrapper = styled.View`
@@ -77,7 +78,7 @@ export const RegisterButton = styled.TouchableOpacity`
 export const RegisterButtonLabel = styled.Text`
   color: ${({ theme }) => theme.COLORS.PRIMARY_900};
   font-size: ${RFValue(14)}px;
-  font-weight: 900;
+  font-weight: 700;
 `;
 
 export const FooterImage = styled.Image`

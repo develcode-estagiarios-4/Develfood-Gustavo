@@ -12,6 +12,7 @@ import {
   BorderBall2,
   BorderBall3,
   Person,
+  BtnView
 } from './styles';
 
 import { InputForm } from '../../components/InputForm';
@@ -22,39 +23,49 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ButtonTouchable } from '../../components/ButtonTouchable';
+import { NavigationBar } from '../../components/NavigationBar';
+import { useNavigation } from '@react-navigation/native';
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
-  password: Yup.string().required('Informe sua senha.'),
+  email: Yup.string()
+  .email('E-mail inválido')
+  .required('Email é obrigatório.'),
+  password: Yup.string()
+  .required('Informe sua senha.'),
+  confirmPassword: Yup.string()
+  .oneOf([Yup.ref('password')], 'Informe senhas idénticas.')
+  .required('Confirme sua senha')
 });
 
-export default function SignUp() {
+export default function SignUpI() {
+  const navigation = useNavigation();
 
-  function handleSignUp() {
-    
-    const values = getValues() 
-    signUp(values.email, values.password)
+  // function handleSignUp() {
+    // const values = getValues();
+    // values.email, values.password, values.confirmPassword
+  // }
 
-  }
-  
   const {
     control,
-    getValues,
+    // getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const onSubmit = () => navigation.navigate('SignUpII' as never);
+
   return (
     <Container>
-      <Header title="Cadastro" />
+      <Header title="Cadastro" onPressBackButton={() => {navigation.goBack()}} />
       <Content>
         <Balls>
           <BorderBall1 source={require('../../assets/bordabola.png')} />
@@ -91,21 +102,24 @@ export default function SignUp() {
         />
 
         <InputForm
-          name="password"
+          name="confirmPassword"
           placeholder="confirmar senha"
           placeholderTextColor={theme.COLORS.SECONDARY_400}
           control={control}
-          error={errors.password && errors.password.message}
+          error={errors.confirmPassword && errors.confirmPassword.message}
           editable={true}
           src={theme.ICONS.PASSWORD}
         />
 
-        <ButtonTouchable
-          onPressed={() => {}}
-          title="Continuar"
-          isLoading={false}
-        />
+        
       </Content>
+      <BtnView>
+          <ButtonTouchable
+            onPressed={handleSubmit(onSubmit)}
+            title="Continuar"
+            isLoading={false}
+          />
+        </BtnView>
     </Container>
   );
 }

@@ -69,7 +69,7 @@ export function InputForm({
               onChangeText={onChange}
               value={value}
               editable={editable}
-              hasRightIcon={name === 'password'}
+              hasRightIcon={name === 'password' || name === 'confirmPassword'}
             />
           )}
           name={name}
@@ -78,9 +78,9 @@ export function InputForm({
         <IconPassword onPress={() => updateSecureTextEntry()}>
           <HideIcon
             source={
-              name === 'password' && data.isPressed == false
+              (name === 'password' || name === 'confirmPassword') && data.isPressed == false
                 ? theme.ICONS.NOHIDE
-                : name === 'password' && data.isPressed == true
+                :( name === 'password' || name === 'confirmPassword' ) && data.isPressed == true
                 ? theme.ICONS.HIDE
                 : null
             }

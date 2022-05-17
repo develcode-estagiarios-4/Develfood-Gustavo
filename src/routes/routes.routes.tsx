@@ -8,10 +8,10 @@ import { Home } from '../screens/Home/Home';
 import { History } from '../screens/History/History';
 import { Favorites } from '../screens/Favorites/Favorites';
 import { Profile } from '../screens/Profile/Profile';
-import SignUp  from '../screens/SignUp/SignUp';
 
 import { NavigationBar } from '../components/NavigationBar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SignUpI from '../screens/SignUpI/SignUpI';
 
 export default function AppRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();
@@ -28,7 +28,6 @@ export default function AppRoutes() {
 
         <Screen name="Perfil" component={Profile} />
 
-        <Screen name="SignUp" component={SignUp} />
       </Navigator>
 
       <NavigationBar />

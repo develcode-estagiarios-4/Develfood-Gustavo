@@ -125,7 +125,7 @@ const navigation = useNavigation();
 
             <RegisterWrapper>
               <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
-              <RegisterButton disabled={loading} onPress={() => navigation.navigate('SignUp' as never)}>
+              <RegisterButton disabled={loading} onPress={() => navigation.navigate('SignUpI' as never)}>
                 <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
               </RegisterButton>
             </RegisterWrapper>

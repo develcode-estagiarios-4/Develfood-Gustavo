@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 export const Container = styled.TouchableOpacity`
   max-height: ${RFValue(56)}px;
   min-height: ${RFValue(56)}px;
-  margin-top: ${RFValue(20)}px;
   border-radius: ${RFValue(10)}px;
   justify-content: center;
   align-items: center;
