@@ -12,26 +12,21 @@ import SignUp  from '../screens/SignUp/SignUp';
 
 import { NavigationBar } from '../components/NavigationBar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SignIn from '../screens/SignIn/SignIn';
 
-export default function AppRoutes() {
+export default function AuthRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();
 
+  useEffect(() => {
+    RNBootSplash.hide({ fade: true });
+  }, []);
 
   return (
     <>
       <Navigator screenOptions={{ headerShown: false }}>
-        <Screen name="Início" component={Home} />
-
-        <Screen name="Favoritos" component={Favorites} />
-
-        <Screen name="Histórico" component={History} />
-
-        <Screen name="Perfil" component={Profile} />
-
+        <Screen name="SignIn" component={SignIn} />
         <Screen name="SignUp" component={SignUp} />
       </Navigator>
-
-      <NavigationBar />
     </>
   );
 }

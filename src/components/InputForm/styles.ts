@@ -12,10 +12,9 @@ export const Container = styled.View`
   align-items: center;
   flex-direction: row;
 
-  margin-top: ${RFValue(10)}px;
-  margin-bottom: ${RFValue(5)}px;
+  margin-bottom: ${RFValue(13)}px;
 
-  border: 1px;
+  border: ${RFValue(2)}px;
   border-radius: ${RFValue(10)}px;
   border-color: ${({ theme }) => theme.COLORS.SHAPE};
 `;

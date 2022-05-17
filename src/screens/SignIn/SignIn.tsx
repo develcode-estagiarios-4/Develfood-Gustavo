@@ -42,6 +42,8 @@ import {
 } from './styles';
 
 import theme from '../../theme';
+import { NavigationBar } from '../../components/NavigationBar';
+import { useNavigation } from '@react-navigation/native';
 
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
@@ -49,6 +51,8 @@ const schema = Yup.object().shape({
 });
 
 export default function SignIn() {
+const navigation = useNavigation();
+
   const { user, signIn, loading, token } = useAuth();
 
   function handleLogin() {
@@ -121,7 +125,7 @@ export default function SignIn() {
 
             <RegisterWrapper>
               <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
-              <RegisterButton disabled={loading}>
+              <RegisterButton disabled={loading} onPress={() => navigation.navigate('SignUp' as never)}>
                 <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
               </RegisterButton>
             </RegisterWrapper>
