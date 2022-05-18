@@ -15,6 +15,8 @@ import {
   BtnView,
 } from './styles';
 
+import personleft from '../../assets/pessoa1.png';
+
 import { InputForm } from '../../components/InputForm';
 import theme from '../../theme';
 
@@ -71,17 +73,17 @@ export default function SignUpI() {
         />
         <Content>
           <Balls>
-            <BorderBall1 source={require('../../assets/bordabola.png')} />
-            <Ball1 source={require('../../assets/bola.png')} />
+            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
+            <Ball1 source={theme.IMAGES.BALL} />
 
-            <BorderBall2 source={require('../../assets/bordabola.png')} />
-            <Ball2 source={require('../../assets/bola.png')} />
+            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
+            <Ball2 source={theme.IMAGES.BALL} />
 
-            <BorderBall3 source={require('../../assets/bordabola.png')} />
-            <Ball3 source={require('../../assets/bola.png')} />
+            <BorderBall3 source={theme.IMAGES.BORDERBALL} />
+            <Ball3 source={theme.IMAGES.BALL} />
           </Balls>
 
-          <Person source={require('../../assets/pessoa1.png')} />
+          <Person source={personleft} />
 
           <InputForm
             name="email"

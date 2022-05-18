@@ -24,6 +24,8 @@ import {
   Alert,
 } from 'react-native';
 
+import personup from '../../assets/pessoa2.png';
+
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -31,6 +33,7 @@ import { ButtonTouchable } from '../../components/ButtonTouchable';
 import { NavigationBar } from '../../components/NavigationBar';
 import { useNavigation } from '@react-navigation/native';
 import { BtnView } from '../SignUpI/styles';
+import { ThemeConsumer } from 'styled-components';
 
 const schema = Yup.object().shape({
   nome: Yup.string().required('Nome é obrigatório.'),
@@ -72,17 +75,17 @@ export default function SignUpII() {
         />
         <Content>
           <Balls>
-            <BorderBall1 source={require('../../assets/bordabola.png')} />
-            <Ball1 source={require('../../assets/bolaverde.png')} />
+            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
+            <Ball1 source={theme.IMAGES.GREENBALL} />
 
-            <BorderBall2 source={require('../../assets/bordabola.png')} />
-            <Ball2 source={require('../../assets/bola.png')} />
+            <BorderBall2 source={theme.IMAGES.BORDERBALL} />
+            <Ball2 source={theme.IMAGES.BALL} />
 
-            <BorderBall3 source={require('../../assets/bordabola.png')} />
-            <Ball3 source={require('../../assets/bola.png')} />
+            <BorderBall3 source={theme.IMAGES.BORDERBALL} />
+            <Ball3 source={theme.IMAGES.BALL} />
           </Balls>
 
-          <Person source={require('../../assets/pessoa2.png')} />
+          <Person source={personup} />
 
           <InputForm
             name="nome"
@@ -92,7 +95,7 @@ export default function SignUpII() {
             control={control}
             error={errors.nome && errors.nome.message}
             editable={true}
-            src={require('../../assets/usuario2.png')}
+            src={theme.ICONS.NAME}
           />
 
           <InputForm
@@ -103,7 +106,7 @@ export default function SignUpII() {
             control={control}
             error={errors.cpf && errors.cpf.message}
             editable={true}
-            src={require('../../assets/cpf24.png')}
+            src={theme.ICONS.CPF}
           />
 
           <InputForm
@@ -114,7 +117,7 @@ export default function SignUpII() {
             control={control}
             error={errors.telefone && errors.telefone.message}
             editable={true}
-            src={require('../../assets/telefone.png')}
+            src={theme.ICONS.PHONE}
           />
         </Content>
         <BtnView>

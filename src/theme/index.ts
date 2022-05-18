@@ -40,6 +40,16 @@ export default {
     EMAIL: require('../assets/msg.png'),
     PASSWORD: require('../assets/password.png'),
     HIDE: require('../assets/visibility_off_FILL0_wght400_GRAD0_opsz48.png'),
-    NOHIDE: require('../assets/visibility_FILL0_wght400_GRAD0_opsz48.png')
+    NOHIDE: require('../assets/visibility_FILL0_wght400_GRAD0_opsz48.png'),
+    NAME: require('../assets/usuario2.png'),
+    CPF: require('../assets/cpf24.png') ,
+    PHONE: require('../assets/telefone.png'),
+    LOCAL: require('../assets/local2.png') ,
+  },
+  IMAGES: {
+    BORDERBALL: require('../assets/bordabola.png'),
+    BALL: require('../assets/bola.png'),
+    PERSON: require('../assets/pessoa1.png'),
+    GREENBALL: require('../assets/bolaverde.png')
   }
 };

@@ -23,6 +23,8 @@ import {
   Keyboard,
 } from 'react-native';
 
+import personright from '../../assets/pessoa3.png';
+
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -72,17 +74,17 @@ export default function SignUpIII() {
         />
         <Content>
           <Balls>
-            <BorderBall1 source={require('../../assets/bordabola.png')} />
-            <Ball1 source={require('../../assets/bolaverde.png')} />
+            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
+            <Ball1 source={theme.IMAGES.GREENBALL} />
 
-            <BorderBall2 source={require('../../assets/bordabola.png')} />
-            <Ball2 source={require('../../assets/bolaverde.png')} />
+            <BorderBall2 source={theme.IMAGES.BORDERBALL} />
+            <Ball2 source={theme.IMAGES.GREENBALL} />
 
-            <BorderBall3 source={require('../../assets/bordabola.png')} />
-            <Ball3 source={require('../../assets/bola.png')} />
+            <BorderBall3 source={theme.IMAGES.BORDERBALL} />
+            <Ball3 source={theme.IMAGES.BALL} />
           </Balls>
 
-          <Person source={require('../../assets/pessoa3.png')} />
+          <Person source={personright} />
 
           <InputForm
             name="street"
@@ -92,7 +94,7 @@ export default function SignUpIII() {
             control={control}
             error={errors.street && errors.street.message}
             editable={true}
-            src={require('../../assets/local2.png')}
+            src={theme.ICONS.LOCAL}
           />
 
           <InputForm
@@ -103,7 +105,7 @@ export default function SignUpIII() {
             control={control}
             error={errors.town && errors.town.message}
             editable={true}
-            src={require('../../assets/local2.png')}
+            src={theme.ICONS.LOCAL}
           />
 
           <InputForm
@@ -114,7 +116,7 @@ export default function SignUpIII() {
             control={control}
             error={errors.district && errors.district.message}
             editable={true}
-            src={require('../../assets/local2.png')}
+            src={theme.ICONS.LOCAL}
           />
 
           <InputForm
@@ -125,7 +127,7 @@ export default function SignUpIII() {
             control={control}
             error={errors.number && errors.number.message}
             editable={true}
-            src={require('../../assets/local2.png')}
+            src={theme.ICONS.LOCAL}
           />
 
           <InputForm
@@ -136,7 +138,7 @@ export default function SignUpIII() {
             control={control}
             error={errors.cep && errors.cep.message}
             editable={true}
-            src={require('../../assets/local2.png')}
+            src={theme.ICONS.LOCAL}
           />
 
           <ButtonTouchable
