@@ -11,7 +11,6 @@ import { Profile } from '../screens/Profile/Profile';
 
 import { NavigationBar } from '../components/NavigationBar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignUpI from '../screens/SignUpI/SignUpI';
 
 export default function AppRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();

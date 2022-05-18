@@ -15,7 +15,7 @@ import {
 } from './styles'
 
 interface HeaderProps {
-    name: string;
+    name?: string;
     title: string;
     onPressLeftButton: Function;
 }

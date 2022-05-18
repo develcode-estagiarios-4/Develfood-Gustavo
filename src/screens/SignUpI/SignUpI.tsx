@@ -46,28 +46,28 @@ const schema = Yup.object().shape({
 export default function SignUpI() {
   const navigation = useNavigation();
 
-  // function handleSignUp() {
-  // const values = getValues();
-  // values.email, values.password, values.confirmPassword
-  // }
+  function handleSignUp() {
+  const values = getValues();
+  values.signUpEmail, values.signUpPassword, values.signUpConfirmPassword;
+  navigation.navigate('SignUpII' as never)
+  }
 
   const {
     control,
-    // getValues,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => navigation.navigate('SignUpII' as never);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <Header
           title="Cadastro"
-          onPressBackButton={() => {
+          onPressLeftButton={() => {
             navigation.goBack();
           }}
         />
@@ -120,7 +120,7 @@ export default function SignUpI() {
         </Content>
         <BtnView>
           <ButtonTouchable
-            onPressed={handleSubmit(onSubmit)}
+            onPressed={handleSubmit(handleSignUp)}
             title="Continuar"
             isLoading={false}
           />

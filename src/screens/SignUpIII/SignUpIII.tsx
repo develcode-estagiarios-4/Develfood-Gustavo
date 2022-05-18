@@ -68,7 +68,7 @@ export default function SignUpIII() {
       <Container>
         <Header
           title="Cadastro"
-          onPressBackButton={() => {
+          onPressLeftButton={() => {
             navigation.goBack();
           }}
         />

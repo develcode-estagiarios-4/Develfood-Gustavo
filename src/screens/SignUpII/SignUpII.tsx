@@ -64,12 +64,14 @@ export default function SignUpII() {
 
   const onSubmit = () => navigation.navigate('SignUpIII' as never);
 
+  console.log(values.signUpEmail)
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <Header
           title="Cadastro"
-          onPressBackButton={() => {
+          onPressLeftButton={() => {
             navigation.goBack();
           }}
         />
