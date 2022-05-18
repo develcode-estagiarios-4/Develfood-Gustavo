@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native-svg';
 import { Header } from '../../components/Header';
 import {
   Container,
@@ -32,8 +31,15 @@ import { NavigationBar } from '../../components/NavigationBar';
 import { useNavigation } from '@react-navigation/native';
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
-  password: Yup.string().required('Informe sua senha.'),
+  street: Yup.string().required('Rua é obrigatória.'),
+  town: Yup.string().required('Cidade é obrigatória.'),
+  district: Yup.string().required('Bairro é obrigatório.'),
+  number: Yup.number()
+    .required('Número é obrigatório.')
+    .typeError('Somente números'),
+  cep: Yup.number()
+    .required('Número é obrigatório.')
+    .typeError('Somente números'),
 });
 
 export default function SignUpIII() {
@@ -53,80 +59,93 @@ export default function SignUpIII() {
     resolver: yupResolver(schema),
   });
 
+  const onSubmit = () => navigation.navigate('SignUpSuccess' as never);
+
   return (
-    <Container>
-      <Header title="Cadastro" onPressBackButton={() => {navigation.goBack()}}/>
-      <Content>
-        <Balls>
-          <BorderBall1 source={require('../../assets/bordabola.png')} />
-          <Ball1 source={require('../../assets/bolaverde.png')} />
-
-          <BorderBall2 source={require('../../assets/bordabola.png')} />
-          <Ball2 source={require('../../assets/bolaverde.png')} />
-
-          <BorderBall3 source={require('../../assets/bordabola.png')} />
-          <Ball3 source={require('../../assets/bola.png')} />
-        </Balls>
-
-        <Person source={require('../../assets/pessoa3.png')} />
-
-        <InputForm
-          name="rua"
-          placeholder="Rua"
-          placeholderTextColor={theme.COLORS.SECONDARY_400}
-          keyboardType="default"
-          control={control}
-          error={errors.email && errors.email.message}
-          editable={true}
-          src={require('../../assets/local2.png')}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <Header
+          title="Cadastro"
+          onPressBackButton={() => {
+            navigation.goBack();
+          }}
         />
+        <Content>
+          <Balls>
+            <BorderBall1 source={require('../../assets/bordabola.png')} />
+            <Ball1 source={require('../../assets/bolaverde.png')} />
 
-        <InputForm
-          name="cidade"
-          placeholder="Cidade"
-          placeholderTextColor={theme.COLORS.SECONDARY_400}
-          control={control}
-          error={errors.password && errors.password.message}
-          editable={true}
-          src={require('../../assets/local2.png')}
-        />
+            <BorderBall2 source={require('../../assets/bordabola.png')} />
+            <Ball2 source={require('../../assets/bolaverde.png')} />
 
-        <InputForm
-          name="bairro"
-          placeholder="Bairro"
-          placeholderTextColor={theme.COLORS.SECONDARY_400}
-          control={control}
-          error={errors.password && errors.password.message}
-          editable={true}
-          src={require('../../assets/local2.png')}
-        />
+            <BorderBall3 source={require('../../assets/bordabola.png')} />
+            <Ball3 source={require('../../assets/bola.png')} />
+          </Balls>
 
-        <InputForm
-          name="numero"
-          placeholder="Número"
-          placeholderTextColor={theme.COLORS.SECONDARY_400}
-          control={control}
-          error={errors.password && errors.password.message}
-          editable={true}
-          src={require('../../assets/local2.png')}
-        />
+          <Person source={require('../../assets/pessoa3.png')} />
 
-        <InputForm
-          name="cep"
-          placeholder="CEP"
-          placeholderTextColor={theme.COLORS.SECONDARY_400}
-          control={control}
-          error={errors.password && errors.password.message}
-          editable={true}
-          src={require('../../assets/local2.png')}
-        />
+          <InputForm
+            name="street"
+            placeholder="Rua"
+            placeholderTextColor={theme.COLORS.SECONDARY_400}
+            keyboardType="default"
+            control={control}
+            error={errors.street && errors.street.message}
+            editable={true}
+            src={require('../../assets/local2.png')}
+          />
 
-        <ButtonTouchable
-          onPressed={() => {navigation.navigate('SignUpSuccess' as never)}}
-          title="Continuar"
-          isLoading={false}
-        />
-      </Content>
-    </Container>
+          <InputForm
+            name="town"
+            placeholder="Cidade"
+            placeholderTextColor={theme.COLORS.SECONDARY_400}
+            keyboardType="default"
+            control={control}
+            error={errors.town && errors.town.message}
+            editable={true}
+            src={require('../../assets/local2.png')}
+          />
+
+          <InputForm
+            name="district"
+            placeholder="Bairro"
+            placeholderTextColor={theme.COLORS.SECONDARY_400}
+            keyboardType="default"
+            control={control}
+            error={errors.district && errors.district.message}
+            editable={true}
+            src={require('../../assets/local2.png')}
+          />
+
+          <InputForm
+            name="number"
+            placeholder="Número"
+            placeholderTextColor={theme.COLORS.SECONDARY_400}
+            keyboardType="number-pad"
+            control={control}
+            error={errors.number && errors.number.message}
+            editable={true}
+            src={require('../../assets/local2.png')}
+          />
+
+          <InputForm
+            name="cep"
+            placeholder="CEP"
+            placeholderTextColor={theme.COLORS.SECONDARY_400}
+            keyboardType="number-pad"
+            control={control}
+            error={errors.cep && errors.cep.message}
+            editable={true}
+            src={require('../../assets/local2.png')}
+          />
+
+          <ButtonTouchable
+            onPressed={handleSubmit(onSubmit)}
+            title="Continuar"
+            isLoading={false}
+          />
+        </Content>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }

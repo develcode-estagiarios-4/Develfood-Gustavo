@@ -16,7 +16,7 @@ interface Props extends TextInputProps {
   name: string;
   placeholder: string;
   placeholderTextColor: string;
-  keyboardType?: KeyboardTypeOptions;
+  keyboardType: KeyboardTypeOptions;
   control: Control;
   error: string;
   editable: boolean;
@@ -35,13 +35,13 @@ export function InputForm({
 }: Props) {
   const theme = useTheme();
 
-  const [isPressed, setIsPressed] = useState(false);
+  const [isPressed, setIsPressed] = useState(true);
 
   const [data, setData] = useState({
     email: '',
     password: '',
-    secureTextEntry: true,
-    isPressed: false
+    secureTextEntry: false,
+    isPressed: true
   });
 
   const updateSecureTextEntry = () => {
@@ -75,7 +75,7 @@ export function InputForm({
           name={name}
         />
 
-        <IconPassword onPress={() => updateSecureTextEntry()}>
+        {name === 'password' || name === 'confirmPassword' ? <IconPassword onPress={() => updateSecureTextEntry()}>
           <HideIcon
             source={
               (name === 'password' || name === 'confirmPassword') && data.isPressed == false
@@ -86,7 +86,7 @@ export function InputForm({
             }
             style={{ tintColor: theme.COLORS.SECONDARY_100 }}
           />
-        </IconPassword>
+        </IconPassword> : null }
       </Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </View>
