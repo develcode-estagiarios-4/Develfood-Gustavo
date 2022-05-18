@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { TextInputProps, Text, View, KeyboardTypeOptions } from 'react-native';
+import { TextInputProps, Text, View, KeyboardTypeOptions, ImageSourcePropType } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import {
@@ -21,6 +21,7 @@ interface Props extends TextInputProps {
   error: string;
   editable: boolean;
   src: any;
+  srcHide: any;
 }
 
 export function InputForm({
@@ -34,6 +35,9 @@ export function InputForm({
   src,
 }: Props) {
   const theme = useTheme();
+
+  //iconHidePassword
+  const [iconHidePassword, setIconHidePassword] = useState<ImageSourcePropType>({});
 
   const [isPressed, setIsPressed] = useState(true);
 
@@ -52,6 +56,14 @@ export function InputForm({
 
     });
   };
+
+  useEffect(() => {
+    if (data.isPressed) {
+      setIconHidePassword(theme.ICONS.HIDE)
+    }  else {
+      setIconHidePassword(theme.ICONS.NOHIDE)
+    }
+  }, [data.isPressed]);
 
   return (
     <View>
@@ -75,19 +87,15 @@ export function InputForm({
           name={name}
         />
 
-        {name === 'password' || name === 'confirmPassword' ? <IconPassword onPress={() => updateSecureTextEntry()}>
-          <HideIcon
-            source={
-              (name === 'password' || name === 'confirmPassword') && data.isPressed == false
-                ? theme.ICONS.NOHIDE
-                :( name === 'password' || name === 'confirmPassword' ) && data.isPressed == true
-                ? theme.ICONS.HIDE
-                : null
-            }
-            style={{ tintColor: theme.COLORS.SECONDARY_100 }}
-          />
-        </IconPassword> : null }
-      </Container>
+        {(name === 'password' || name === 'confirmPassword') && (
+          <IconPassword onPress={() => updateSecureTextEntry()}>
+            <HideIcon
+              source={iconHidePassword}
+              style={{ tintColor: theme.COLORS.SECONDARY_100 }}
+            />
+          </IconPassword> 
+        )}
+      </Container> 
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </View>
   );
