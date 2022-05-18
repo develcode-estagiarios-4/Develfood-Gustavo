@@ -21,7 +21,6 @@ interface Props extends TextInputProps {
   error: string;
   editable: boolean;
   src: any;
-  srcHide: any;
 }
 
 export function InputForm({
