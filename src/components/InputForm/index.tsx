@@ -36,7 +36,6 @@ export function InputForm({
 }: Props) {
   const theme = useTheme();
 
-  //iconHidePassword
   const [iconHidePassword, setIconHidePassword] = useState<ImageSourcePropType>({});
 
   const [isPressed, setIsPressed] = useState(true);
