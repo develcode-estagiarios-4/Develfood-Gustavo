@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { TextInputProps, Text, View, KeyboardTypeOptions } from 'react-native';
+import { TextInputProps, Text, View, KeyboardTypeOptions, ImageSourcePropType } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import {
@@ -16,7 +16,7 @@ interface Props extends TextInputProps {
   name: string;
   placeholder: string;
   placeholderTextColor: string;
-  keyboardType?: KeyboardTypeOptions;
+  keyboardType: KeyboardTypeOptions;
   control: Control;
   error: string;
   editable: boolean;
@@ -35,13 +35,15 @@ export function InputForm({
 }: Props) {
   const theme = useTheme();
 
-  const [isPressed, setIsPressed] = useState(false);
+  const [iconHidePassword, setIconHidePassword] = useState<ImageSourcePropType>({});
+
+  const [isPressed, setIsPressed] = useState(true);
 
   const [data, setData] = useState({
     email: '',
     password: '',
-    secureTextEntry: true,
-    isPressed: false
+    secureTextEntry: false,
+    isPressed: true
   });
 
   const updateSecureTextEntry = () => {
@@ -52,6 +54,14 @@ export function InputForm({
 
     });
   };
+
+  useEffect(() => {
+    if (data.isPressed) {
+      setIconHidePassword(theme.ICONS.HIDE)
+    }  else {
+      setIconHidePassword(theme.ICONS.NOHIDE)
+    }
+  }, [data.isPressed]);
 
   return (
     <View>
@@ -69,25 +79,21 @@ export function InputForm({
               onChangeText={onChange}
               value={value}
               editable={editable}
-              hasRightIcon={name === 'password'}
+              hasRightIcon={name === 'password' || name === 'confirmPassword'}
             />
           )}
           name={name}
         />
 
-        <IconPassword onPress={() => updateSecureTextEntry()}>
-          <HideIcon
-            source={
-              name === 'password' && data.isPressed == false
-                ? theme.ICONS.NOHIDE
-                : name === 'password' && data.isPressed == true
-                ? theme.ICONS.HIDE
-                : null
-            }
-            style={{ tintColor: theme.COLORS.SECONDARY_100 }}
-          />
-        </IconPassword>
-      </Container>
+        {(name === 'password' || name === 'confirmPassword') && (
+          <IconPassword onPress={() => updateSecureTextEntry()}>
+            <HideIcon
+              source={iconHidePassword}
+              style={{ tintColor: theme.COLORS.SECONDARY_100 }}
+            />
+          </IconPassword> 
+        )}
+      </Container> 
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </View>
   );

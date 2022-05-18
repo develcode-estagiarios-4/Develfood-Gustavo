@@ -12,18 +12,17 @@ export const Container = styled.View`
   align-items: center;
   flex-direction: row;
 
-  margin-top: ${RFValue(10)}px;
-  margin-bottom: ${RFValue(5)}px;
+  margin-bottom: ${RFValue(13)}px;
 
-  border: 1px;
+  border: ${RFValue(2)}px;
   border-radius: ${RFValue(10)}px;
   border-color: ${({ theme }) => theme.COLORS.SHAPE};
 `;
 
 export const LoginIcon = styled.Image`
   margin-left: ${RFValue(11)}px;
-  width: ${RFValue(22)}px;
-  height: ${RFValue(22)}px;`;
+  width: ${RFValue(24.5)}px;
+  height: ${RFValue(26.5)}px;`;
 
 
 export const InputLogin = styled.TextInput<InputProps>`
@@ -50,6 +49,6 @@ export const HideIcon = styled.Image`
 export const ErrorMessage = styled.Text`
 color: ${({ theme }) => theme.COLORS.ERROR};
 font-size: ${RFValue(14)}px;
-margin-top: ${RFValue(1)}px;
+margin-bottom: ${RFValue(8)}px;
 align-self: flex-start;
 `;

@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
+background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
 
 export const Brands = styled.View`
@@ -34,7 +35,7 @@ export const LogoWrapper = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 0 60px;
+  margin-bottom: ${RFValue(8)}px;
 `;
 
 export const Logo = styled.Image``;
@@ -45,15 +46,16 @@ export const LabelLogo = styled.Image`
 
 export const ForgotPasswordButton = styled.TouchableOpacity`
   align-self: flex-end;
-  margin-bottom: ${RFValue(22)}px;
-  margin-top: ${RFValue(-8)}px;
+  margin-bottom: ${RFValue(0)}px;
+  margin-top: ${RFValue(0)}px;
 
 `;
 
 export const ForgotPasswordLabel = styled.Text`
   font-size: ${RFValue(14)}px;
   font-weight: bold;
-  margin-top: ${RFValue(20)}px;
+  margin-top: ${RFValue(0)}px;
+  margin-bottom: ${RFValue(22)}px;
 `;
 
 export const RegisterWrapper = styled.View`
@@ -76,7 +78,7 @@ export const RegisterButton = styled.TouchableOpacity`
 export const RegisterButtonLabel = styled.Text`
   color: ${({ theme }) => theme.COLORS.PRIMARY_900};
   font-size: ${RFValue(14)}px;
-  font-weight: 900;
+  font-weight: 700;
 `;
 
 export const FooterImage = styled.Image`
