@@ -15,11 +15,12 @@ import {
 } from './styles'
 
 interface HeaderProps {
+    name: string;
     title: string;
     onPressBackButton: Function;
 }
 
-export function Header({title, onPressBackButton}: HeaderProps) {
+export function Header({name, title, onPressBackButton}: HeaderProps) {
 
     return(
         <Container>
@@ -27,7 +28,11 @@ export function Header({title, onPressBackButton}: HeaderProps) {
             <LeftSpace>
 
                 <LeftButton onPress={() => onPressBackButton()}>
-                    <LeftIconButton source={require('../../assets/arrow_back_FILL0_wght400_GRAD0_opsz48.png')}/>
+                    <LeftIconButton source={
+                    name === 'close' ? require('../../assets/close.png')
+                    : require('../../assets/back.png')
+                    }
+                    />
                 </LeftButton>
 
                 <LeftIconWrapper>

@@ -23,6 +23,7 @@ export default {
 
     SHAPE: '#DCDCDC',
     TITLE: '#FFF',
+    TEXT: '#2B2B2E',
 
     GRADIENT: ['#B83341', '#E03F50'],
   },
