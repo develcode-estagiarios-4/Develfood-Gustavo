@@ -2,8 +2,6 @@ import React from 'react';
 import { Header } from '../../components/Header';
 import { Container, Content, Person, InfoWrapper, Title, Description } from './styles';
 
-import { InputForm } from '../../components/InputForm';
-import theme from '../../theme';
 
 import {
   KeyboardAvoidingView,
@@ -57,7 +55,7 @@ export default function SignUpIII() {
       <Header
         name="close"
         title="Cadastro"
-        onPressBackButton={() => {
+        onPressLeftButton={() => {
           navigation.goBack();
         }}
       />

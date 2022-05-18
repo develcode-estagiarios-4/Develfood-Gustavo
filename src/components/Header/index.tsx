@@ -17,17 +17,17 @@ import {
 interface HeaderProps {
     name: string;
     title: string;
-    onPressBackButton: Function;
+    onPressLeftButton: Function;
 }
 
-export function Header({name, title, onPressBackButton}: HeaderProps) {
+export function Header({name, title, onPressLeftButton}: HeaderProps) {
 
     return(
         <Container>
 
             <LeftSpace>
 
-                <LeftButton onPress={() => onPressBackButton()}>
+                <LeftButton onPress={() => onPressLeftButton()}>
                     <LeftIconButton source={
                     name === 'close' ? require('../../assets/close.png')
                     : require('../../assets/back.png')
