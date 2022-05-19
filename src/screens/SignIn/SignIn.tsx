@@ -129,7 +129,6 @@ export default function SignIn() {
                 <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
               </RegisterButton>
             </RegisterWrapper>
-
             <FooterImage source={povermelho} />
           </Content>
         </KeyboardAvoidingView>

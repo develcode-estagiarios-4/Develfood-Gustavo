@@ -55,11 +55,11 @@ export const ForgotPasswordLabel = styled.Text`
   font-size: ${RFValue(14)}px;
   font-weight: bold;
   margin-top: ${RFValue(0)}px;
-  margin-bottom: ${RFValue(22)}px;
+  margin-bottom: ${RFValue(19)}px;
 `;
 
 export const RegisterWrapper = styled.View`
-  margin-top: ${RFValue(15)}px;
+  margin-top: ${RFValue(16)}px;
   flex-direction: row;
   justify-content: center;
   padding: 0 ${RFValue(20)}px;
@@ -82,6 +82,6 @@ export const RegisterButtonLabel = styled.Text`
 `;
 
 export const FooterImage = styled.Image`
-  margin-top: ${RFValue(-40)}px;
+  margin-top: ${RFValue(-45)}px;
 `;
 

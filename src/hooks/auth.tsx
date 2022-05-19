@@ -45,7 +45,8 @@ export const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(false);
-  const [request, setRequest] = useState({} as RequestProps)
+  const [request, setRequest] = useState({} as RequestProps);
+  // const [signUpRequest, setSignUpRequest] = useState({} as RequestProps);
 
   const {
     data: dataPost,
@@ -53,6 +54,13 @@ function AuthProvider({ children }: AuthProviderProps) {
     error: errorPost,
     handlerPost,
   } = usePost<any, any>(request.endpoint, request.body);
+
+  // const {
+  //   data: dataPostSignUp,
+  //   loading: loadingPostSignUp,
+  //   error: errorPostSignUp,
+  //   handlerPost: handlerPostSignUp,
+  // } = usePost<any, any>(signUpRequest.endpoint, signUpRequest.body);
 
   useEffect(() => {
     setLoading(loadingPost);
@@ -79,6 +87,17 @@ function AuthProvider({ children }: AuthProviderProps) {
       error: {title: 'Erro de autenticação', message: 'E-mail e/ou senha inválidos'}
     })
     }
+
+    // async function signUp(email: string, password: string) {
+    //   setSignUpRequest({
+    //     endpoint: '/user',
+    //     body: {
+    //       email,
+    //       password,
+    //     },
+    //     error: {title: 'Erro de autenticação', message: 'E-mail e/ou senha inválidos'}
+    //   })
+    //   }
 
   return (
     <AuthContext.Provider
