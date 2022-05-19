@@ -33,13 +33,14 @@ import { ButtonTouchable } from '../../components/ButtonTouchable';
 import { useNavigation } from '@react-navigation/native';
 import { BtnView } from '../SignUpI/styles';
 import { ThemeConsumer } from 'styled-components';
+import { useAuth } from '../../hooks/auth';
 
 const schema = Yup.object().shape({
-  nome: Yup.string().required('Nome é obrigatório.'),
+  name: Yup.string().required('Nome é obrigatório.'),
   cpf: Yup.number()
     .required('Informe seu CPF.')
     .typeError('CPF deve ser um número'),
-  telefone: Yup.number()
+  phone: Yup.number()
     .typeError('Telefone deve ser um número')
     .required('Informe seu telefone.'),
 });
@@ -47,21 +48,24 @@ const schema = Yup.object().shape({
 export default function SignUpII() {
   const navigation = useNavigation();
 
-  //   function handleSignUp() {
-  //     const values = getValues();
-  //     // signUp(values.email, values.password)
-  //   }
+  const { user, signUp, mergeUserSignUpData, loading, token } = useAuth();
+
+    function handleSignUp() {
+      const values = getValues();
+      mergeUserSignUpData({name: values.name, cpf: values.cpf, phone: values.phone })
+
+      navigation.navigate('SignUpIII' as never)
+    }
 
   const {
     control,
-    // getValues,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => navigation.navigate('SignUpIII' as never);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -87,12 +91,12 @@ export default function SignUpII() {
           <Person source={personup} />
 
           <InputForm
-            name="nome"
+            name="name"
             placeholder="Nome"
             placeholderTextColor={theme.COLORS.SECONDARY_400}
             keyboardType="email-address"
             control={control}
-            error={errors.nome && errors.nome.message}
+            error={errors.name && errors.name.message}
             editable={true}
             src={theme.ICONS.NAME}
           />
@@ -109,19 +113,19 @@ export default function SignUpII() {
           />
 
           <InputForm
-            name="telefone"
+            name="phone"
             placeholder="Telefone"
             placeholderTextColor={theme.COLORS.SECONDARY_400}
             keyboardType="number-pad"
             control={control}
-            error={errors.telefone && errors.telefone.message}
+            error={errors.phone && errors.phone.message}
             editable={true}
             src={theme.ICONS.PHONE}
           />
         </Content>
         <BtnView>
           <ButtonTouchable
-            onPressed={handleSubmit(onSubmit)}
+            onPressed={handleSubmit(handleSignUp)}
             title="Continuar"
             isLoading={false}
           />

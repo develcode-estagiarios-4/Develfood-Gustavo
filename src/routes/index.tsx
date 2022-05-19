@@ -5,7 +5,7 @@ import AuthRoutes from './authRoutes';
 import AppRoutes from './routes.routes'
 
 export function Routes() {
-    const { token } = useAuth();
+    const { token, signUp } = useAuth();
 
     return(
         token ? <AppRoutes /> : <AuthRoutes />

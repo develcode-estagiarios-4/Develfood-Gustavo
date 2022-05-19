@@ -30,6 +30,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ButtonTouchable } from '../../components/ButtonTouchable';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
 
 const schema = Yup.object().shape({
   street: Yup.string().required('Rua é obrigatória.'),
@@ -46,10 +47,23 @@ const schema = Yup.object().shape({
 export default function SignUpIII() {
   const navigation = useNavigation();
 
-  function handleSignUp() {
-    const values = getValues();
-    // signUp(values.email, values.password)
-  }
+  const { user, signUp, mergeUserSignUpData, loading, token, error } = useAuth();
+
+    async function handleSignUp() {
+      const values = getValues();
+      mergeUserSignUpData({
+        street: values.street, 
+        city: values.town, 
+        neighborhood: values.district, 
+        number: values.number,
+        zipcode: values.cep 
+      });
+      await signUp()
+      if (error === false) {
+        navigation.navigate('SignUpSuccess' as never)
+      } 
+
+    }
 
   const {
     control,
@@ -59,8 +73,6 @@ export default function SignUpIII() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const onSubmit = () => navigation.navigate('SignUpSuccess' as never);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -141,9 +153,9 @@ export default function SignUpIII() {
           />
 
           <ButtonTouchable
-            onPressed={handleSubmit(onSubmit)}
+            onPressed={handleSubmit(handleSignUp)}
             title="Continuar"
-            isLoading={false}
+            isLoading={loading}
           />
         </Content>
       </Container>

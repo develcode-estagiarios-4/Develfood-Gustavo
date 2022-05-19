@@ -88,6 +88,7 @@ export default function SignIn() {
             </LogoWrapper>
 
             <InputForm
+              defaultValue='exemplo@email.co'
               name="email"
               placeholder="exemplo@email.com"
               placeholderTextColor={theme.COLORS.SECONDARY_400}
@@ -99,6 +100,7 @@ export default function SignIn() {
             />
 
             <InputForm
+              defaultValue='12345'
               name="password"
               placeholder="********"
               placeholderTextColor={theme.COLORS.SECONDARY_400}

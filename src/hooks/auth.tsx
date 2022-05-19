@@ -20,7 +20,10 @@ interface IAuthContextData {
   user: User;
   loading: boolean;
   signIn(email: string, password: string): Promise<void>;
+  signUp(): Promise<void>;
+  mergeUserSignUpData(currentUserData: any): Promise<void>;
   token: string;
+  error: boolean;
 }
 
 interface CreateUserRequest {
@@ -46,7 +49,8 @@ export const AuthContext = createContext({} as IAuthContextData);
 function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState({} as RequestProps);
-  // const [signUpRequest, setSignUpRequest] = useState({} as RequestProps);
+  const [signUpUserData, setSignUpUserData] = useState({} as any);
+  const [error, setError] = useState(false);
 
   const {
     data: dataPost,
@@ -66,9 +70,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     setLoading(loadingPost);
   }, [loadingPost]);
 
+  // useEffect(() => {
+  //   setLoading(loadingPostSignUp);
+  // }, [loadingPostSignUp]);
+
   useEffect(()=>{
     !!request.endpoint &&
     handlerPost(request.error.title, request.error.message)
+    !!errorPost ? setError(true) : setError(false) 
   }, [request])
 
   const user = {
@@ -88,16 +97,21 @@ function AuthProvider({ children }: AuthProviderProps) {
     })
     }
 
-    // async function signUp(email: string, password: string) {
-    //   setSignUpRequest({
-    //     endpoint: '/user',
-    //     body: {
-    //       email,
-    //       password,
-    //     },
-    //     error: {title: 'Erro de autenticação', message: 'E-mail e/ou senha inválidos'}
-    //   })
-    //   }
+    async function signUp() {
+      setRequest({
+        endpoint: '/user',
+        body: {...mergeUserSignUpData},
+        error: {title: 'Erro de cadastro', message: 'Dados inválidos'}
+      })
+      }
+
+      async function mergeUserSignUpData(currentUserData: any) {
+        setSignUpUserData({
+          ...signUpUserData,
+          ...currentUserData
+        })
+console.log(signUpUserData, currentUserData)
+      }
 
   return (
     <AuthContext.Provider
@@ -105,7 +119,10 @@ function AuthProvider({ children }: AuthProviderProps) {
         user,
         loading,
         signIn,
+        signUp,
+        mergeUserSignUpData,
         token: dataPost.token,
+        error
       }}
     >
       {children}

@@ -33,6 +33,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ButtonTouchable } from '../../components/ButtonTouchable';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
 
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
@@ -45,10 +46,14 @@ const schema = Yup.object().shape({
 export default function SignUpI() {
   const navigation = useNavigation();
 
+  const { user, signUp, mergeUserSignUpData, loading, token } = useAuth();
+
   function handleSignUp() {
-  // const values = getValues();
+  const values = getValues();
+  mergeUserSignUpData({email: values.email, password: values.password});
 
   navigation.navigate('SignUpII' as never)
+  console.log('oi')
   }
 
   // const newUser = {
@@ -60,7 +65,7 @@ export default function SignUpI() {
   // };
   const {
     control,
-    // getValues,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({

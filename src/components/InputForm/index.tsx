@@ -21,6 +21,7 @@ interface Props extends TextInputProps {
   error: string;
   editable: boolean;
   src: any;
+  defaultValue?: string;
 }
 
 export function InputForm({
@@ -32,6 +33,7 @@ export function InputForm({
   keyboardType,
   editable,
   src,
+  defaultValue
 }: Props) {
   const theme = useTheme();
 
@@ -80,6 +82,7 @@ export function InputForm({
               value={value}
               editable={editable}
               hasRightIcon={name === 'password' || name === 'confirmPassword'}
+              defaultValue={defaultValue}
             />
           )}
           name={name}
