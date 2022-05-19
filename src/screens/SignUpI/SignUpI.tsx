@@ -47,14 +47,21 @@ export default function SignUpI() {
   const navigation = useNavigation();
 
   function handleSignUp() {
-  const values = getValues();
-  values.signUpEmail, values.signUpPassword, values.signUpConfirmPassword;
+  // const values = getValues();
+
   navigation.navigate('SignUpII' as never)
   }
 
+  // const newUser = {
+  //   id: ,
+  //   name: form.name,
+  //   amount: form.amount,
+  //   type: transactionType,
+  //   category: category.key,
+  // };
   const {
     control,
-    getValues,
+    // getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
