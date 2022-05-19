@@ -30,7 +30,6 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ButtonTouchable } from '../../components/ButtonTouchable';
-import { NavigationBar } from '../../components/NavigationBar';
 import { useNavigation } from '@react-navigation/native';
 import { BtnView } from '../SignUpI/styles';
 import { ThemeConsumer } from 'styled-components';

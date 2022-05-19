@@ -41,7 +41,6 @@ import {
 } from './styles';
 
 import theme from '../../theme';
-import { NavigationBar } from '../../components/NavigationBar';
 import { useNavigation } from '@react-navigation/native';
 
 const schema = Yup.object().shape({
