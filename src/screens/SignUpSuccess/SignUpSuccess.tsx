@@ -1,7 +1,13 @@
 import React from 'react';
 import { Header } from '../../components/Header';
-import { Container, Content, Person, InfoWrapper, Title, Description } from './styles';
-
+import {
+  Container,
+  Content,
+  Person,
+  InfoWrapper,
+  Title,
+  Description,
+} from './styles';
 
 import {
   KeyboardAvoidingView,
@@ -50,7 +56,7 @@ export default function SignUpIII() {
   const onSubmit = () => navigation.navigate('SignUpSuccess' as never);
 
   return (
-    <Container>
+    <>
       <Header
         name="close"
         title="Cadastro"
@@ -58,20 +64,23 @@ export default function SignUpIII() {
           navigation.goBack();
         }}
       />
-      <Content>
-        <Person source={successperson} />
-        <InfoWrapper>
-        <Title>Cadastro finalizado!</Title>
-        <Description>
-          Parabéns! Agora você pode aproveitar nossas ofertas e serviços e economizar com super cupons Develfood.
-        </Description>
-        </InfoWrapper>
+      <Container>
+        <Content>
+          <Person source={successperson} />
+          <InfoWrapper>
+            <Title>Cadastro finalizado!</Title>
+            <Description>
+              Parabéns! Agora você pode aproveitar nossas ofertas e serviços e
+              economizar com super cupons Develfood.
+            </Description>
+          </InfoWrapper>
+        </Content>
         <ButtonTouchable
           onPressed={handleSubmit(onSubmit)}
           title="Concluir"
           isLoading={false}
         />
-      </Content>
-    </Container>
+      </Container>
+    </>
   );
 }

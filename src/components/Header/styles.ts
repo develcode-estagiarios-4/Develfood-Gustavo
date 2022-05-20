@@ -3,15 +3,15 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 
 export const Container = styled.View`
-margin-bottom: ${RFValue(15)}px;
 flex-direction: row;
 align-items: center;
 justify-content: space-between;
 height: ${RFValue(56)}px;
+background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
 
 export const LeftSpace = styled.View`
-width: 20%;
+width: 19%;
 /* background-color: yellow; */
 `;
 
@@ -40,10 +40,9 @@ color: #000000;
 `;
 
 export const RightSpace = styled.View`
-width: 20%;
+width: 19%;
 height: 100%;
 align-self: flex-end;
-/* background-color: blue; */
 padding: ${RFValue(10)}px;
 `;
 

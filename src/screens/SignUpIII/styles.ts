@@ -62,3 +62,36 @@ align-self: center;
 margin-top: ${RFValue(6)}px;
 margin-bottom: ${RFValue(26)}px;
 `;
+
+export const TwoInputsView = styled.View`
+flex-direction: row;
+`;
+
+export const BtnView = styled.View`
+margin-bottom: ${RFValue(10)}px;
+padding: 0 ${RFValue(36)}px;
+`;
+
+export const HalfInput = styled.View`
+margin-right: 20px;
+width: ${RFValue(160)}px;
+`;
+
+export const HalfInputTwo = styled.View`
+margin-right: 20px;
+width: ${RFValue(121)}px;
+`;
+
+export const TwoInputsViewTwo = styled.View`
+flex-direction: row;
+`;
+
+export const HalfInputThree = styled.View`
+margin-right: 20px;
+width: ${RFValue(140.5)}px;
+`;
+
+export const HalfInputFour = styled.View`
+margin-right: 20px;
+width: ${RFValue(140.5)}px;
+`;
