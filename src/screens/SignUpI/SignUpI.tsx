@@ -1,19 +1,12 @@
 import React from 'react';
-import {
-  TouchableWithoutFeedback,
-  Keyboard,
-  View,
-} from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import {
   Container,
   Content,
-  Ball1,
-  Ball2,
-  Ball3,
+  Ball,
   Balls,
-  BorderBall1,
-  BorderBall2,
-  BorderBall3,
+  BallWrapper,
+  BorderBall,
   Person,
   BtnView,
 } from './styles';
@@ -46,7 +39,14 @@ export default function SignUpI() {
 
   function handleSignUp() {
     const values = getValues();
-    mergeUserSignUpData({ email: values.email, password: values.password });
+    mergeUserSignUpData({
+      email: values.email,
+      password: values.password,
+      creationDate: '2022-05-20',
+      role: {
+        id: 2,
+      },
+    });
 
     navigation.navigate('SignUpII' as never);
   }
@@ -72,14 +72,18 @@ export default function SignUpI() {
         <Container>
           <Content>
             <Balls>
-              <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-              <Ball1 source={theme.IMAGES.BALL} />
-
-              <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-              <Ball2 source={theme.IMAGES.BALL} />
-
-              <BorderBall3 source={theme.IMAGES.BORDERBALL} />
-              <Ball3 source={theme.IMAGES.BALL} />
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
             </Balls>
 
             <Person source={personleft} />

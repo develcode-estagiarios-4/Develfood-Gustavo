@@ -10,53 +10,6 @@ export const Content = styled.View`
 padding: 0 ${RFValue(36)}px;
 `;
 
-export const Balls = styled.View`
-flex-direction: row;
-justify-content: space-around;
-`;
-
-export const BorderBall1 = styled.Image`
-height: ${RFValue(47)}px;
-width: ${RFValue(47)}px;
-`;
-
-export const Ball1 = styled.Image`
-position: absolute;
-height: ${RFValue(39)}px;
-width: ${RFValue(39)}px;
-top: ${RFValue(4)}px;
-left: ${RFValue(30.3384)}px;
-
-`;
-
-export const BorderBall2 = styled.Image`
-height: ${RFValue(47)}px;
-width: ${RFValue(47)}px;
-
-`;
-
-export const Ball2 = styled.Image`
-position: absolute;
-height: ${RFValue(39)}px;
-width: ${RFValue(39)}px;
-right: ${RFValue(130.65)}px;
-top: ${RFValue(4)}px
-`;
-
-export const BorderBall3 = styled.Image`
-height: ${RFValue(47)}px;
-width: ${RFValue(47)}px;
-`;
-
-export const Ball3 = styled.Image`
-position: absolute;
-height: ${RFValue(39)}px;
-width: ${RFValue(39)}px;
-top: ${RFValue(4)}px;
-right: ${RFValue(31.338381)}px;
-
-`;
-
 export const Person = styled.Image`
 align-self: center;
 margin-top: ${RFValue(6)}px;
@@ -65,11 +18,6 @@ margin-bottom: ${RFValue(26)}px;
 
 export const TwoInputsView = styled.View`
 flex-direction: row;
-`;
-
-export const BtnView = styled.View`
-margin-bottom: ${RFValue(10)}px;
-padding: 0 ${RFValue(36)}px;
 `;
 
 export const HalfInput = styled.View`
@@ -84,14 +32,19 @@ width: ${RFValue(121)}px;
 
 export const TwoInputsViewTwo = styled.View`
 flex-direction: row;
+margin-left: ${RFValue(2)}px;
 `;
 
 export const HalfInputThree = styled.View`
-margin-right: 20px;
-width: ${RFValue(140.5)}px;
+margin-right: ${RFValue(8)}px;
+width: ${RFValue(145.5)}px;
 `;
 
 export const HalfInputFour = styled.View`
-margin-right: 20px;
 width: ${RFValue(140.5)}px;
+`;
+
+export const BtnView = styled.View`
+margin-bottom: ${RFValue(10)}px;
+padding: 0 ${RFValue(36)}px;
 `;

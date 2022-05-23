@@ -3,13 +3,6 @@ import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   Container,
   Content,
-  Ball1,
-  Ball2,
-  Ball3,
-  Balls,
-  BorderBall1,
-  BorderBall2,
-  BorderBall3,
   Person,
   TwoInputsView,
   BtnView,
@@ -19,6 +12,13 @@ import {
   HalfInputThree,
   HalfInputFour,
 } from './styles';
+
+import { 
+  Ball,
+  Balls,
+  BallWrapper, 
+  BorderBall 
+  } from '../SignUpI/styles';
 
 import { Header } from '../../components/Header';
 import { InputForm } from '../../components/InputForm';
@@ -93,14 +93,18 @@ export default function SignUpIII() {
         <Container>
           <Content>
             <Balls>
-              <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-              <Ball1 source={theme.IMAGES.GREENBALL} />
-
-              <BorderBall2 source={theme.IMAGES.BORDERBALL} />
-              <Ball2 source={theme.IMAGES.GREENBALL} />
-
-              <BorderBall3 source={theme.IMAGES.BORDERBALL} />
-              <Ball3 source={theme.IMAGES.BALL} />
+            <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.GREENBALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.GREENBALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
             </Balls>
 
             <Person source={personright} />

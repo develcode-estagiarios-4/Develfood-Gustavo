@@ -3,16 +3,16 @@ import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import {
   Container,
   Content,
-  Ball1,
-  Ball2,
-  Ball3,
-  Balls,
-  BorderBall1,
-  BorderBall2,
-  BorderBall3,
   Person,
+  BtnView
 } from './styles';
-import { BtnView } from '../SignUpI/styles';
+
+import { 
+Ball,
+Balls,
+BallWrapper, 
+BorderBall 
+} from '../SignUpI/styles';
 
 import { Header } from '../../components/Header';
 import { InputForm } from '../../components/InputForm';
@@ -50,8 +50,8 @@ export default function SignUpII() {
       costumer: {
         firstName: values.firstName,
         lastName: values.lastName,
-        cpf: values.cpf,
-        phone: values.phone,
+        cpf: '600.318.456-54',
+        phone: '(54)980459875',
         photo: '',
       },
     });
@@ -70,24 +70,28 @@ export default function SignUpII() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View>
+      <>
         <Header
           title="Cadastro"
           onPressLeftButton={() => {
             navigation.goBack();
           }}
         />
-        <Container>
+        <Container showsVerticalScrollIndicator={false}>
           <Content>
             <Balls>
-              <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-              <Ball1 source={theme.IMAGES.GREENBALL} />
-
-              <BorderBall2 source={theme.IMAGES.BORDERBALL} />
-              <Ball2 source={theme.IMAGES.BALL} />
-
-              <BorderBall3 source={theme.IMAGES.BORDERBALL} />
-              <Ball3 source={theme.IMAGES.BALL} />
+            <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.GREENBALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
             </Balls>
 
             <Person source={personup} />
@@ -144,7 +148,7 @@ export default function SignUpII() {
             />
           </BtnView>
         </Container>
-      </View>
+      </>
     </TouchableWithoutFeedback>
   );
 }

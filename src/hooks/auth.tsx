@@ -59,25 +59,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     handlerPost,
   } = usePost<any, any>(request.endpoint, request.body);
 
-  // const {
-  //   data: dataPostSignUp,
-  //   loading: loadingPostSignUp,
-  //   error: errorPostSignUp,
-  //   handlerPost: handlerPostSignUp,
-  // } = usePost<any, any>(signUpRequest.endpoint, signUpRequest.body);
-
   useEffect(() => {
     setLoading(loadingPost);
   }, [loadingPost]);
 
-  // useEffect(() => {
-  //   setLoading(loadingPostSignUp);
-  // }, [loadingPostSignUp]);
-
   useEffect(()=>{
     !!request.endpoint &&
     handlerPost(request.error.title, request.error.message)
-    !!errorPost ? setError(true) : setError(false) 
+    !errorPost ? setError(true) : setError(false) 
   }, [request])
 
   const user = {

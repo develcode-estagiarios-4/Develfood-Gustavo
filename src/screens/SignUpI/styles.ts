@@ -15,51 +15,24 @@ flex-direction: row;
 justify-content: space-around;
 `;
 
-export const BorderBall1 = styled.Image`
+export const BorderBall = styled.Image`
 height: ${RFValue(47)}px;
 width: ${RFValue(47)}px;
 `;
 
-export const Ball1 = styled.Image`
-position: absolute;
+export const Ball = styled.Image`
 height: ${RFValue(39)}px;
 width: ${RFValue(39)}px;
-top: ${RFValue(4)}px;
-left: ${RFValue(30.3384)}px;
-
+top: ${RFValue(-42)}px;
 `;
 
-export const BorderBall2 = styled.Image`
-height: ${RFValue(47)}px;
-width: ${RFValue(47)}px;
-
-`;
-
-export const Ball2 = styled.Image`
-position: absolute;
-height: ${RFValue(39)}px;
-width: ${RFValue(39)}px;
-right: ${RFValue(130.65)}px;
-top: ${RFValue(4)}px
-`;
-
-export const BorderBall3 = styled.Image`
-height: ${RFValue(47)}px;
-width: ${RFValue(47)}px;
-`;
-
-export const Ball3 = styled.Image`
-position: absolute;
-height: ${RFValue(39)}px;
-width: ${RFValue(39)}px;
-top: ${RFValue(4)}px;
-right: ${RFValue(31.338381)}px;
-
+export const BallWrapper = styled.View`
+align-items: center;
 `;
 
 export const Person = styled.Image`
 align-self: center;
-margin-top: ${RFValue(6)}px;
+margin-top: ${RFValue(-27)}px;
 margin-bottom: ${RFValue(26)}px;
 `;
 
@@ -67,3 +40,5 @@ export const BtnView = styled.View`
 margin-top: ${RFValue(18)}px;
 padding: 0 ${RFValue(36)}px;
 `;
+
+
