@@ -3,7 +3,6 @@ import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import {
   Container,
   Content,
-  Person,
   BtnView
 } from './styles';
 
@@ -11,7 +10,8 @@ import {
 Ball,
 Balls,
 BallWrapper, 
-BorderBall 
+BorderBall,
+Person
 } from '../SignUpI/styles';
 
 import { Header } from '../../components/Header';

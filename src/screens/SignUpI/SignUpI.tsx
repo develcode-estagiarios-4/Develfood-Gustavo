@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   Container,
   Content,
@@ -62,7 +62,7 @@ export default function SignUpI() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View>
+      <>
         <Header
           title="Cadastro"
           onPressLeftButton={() => {
@@ -129,7 +129,7 @@ export default function SignUpI() {
             />
           </BtnView>
         </Container>
-      </View>
+      </>
     </TouchableWithoutFeedback>
   );
 }

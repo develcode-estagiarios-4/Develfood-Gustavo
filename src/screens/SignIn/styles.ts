@@ -24,7 +24,7 @@ width: ${RFValue(150)}px;
 
 
 export const Content = styled.View`
-  top: ${RFValue(-50)}px;
+  top: ${RFValue(-40)}px;
   padding: 0 ${RFValue(36)}px;
   margin-top: ${RFValue(10)}px;
   z-index: 1;

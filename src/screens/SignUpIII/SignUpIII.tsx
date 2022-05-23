@@ -3,7 +3,6 @@ import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   Container,
   Content,
-  Person,
   TwoInputsView,
   BtnView,
   HalfInput,
@@ -17,7 +16,8 @@ import {
   Ball,
   Balls,
   BallWrapper, 
-  BorderBall 
+  BorderBall,
+  Person
   } from '../SignUpI/styles';
 
 import { Header } from '../../components/Header';
@@ -90,7 +90,7 @@ export default function SignUpIII() {
             navigation.goBack();
           }}
         />
-        <Container>
+        <Container showsVerticalScrollIndicator={false}>
           <Content>
             <Balls>
             <BallWrapper>
