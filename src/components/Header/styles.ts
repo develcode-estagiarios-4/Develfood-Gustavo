@@ -12,7 +12,6 @@ background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 
 export const LeftSpace = styled.View`
 width: 19%;
-/* background-color: yellow; */
 `;
 
 export const LeftButton = styled.TouchableOpacity`

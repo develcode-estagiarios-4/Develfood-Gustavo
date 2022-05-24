@@ -7,7 +7,6 @@ interface InputProps {
 
 export const Container = styled.View`
   width: 100%;
-  height: ${RFValue(50)}px;
   align-self: center;
   align-items: center;
   flex-direction: row;
@@ -37,7 +36,6 @@ export const InputLogin = styled.TextInput<InputProps>`
 export const IconPassword = styled.TouchableOpacity`
   position: absolute;
   right: ${RFValue(10)}px;
-
 `;
 
 export const HideIcon = styled.Image`

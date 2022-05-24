@@ -1,5 +1,5 @@
-import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   Container,
   Content,
@@ -27,6 +27,7 @@ import { useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import SignUpIII from '../SignUpIII/SignUpIII';
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required('Nome é obrigatório.'),
@@ -39,24 +40,34 @@ const schema = Yup.object().shape({
     .required('Informe seu telefone.'),
 });
 
-export default function SignUpII() {
+export default function SignUpII({route}: any) {
   const navigation = useNavigation();
 
-  const { mergeUserSignUpData } = useAuth();
-
   function handleSignUp() {
+    const { email, password } = route.params
     const values = getValues();
-    mergeUserSignUpData({
-      costumer: {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        cpf: '600.318.456-54',
-        phone: '(54)980459875',
-        photo: '',
-      },
-    });
 
-    navigation.navigate('SignUpIII' as never);
+    // mergeUserSignUpData({
+    //   costumer: {
+    //     firstName: values.firstName,
+    //     lastName: values.lastName,
+    //     cpf: '600.123.421-54',
+    //     phone: '(54)998659875',
+    //     photo: '',
+    //   },
+    // });
+
+
+
+    navigation.navigate('SignUpIII' as never, { 
+      email,
+      password,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      cpf: values.cpf,
+      phone: values.phone,
+      photo: ''
+    }as never);
   }
 
   const {

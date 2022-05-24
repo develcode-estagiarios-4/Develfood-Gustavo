@@ -10,7 +10,6 @@ import SignUpII from '../screens/SignUpII/SignUpII';
 import SignUpIII from '../screens/SignUpIII/SignUpIII';
 import SignUpSuccess from '../screens/SignUpSuccess/SignUpSuccess';
 
-
 export default function AuthRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();
 

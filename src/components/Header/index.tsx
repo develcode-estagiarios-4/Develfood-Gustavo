@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../hooks/auth';
+import theme from '../../theme';
 
 import { 
     Container, 
@@ -22,15 +24,19 @@ interface HeaderProps {
 
 export function Header({name, title, onPressLeftButton}: HeaderProps) {
 
+  const { loading } = useAuth();
+
     return(
         <Container>
 
             <LeftSpace>
 
-                <LeftButton onPress={() => onPressLeftButton()}>
+                <LeftButton 
+                disabled={loading}
+                onPress={() => onPressLeftButton()}>
                     <LeftIconButton source={
-                    name === 'close' ? require('../../assets/close.png')
-                    : require('../../assets/back.png')
+                    name === 'close' ? theme.ICONS.CLOSE
+                    : theme.ICONS.BACK
                     }
                     />
                 </LeftButton>

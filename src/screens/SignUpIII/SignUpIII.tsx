@@ -12,13 +12,13 @@ import {
   HalfInputFour,
 } from './styles';
 
-import { 
+import {
   Ball,
   Balls,
-  BallWrapper, 
+  BallWrapper,
   BorderBall,
-  Person
-  } from '../SignUpI/styles';
+  Person,
+} from '../SignUpI/styles';
 
 import { Header } from '../../components/Header';
 import { InputForm } from '../../components/InputForm';
@@ -29,7 +29,6 @@ import theme from '../../theme';
 import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
-
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -46,30 +45,37 @@ const schema = Yup.object().shape({
     .typeError('Somente números'),
 });
 
-export default function SignUpIII() {
+export default function SignUpIII({ route }: any) {
   const navigation = useNavigation();
 
-  const { signUp, mergeUserSignUpData, loading, error } =
-    useAuth();
+  const { signUp, loading, error } = useAuth();
 
   async function handleSignUp() {
+    const { email, password, firstName, lastName, cpf, phone, photo } =
+      route.params;
+
     const values = getValues();
-    mergeUserSignUpData({
-      address: [{
-        street: values.street,
-        number: values.number,
-        neighborhood: values.district,
-        city: values.town,
-        zipcode: values.cep,
-        state: values.state,
-        nickname: values.nickname,
-      }],
+
+    signUp({
+      email,
+      password,
+      firstName,
+      lastName,
+      cpf,
+      phone,
+      photo,
+      street: values.street,
+      number: values.number,
+      neighborhood: values.district,
+      city: values.town,
+      zipcode: values.cep,
+      state: values.state,
+      nickname: values.nickname,
     });
 
-    await signUp();
-    if (error === false) {
+    // if (error === false) {
       navigation.navigate('SignUpSuccess' as never);
-    }
+    // }
   }
 
   const {
@@ -93,7 +99,7 @@ export default function SignUpIII() {
         <Container showsVerticalScrollIndicator={false}>
           <Content>
             <Balls>
-            <BallWrapper>
+              <BallWrapper>
                 <BorderBall source={theme.IMAGES.BORDERBALL} />
                 <Ball source={theme.IMAGES.GREENBALL} />
               </BallWrapper>

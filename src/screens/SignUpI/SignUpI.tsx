@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import {
   Container,
   Content,
@@ -24,6 +24,11 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+interface DataStepOneProp {
+  email: string;
+  password: string;
+}
+
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
   password: Yup.string().required('Informe sua senha.'),
@@ -35,20 +40,21 @@ const schema = Yup.object().shape({
 export default function SignUpI() {
   const navigation = useNavigation();
 
-  const { mergeUserSignUpData } = useAuth();
-
-  function handleSignUp() {
+  function handleNextStep() {
     const values = getValues();
-    mergeUserSignUpData({
+
+    const data: DataStepOneProp = {
       email: values.email,
       password: values.password,
-      creationDate: '2022-05-20',
-      role: {
-        id: 2,
-      },
-    });
+    };
 
-    navigation.navigate('SignUpII' as never);
+    navigation.navigate(
+      'SignUpII' as never,
+      {
+        email: values.email,
+        password: values.password,
+      } as never,
+    );
   }
 
   const {
@@ -62,7 +68,7 @@ export default function SignUpI() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <>
+      <View>
         <Header
           title="Cadastro"
           onPressLeftButton={() => {
@@ -123,13 +129,13 @@ export default function SignUpI() {
           </Content>
           <BtnView>
             <ButtonTouchable
-              onPressed={handleSubmit(handleSignUp)}
+              onPressed={handleSubmit(handleNextStep)}
               title="Continuar"
               isLoading={false}
             />
           </BtnView>
         </Container>
-      </>
+      </View>
     </TouchableWithoutFeedback>
   );
 }

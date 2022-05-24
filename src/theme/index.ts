@@ -46,6 +46,8 @@ export default {
     CPF: require('../assets/cpf24.png') ,
     PHONE: require('../assets/telefone.png'),
     LOCAL: require('../assets/local2.png') ,
+    CLOSE: require('../assets/close.png'),
+    BACK: require('../assets/back.png')
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),

@@ -39,7 +39,7 @@ export default function SignUpIII() {
           </InfoWrapper>
         </Content>
         <ButtonTouchable
-          onPressed={() => {}}
+          onPressed={() => {navigation.navigate('SignIn' as never)}}
           title="Concluir"
           isLoading={false}
         />

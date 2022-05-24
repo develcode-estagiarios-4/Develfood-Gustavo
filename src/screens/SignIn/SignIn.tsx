@@ -51,7 +51,7 @@ const schema = Yup.object().shape({
 export default function SignIn() {
   const navigation = useNavigation();
 
-  const { user, signIn, loading, token } = useAuth();
+  const { signIn, loading, token } = useAuth();
 
   function handleLogin() {
     const values = getValues();

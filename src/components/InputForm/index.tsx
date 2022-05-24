@@ -53,7 +53,6 @@ export function InputForm({
       ...data,
       secureTextEntry: !data.secureTextEntry,
       isPressed: !data.isPressed
-
     });
   };
 
@@ -77,7 +76,7 @@ export function InputForm({
               placeholder={placeholder}
               placeholderTextColor={placeholderTextColor}
               keyboardType={keyboardType}
-              secureTextEntry={data.secureTextEntry ? true : false}
+              secureTextEntry={data.secureTextEntry}
               onChangeText={onChange}
               value={value}
               editable={editable}
