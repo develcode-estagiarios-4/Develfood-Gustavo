@@ -20,14 +20,12 @@ import { ButtonTouchable } from '../../components/ButtonTouchable';
 import personup from '../../assets/pessoa2.png';
 
 import theme from '../../theme';
-import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import SignUpIII from '../SignUpIII/SignUpIII';
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required('Nome é obrigatório.'),
@@ -46,18 +44,6 @@ export default function SignUpII({route}: any) {
   function handleSignUp() {
     const { email, password } = route.params
     const values = getValues();
-
-    // mergeUserSignUpData({
-    //   costumer: {
-    //     firstName: values.firstName,
-    //     lastName: values.lastName,
-    //     cpf: '600.123.421-54',
-    //     phone: '(54)998659875',
-    //     photo: '',
-    //   },
-    // });
-
-
 
     navigation.navigate('SignUpIII' as never, { 
       email,

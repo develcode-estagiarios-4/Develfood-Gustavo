@@ -17,7 +17,6 @@ import { ButtonTouchable } from '../../components/ButtonTouchable';
 import personleft from '../../assets/pessoa1.png';
 
 import theme from '../../theme';
-import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
