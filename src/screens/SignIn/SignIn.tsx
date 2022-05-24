@@ -10,7 +10,7 @@ import {
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, useForm } from 'react-hook-form';
+import { Controller, FieldValues, useForm } from 'react-hook-form';
 
 import brandsalada from '../../assets/brandsalada.png';
 import pizza from '../../assets/pizza.png';
@@ -87,28 +87,44 @@ export default function SignIn() {
               <LabelLogo source={develfood} />
             </LogoWrapper>
 
-            <InputForm
-              defaultValue='exemplo@email.co'
-              name="email"
-              placeholder="exemplo@email.com"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="email-address"
+            <Controller
               control={control}
-              error={errors.email && errors.email.message}
-              editable={!loading}
-              src={theme.ICONS.EMAIL}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="email"
+                  placeholder="exemplo@email.com"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="email-address"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.email && errors.email.message}
+                  editable={!loading}
+                  src={theme.ICONS.EMAIL}
+                />
+              )}
+              name="email"
             />
 
-            <InputForm
-              defaultValue='12345'
-              name="password"
-              placeholder="********"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="default"
+            <Controller
               control={control}
-              error={errors.password && errors.password.message}
-              editable={!loading}
-              src={theme.ICONS.PASSWORD}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="password"
+                  placeholder="********"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.password && errors.password.message}
+                  editable={!loading}
+                  src={theme.ICONS.PASSWORD}
+                />
+              )}
+              name="password"
             />
 
             <ForgotPasswordButton disabled={loading}>

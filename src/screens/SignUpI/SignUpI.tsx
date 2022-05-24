@@ -18,7 +18,7 @@ import personleft from '../../assets/pessoa1.png';
 
 import theme from '../../theme';
 import { useNavigation } from '@react-navigation/native';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -93,39 +93,69 @@ export default function SignUpI() {
 
             <Person source={personleft} />
 
-            <InputForm
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="email"
+                  placeholder="exemplo@email.com"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="email-address"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.email && errors.email.message}
+                  editable={true}
+                  src={theme.ICONS.EMAIL}
+                />
+              )}
               name="email"
-              placeholder="exemplo@email.com"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="email-address"
-              control={control}
-              error={errors.email && errors.email.message}
-              editable={true}
-              src={theme.ICONS.EMAIL}
             />
 
-            <InputForm
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="password"
+                  placeholder="senha"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.password && errors.password.message}
+                  editable={true}
+                  src={theme.ICONS.PASSWORD}
+                />
+              )}
               name="password"
-              placeholder="senha"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="default"
-              control={control}
-              error={errors.password && errors.password.message}
-              editable={true}
-              src={theme.ICONS.PASSWORD}
             />
 
-            <InputForm
-              name="confirmPassword"
-              placeholder="confirmar senha"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="default"
+            <Controller
               control={control}
-              error={errors.confirmPassword && errors.confirmPassword.message}
-              editable={true}
-              src={theme.ICONS.PASSWORD}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="confirmPassword"
+                  placeholder="confirmar senha"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={
+                    errors.confirmPassword && errors.confirmPassword.message
+                  }
+                  editable={true}
+                  src={theme.ICONS.PASSWORD}
+                />
+              )}
+              name="confirmPassword"
             />
           </Content>
+
           <BtnView>
             <ButtonTouchable
               onPressed={handleSubmit(handleNextStep)}

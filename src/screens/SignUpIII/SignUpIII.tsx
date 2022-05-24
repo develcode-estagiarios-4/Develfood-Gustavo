@@ -9,7 +9,6 @@ import {
   HalfInputTwo,
   TwoInputsViewTwo,
   HalfInputThree,
-  HalfInputFour,
 } from './styles';
 
 import {
@@ -28,17 +27,17 @@ import personright from '../../assets/pessoa3.png';
 import theme from '../../theme';
 import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = Yup.object().shape({
-  nickname: Yup.string().required('Apelido de endereço é obrigatório.'),
+  nickname: Yup.string().required('Apelido do endereço é obrigatório.'),
   cep: Yup.number().required('CEP é obrigatório.').typeError('Somente números'),
   street: Yup.string().required('Rua é obrigatória.'),
-  town: Yup.string().required('Cidade é obrigatória.'),
-  district: Yup.string().required('Bairro é obrigatório.'),
+  city: Yup.string().required('Cidade é obrigatória.'),
+  neighborhood: Yup.string().required('Bairro é obrigatório.'),
   state: Yup.string().required('Estado é obrigatório.'),
   number: Yup.number()
     .required('Número é obrigatório.')
@@ -66,15 +65,15 @@ export default function SignUpIII({ route }: any) {
       photo,
       street: values.street,
       number: values.number,
-      neighborhood: values.district,
-      city: values.town,
+      neighborhood: values.neighborhood,
+      city: values.city,
       zipcode: values.cep,
       state: values.state,
       nickname: values.nickname,
     });
 
     // if (error === false) {
-      navigation.navigate('SignUpSuccess' as never);
+    navigation.navigate('SignUpSuccess' as never);
     // }
   }
 
@@ -117,89 +116,154 @@ export default function SignUpIII({ route }: any) {
 
             <TwoInputsView>
               <HalfInput>
-                <InputForm
-                  name="nickname"
-                  placeholder="Apelido do End."
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
-                  keyboardType="default"
+                <Controller
                   control={control}
-                  error={errors.nickname && errors.nickname.message}
-                  editable={true}
-                  src={theme.ICONS.LOCAL}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="nickname"
+                      placeholder="Apelido do End."
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="default"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.nickname && errors.nickname.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="nickname"
                 />
               </HalfInput>
+
               <HalfInputTwo>
-                <InputForm
-                  name="cep"
-                  placeholder="CEP"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
-                  keyboardType="number-pad"
+                <Controller
                   control={control}
-                  error={errors.cep && errors.cep.message}
-                  editable={true}
-                  src={theme.ICONS.LOCAL}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="cep"
+                      placeholder="CEP"
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="number-pad"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.cep && errors.cep.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="cep"
                 />
               </HalfInputTwo>
             </TwoInputsView>
-            <InputForm
+
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="street"
+                  placeholder="Rua"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.street && errors.street.message}
+                  editable={true}
+                  src={theme.ICONS.LOCAL}
+                />
+              )}
               name="street"
-              placeholder="Rua"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="default"
-              control={control}
-              error={errors.street && errors.street.message}
-              editable={true}
-              src={theme.ICONS.LOCAL}
             />
 
-            <InputForm
-              name="town"
-              placeholder="Cidade"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="default"
+            <Controller
               control={control}
-              error={errors.town && errors.town.message}
-              editable={true}
-              src={theme.ICONS.LOCAL}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="city"
+                  placeholder="Cidade"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.city && errors.city.message}
+                  editable={true}
+                  src={theme.ICONS.LOCAL}
+                />
+              )}
+              name="city"
             />
 
-            <InputForm
-              name="district"
-              placeholder="Bairro"
-              placeholderTextColor={theme.COLORS.SECONDARY_400}
-              keyboardType="default"
+            <Controller
               control={control}
-              error={errors.district && errors.district.message}
-              editable={true}
-              src={theme.ICONS.LOCAL}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="neighborhood"
+                  placeholder="Bairro"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.neighborhood && errors.neighborhood.message}
+                  editable={true}
+                  src={theme.ICONS.LOCAL}
+                />
+              )}
+              name="neighborhood"
             />
 
             <TwoInputsViewTwo>
               <HalfInputThree>
-                <InputForm
-                  name="state"
-                  placeholder="Estado"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
-                  keyboardType="number-pad"
+                <Controller
                   control={control}
-                  error={errors.state && errors.state.message}
-                  editable={true}
-                  src={theme.ICONS.LOCAL}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="state"
+                      placeholder="Estado"
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="default"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.state && errors.state.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="state"
                 />
               </HalfInputThree>
 
-              <HalfInputFour>
-                <InputForm
-                  name="number"
-                  placeholder="Número"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
-                  keyboardType="number-pad"
+              <HalfInputThree>
+                <Controller
                   control={control}
-                  error={errors.number && errors.number.message}
-                  editable={true}
-                  src={theme.ICONS.LOCAL}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="number"
+                      placeholder="Número"
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="default"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.number && errors.number.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="number"
                 />
-              </HalfInputFour>
+              </HalfInputThree>
             </TwoInputsViewTwo>
           </Content>
           <BtnView>

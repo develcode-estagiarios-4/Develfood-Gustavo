@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { ButtonTouchable } from '../../components/ButtonTouchable';
 
 export const Container = styled.ScrollView`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
@@ -29,10 +28,6 @@ justify-content: space-between ;
 `;
 
 export const HalfInputThree = styled.View`
-width: ${RFValue(140)}px;
-`;
-
-export const HalfInputFour = styled.View`
 width: ${RFValue(140)}px;
 `;
 

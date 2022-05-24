@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { TextInputProps, Text, View, KeyboardTypeOptions, ImageSourcePropType } from 'react-native';
+import {
+  TextInputProps,
+  Text,
+  View,
+  KeyboardTypeOptions,
+  ImageSourcePropType,
+} from 'react-native';
 import { useTheme } from 'styled-components';
 
 import {
@@ -17,6 +23,9 @@ interface Props extends TextInputProps {
   placeholder: string;
   placeholderTextColor: string;
   keyboardType: KeyboardTypeOptions;
+  onChangeText: (value: string) => void;
+  value: string;
+  maxLength?: number;
   control: Control;
   error: string;
   editable: boolean;
@@ -31,13 +40,18 @@ export function InputForm({
   placeholder,
   placeholderTextColor,
   keyboardType,
+  onChangeText,
+  value,
+  maxLength,
   editable,
   src,
-  defaultValue
+  defaultValue,
 }: Props) {
   const theme = useTheme();
 
-  const [iconHidePassword, setIconHidePassword] = useState<ImageSourcePropType>({});
+  const [iconHidePassword, setIconHidePassword] = useState<ImageSourcePropType>(
+    {},
+  );
 
   const [isPressed, setIsPressed] = useState(true);
 
@@ -45,22 +59,22 @@ export function InputForm({
     email: '',
     password: '',
     secureTextEntry: false,
-    isPressed: true
+    isPressed: true,
   });
 
   const updateSecureTextEntry = () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
-      isPressed: !data.isPressed
+      isPressed: !data.isPressed,
     });
   };
 
   useEffect(() => {
     if (data.isPressed) {
-      setIconHidePassword(theme.ICONS.HIDE)
-    }  else {
-      setIconHidePassword(theme.ICONS.NOHIDE)
+      setIconHidePassword(theme.ICONS.HIDE);
+    } else {
+      setIconHidePassword(theme.ICONS.NOHIDE);
     }
   }, [data.isPressed]);
 
@@ -68,23 +82,17 @@ export function InputForm({
     <View>
       <Container>
         <LoginIcon source={src} />
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, value } }) => (
-            <InputLogin
-              placeholder={placeholder}
-              placeholderTextColor={placeholderTextColor}
-              keyboardType={keyboardType}
-              secureTextEntry={data.secureTextEntry}
-              onChangeText={onChange}
-              value={value}
-              editable={editable}
-              hasRightIcon={name === 'password' || name === 'confirmPassword'}
-              defaultValue={defaultValue}
-            />
-          )}
-          name={name}
+        <InputLogin
+          placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
+          keyboardType={keyboardType}
+          secureTextEntry={data.secureTextEntry}
+          onChangeText={onChangeText}
+          value={value}
+          maxLength={maxLength}
+          editable={editable}
+          hasRightIcon={name === 'password' || name === 'confirmPassword'}
+          defaultValue={defaultValue}
         />
 
         {(name === 'password' || name === 'confirmPassword') && (
@@ -93,9 +101,9 @@ export function InputForm({
               source={iconHidePassword}
               style={{ tintColor: theme.COLORS.SECONDARY_100 }}
             />
-          </IconPassword> 
+          </IconPassword>
         )}
-      </Container> 
+      </Container>
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </View>
   );

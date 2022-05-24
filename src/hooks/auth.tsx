@@ -149,7 +149,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         ],
       },
     };
-    console.log(signUpData)
+    console.log(signUpData.costumer.address)
 
     setRequest({
       endpoint: '/user',
