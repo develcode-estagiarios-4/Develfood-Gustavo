@@ -1,9 +1,6 @@
 import styled, {css} from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-
-interface InputProps {
-  hasRightIcon: boolean;
-}
+import {TextInputMask} from 'react-native-masked-text';
 
 export const Container = styled.View`
   width: 100%;
@@ -23,24 +20,11 @@ export const LoginIcon = styled.Image`
   height: ${RFValue(26.5)}px;`;
 
 
-export const InputLogin = styled.TextInput<InputProps>`
+export const MaskedInput = styled(TextInputMask)`
   padding-left: ${RFValue(8)}px;
   color: ${({ theme }) => theme.COLORS.SECONDARY_500};
   font-size: ${RFValue(14)}px;
   width: 88%;
-  ${({ hasRightIcon }) => hasRightIcon && css`
-  padding-right: ${RFValue(42)}px;
-  `}
-`;
-
-export const IconPassword = styled.TouchableOpacity`
-  position: absolute;
-  right: ${RFValue(10)}px;
-`;
-
-export const HideIcon = styled.Image`
-  width: ${RFValue(22)}px;
-  height: ${RFValue(22)}px;
 `;
 
 export const ErrorMessage = styled.Text`

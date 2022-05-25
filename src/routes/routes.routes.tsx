@@ -11,8 +11,6 @@ import { Profile } from '../screens/Profile/Profile';
 
 import { TabBarIcon } from '../components/NavigationBar/TabBarIcon';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignUpI from '../screens/SignUpI/SignUpI';
-import { RFValue } from 'react-native-responsive-fontsize';
 import theme from '../theme';
 
 export default function AppRoutes() {

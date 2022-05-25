@@ -23,6 +23,7 @@ export default {
 
     SHAPE: '#DCDCDC',
     TITLE: '#FFF',
+    TEXT: '#2B2B2E',
 
     GRADIENT: ['#B83341', '#E03F50'],
   },
@@ -45,6 +46,8 @@ export default {
     CPF: require('../assets/cpf24.png') ,
     PHONE: require('../assets/telefone.png'),
     LOCAL: require('../assets/local2.png') ,
+    CLOSE: require('../assets/close.png'),
+    BACK: require('../assets/back.png')
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),

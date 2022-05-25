@@ -1,9 +1,49 @@
 import React from 'react';
-import { Text } from 'react-native';
+import {
+  Container,
+  Content,
+  Person,
+  InfoWrapper,
+  Title,
+  Description,
+} from './styles';
 
-export default function SignUpSuccess() {
+import { Header } from '../../components/Header';
+import { ButtonTouchable } from '../../components/ButtonTouchable';
+import successperson from '../../assets/successperson.png';
 
-    return (
-        <Text>SUCESSO</Text>
-    )
+import { useNavigation } from '@react-navigation/native';
+
+
+export default function SignUpIII() {
+  const navigation = useNavigation();
+
+  return (
+    <>
+      <Header
+        name="close"
+        title="Cadastro"
+        onPressLeftButton={() => {
+          navigation.goBack();
+        }}
+      />
+      <Container>
+        <Content>
+          <Person source={successperson} />
+          <InfoWrapper>
+            <Title>Cadastro finalizado!</Title>
+            <Description>
+              Parabéns! Agora você pode aproveitar nossas ofertas e serviços e
+              economizar com super cupons Develfood.
+            </Description>
+          </InfoWrapper>
+        </Content>
+        <ButtonTouchable
+          onPressed={() => {navigation.navigate('SignIn' as never)}}
+          title="Concluir"
+          isLoading={false}
+        />
+      </Container>
+    </>
+  );
 }

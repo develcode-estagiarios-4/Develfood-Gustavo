@@ -1,38 +1,32 @@
 import React from 'react';
-import { Text } from 'react-native-svg';
-import { Header } from '../../components/Header';
+import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import {
   Container,
   Content,
-  Ball1,
-  Ball2,
-  Ball3,
+  Ball,
   Balls,
-  BorderBall1,
-  BorderBall2,
-  BorderBall3,
+  BallWrapper,
+  BorderBall,
   Person,
   BtnView,
 } from './styles';
 
+import { Header } from '../../components/Header';
+import { InputForm } from '../../components/InputForm';
+import { ButtonTouchable } from '../../components/ButtonTouchable';
 import personleft from '../../assets/pessoa1.png';
 
-import { InputForm } from '../../components/InputForm';
 import theme from '../../theme';
-
-import {
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
-} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, useForm } from 'react-hook-form';
-import { ButtonTouchable } from '../../components/ButtonTouchable';
-import { useNavigation } from '@react-navigation/native';
+
+interface DataStepOneProp {
+  email: string;
+  password: string;
+}
 
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('Email é obrigatório.'),
@@ -45,86 +39,132 @@ const schema = Yup.object().shape({
 export default function SignUpI() {
   const navigation = useNavigation();
 
-  // function handleSignUp() {
-  // const values = getValues();
-  // values.email, values.password, values.confirmPassword
-  // }
+  function handleNextStep() {
+    const values = getValues();
+
+    const data: DataStepOneProp = {
+      email: values.email,
+      password: values.password,
+    };
+
+    navigation.navigate(
+      'SignUpII' as never,
+      {
+        email: values.email,
+        password: values.password,
+      } as never,
+    );
+  }
 
   const {
     control,
-    // getValues,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => navigation.navigate('SignUpII' as never);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
+      <View>
         <Header
           title="Cadastro"
-          onPressBackButton={() => {
+          onPressLeftButton={() => {
             navigation.goBack();
           }}
         />
-        <Content>
-          <Balls>
-            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-            <Ball1 source={theme.IMAGES.BALL} />
+        <Container>
+          <Content>
+            <Balls>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+            </Balls>
 
-            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-            <Ball2 source={theme.IMAGES.BALL} />
+            <Person source={personleft} />
 
-            <BorderBall3 source={theme.IMAGES.BORDERBALL} />
-            <Ball3 source={theme.IMAGES.BALL} />
-          </Balls>
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="email"
+                  placeholder="exemplo@email.com"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="email-address"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.email && errors.email.message}
+                  editable={true}
+                  src={theme.ICONS.EMAIL}
+                />
+              )}
+              name="email"
+            />
 
-          <Person source={personleft} />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="password"
+                  placeholder="senha"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.password && errors.password.message}
+                  editable={true}
+                  src={theme.ICONS.PASSWORD}
+                />
+              )}
+              name="password"
+            />
 
-          <InputForm
-            name="email"
-            placeholder="exemplo@email.com"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="email-address"
-            control={control}
-            error={errors.email && errors.email.message}
-            editable={true}
-            src={theme.ICONS.EMAIL}
-          />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="confirmPassword"
+                  placeholder="confirmar senha"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={
+                    errors.confirmPassword && errors.confirmPassword.message
+                  }
+                  editable={true}
+                  src={theme.ICONS.PASSWORD}
+                />
+              )}
+              name="confirmPassword"
+            />
+          </Content>
 
-          <InputForm
-            name="password"
-            placeholder="senha"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="default"
-            control={control}
-            error={errors.password && errors.password.message}
-            editable={true}
-            src={theme.ICONS.PASSWORD}
-          />
-
-          <InputForm
-            name="confirmPassword"
-            placeholder="confirmar senha"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="default"
-            control={control}
-            error={errors.confirmPassword && errors.confirmPassword.message}
-            editable={true}
-            src={theme.ICONS.PASSWORD}
-          />
-        </Content>
-        <BtnView>
-          <ButtonTouchable
-            onPressed={handleSubmit(onSubmit)}
-            title="Continuar"
-            isLoading={false}
-          />
-        </BtnView>
-      </Container>
+          <BtnView>
+            <ButtonTouchable
+              onPressed={handleSubmit(handleNextStep)}
+              title="Continuar"
+              isLoading={false}
+            />
+          </BtnView>
+        </Container>
+      </View>
     </TouchableWithoutFeedback>
   );
 }

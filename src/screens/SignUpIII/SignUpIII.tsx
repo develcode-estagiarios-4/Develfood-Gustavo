@@ -1,54 +1,80 @@
 import React from 'react';
-import { Header } from '../../components/Header';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   Container,
   Content,
-  Ball1,
-  Ball2,
-  Ball3,
-  Balls,
-  BorderBall1,
-  BorderBall2,
-  BorderBall3,
-  Person,
+  TwoInputsView,
+  BtnView,
+  HalfInput,
+  HalfInputTwo,
+  TwoInputsViewTwo,
+  HalfInputThree,
 } from './styles';
 
-import { InputForm } from '../../components/InputForm';
-import theme from '../../theme';
-
 import {
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+  Ball,
+  Balls,
+  BallWrapper,
+  BorderBall,
+  Person,
+} from '../SignUpI/styles';
 
+import { Header } from '../../components/Header';
+import { InputForm } from '../../components/InputForm';
+import { ButtonTouchable } from '../../components/ButtonTouchable';
 import personright from '../../assets/pessoa3.png';
+
+import theme from '../../theme';
+import { useAuth } from '../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, useForm } from 'react-hook-form';
-import { ButtonTouchable } from '../../components/ButtonTouchable';
-import { useNavigation } from '@react-navigation/native';
 
 const schema = Yup.object().shape({
+  nickname: Yup.string().required('Apelido do endereço é obrigatório.'),
+  cep: Yup.number().required('CEP é obrigatório.').typeError('Somente números'),
   street: Yup.string().required('Rua é obrigatória.'),
-  town: Yup.string().required('Cidade é obrigatória.'),
-  district: Yup.string().required('Bairro é obrigatório.'),
+  city: Yup.string().required('Cidade é obrigatória.'),
+  neighborhood: Yup.string().required('Bairro é obrigatório.'),
+  state: Yup.string().required('Estado é obrigatório.'),
   number: Yup.number()
-    .required('Número é obrigatório.')
-    .typeError('Somente números'),
-  cep: Yup.number()
     .required('Número é obrigatório.')
     .typeError('Somente números'),
 });
 
-export default function SignUpIII() {
+export default function SignUpIII({ route }: any) {
   const navigation = useNavigation();
 
-  function handleSignUp() {
+  const { signUp, loading, error } = useAuth();
+
+  async function handleSignUp() {
+    const { email, password, firstName, lastName, cpf, phone, photo } =
+      route.params;
+
     const values = getValues();
-    // signUp(values.email, values.password)
+
+    signUp({
+      email,
+      password,
+      firstName,
+      lastName,
+      cpf,
+      phone,
+      photo,
+      street: values.street,
+      number: values.number,
+      neighborhood: values.neighborhood,
+      city: values.city,
+      zipcode: values.cep,
+      state: values.state,
+      nickname: values.nickname,
+    });
+
+    // if (error === false) {
+    navigation.navigate('SignUpSuccess' as never);
+    // }
   }
 
   const {
@@ -60,93 +86,195 @@ export default function SignUpIII() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => navigation.navigate('SignUpSuccess' as never);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
+      <>
         <Header
           title="Cadastro"
-          onPressBackButton={() => {
+          onPressLeftButton={() => {
             navigation.goBack();
           }}
         />
-        <Content>
-          <Balls>
-            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-            <Ball1 source={theme.IMAGES.GREENBALL} />
+        <Container showsVerticalScrollIndicator={false}>
+          <Content>
+            <Balls>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.GREENBALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.GREENBALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+            </Balls>
 
-            <BorderBall2 source={theme.IMAGES.BORDERBALL} />
-            <Ball2 source={theme.IMAGES.GREENBALL} />
+            <Person source={personright} />
 
-            <BorderBall3 source={theme.IMAGES.BORDERBALL} />
-            <Ball3 source={theme.IMAGES.BALL} />
-          </Balls>
+            <TwoInputsView>
+              <HalfInput>
+                <Controller
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="nickname"
+                      placeholder="Apelido do End."
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="default"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.nickname && errors.nickname.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="nickname"
+                />
+              </HalfInput>
 
-          <Person source={personright} />
+              <HalfInputTwo>
+                <Controller
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="cep"
+                      placeholder="CEP"
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="number-pad"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.cep && errors.cep.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="cep"
+                />
+              </HalfInputTwo>
+            </TwoInputsView>
 
-          <InputForm
-            name="street"
-            placeholder="Rua"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="default"
-            control={control}
-            error={errors.street && errors.street.message}
-            editable={true}
-            src={theme.ICONS.LOCAL}
-          />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="street"
+                  placeholder="Rua"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.street && errors.street.message}
+                  editable={true}
+                  src={theme.ICONS.LOCAL}
+                />
+              )}
+              name="street"
+            />
 
-          <InputForm
-            name="town"
-            placeholder="Cidade"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="default"
-            control={control}
-            error={errors.town && errors.town.message}
-            editable={true}
-            src={theme.ICONS.LOCAL}
-          />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="city"
+                  placeholder="Cidade"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.city && errors.city.message}
+                  editable={true}
+                  src={theme.ICONS.LOCAL}
+                />
+              )}
+              name="city"
+            />
 
-          <InputForm
-            name="district"
-            placeholder="Bairro"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="default"
-            control={control}
-            error={errors.district && errors.district.message}
-            editable={true}
-            src={theme.ICONS.LOCAL}
-          />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="neighborhood"
+                  placeholder="Bairro"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.neighborhood && errors.neighborhood.message}
+                  editable={true}
+                  src={theme.ICONS.LOCAL}
+                />
+              )}
+              name="neighborhood"
+            />
 
-          <InputForm
-            name="number"
-            placeholder="Número"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="number-pad"
-            control={control}
-            error={errors.number && errors.number.message}
-            editable={true}
-            src={theme.ICONS.LOCAL}
-          />
+            <TwoInputsViewTwo>
+              <HalfInputThree>
+                <Controller
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="state"
+                      placeholder="Estado"
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="default"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.state && errors.state.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="state"
+                />
+              </HalfInputThree>
 
-          <InputForm
-            name="cep"
-            placeholder="CEP"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="number-pad"
-            control={control}
-            error={errors.cep && errors.cep.message}
-            editable={true}
-            src={theme.ICONS.LOCAL}
-          />
-
-          <ButtonTouchable
-            onPressed={handleSubmit(onSubmit)}
-            title="Continuar"
-            isLoading={false}
-          />
-        </Content>
-      </Container>
+              <HalfInputThree>
+                <Controller
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputForm
+                      name="number"
+                      placeholder="Número"
+                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      keyboardType="default"
+                      onChangeText={onChange}
+                      value={value}
+                      control={control}
+                      error={errors.number && errors.number.message}
+                      editable={true}
+                      src={theme.ICONS.LOCAL}
+                    />
+                  )}
+                  name="number"
+                />
+              </HalfInputThree>
+            </TwoInputsViewTwo>
+          </Content>
+          <BtnView>
+            <ButtonTouchable
+              onPressed={handleSubmit(handleSignUp)}
+              title="Continuar"
+              isLoading={loading}
+            />
+          </BtnView>
+        </Container>
+      </>
     </TouchableWithoutFeedback>
   );
 }

@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { api } from './api';
 
-interface ErrorText {
-  title?: string;
-  message?: string;
-}
 
 export function usePost<T = unknown, TResponse = unknown>(url: string, body?: T, options?: AxiosRequestConfig) {
   const [data, setData] = useState<TResponse>({} as TResponse);
@@ -23,10 +19,13 @@ export function usePost<T = unknown, TResponse = unknown>(url: string, body?: T,
         console.log(response.data);
       } catch (error) {
         setError(error);
-        Alert.alert(title, message)
+        // Alert.alert(title, message)
         console.log(error)
+        console.log(title, message)
       } finally {
         setLoading(false);
+        console.log('POST---->', body);
+
       }
     }
 

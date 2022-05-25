@@ -1,132 +1,185 @@
 import React from 'react';
-import { Header } from '../../components/Header';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Container, Content, BtnView } from './styles';
+
 import {
-  Container,
-  Content,
-  Ball1,
-  Ball2,
-  Ball3,
+  Ball,
   Balls,
-  BorderBall1,
-  BorderBall2,
-  BorderBall3,
+  BallWrapper,
+  BorderBall,
   Person,
-} from './styles';
+} from '../SignUpI/styles';
 
+import { Header } from '../../components/Header';
 import { InputForm } from '../../components/InputForm';
-import theme from '../../theme';
-
-import {
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
-} from 'react-native';
-
+import { ButtonTouchable } from '../../components/ButtonTouchable';
 import personup from '../../assets/pessoa2.png';
+
+import theme from '../../theme';
+import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, useForm } from 'react-hook-form';
-import { ButtonTouchable } from '../../components/ButtonTouchable';
-import { useNavigation } from '@react-navigation/native';
-import { BtnView } from '../SignUpI/styles';
-import { ThemeConsumer } from 'styled-components';
+
+import { InputMask } from '../../components/InputMask';
+import { cpf } from 'cpf-cnpj-validator';
 
 const schema = Yup.object().shape({
-  nome: Yup.string().required('Nome é obrigatório.'),
-  cpf: Yup.number()
-    .required('Informe seu CPF.')
-    .typeError('CPF deve ser um número'),
-  telefone: Yup.number()
-    .typeError('Telefone deve ser um número')
-    .required('Informe seu telefone.'),
+  firstName: Yup.string().required('Nome é obrigatório.'),
+  lastName: Yup.string().required('Sobrenome é obrigatório.'),
+  cpf: Yup.string().test('is-cpf', 'CPF inválido', (value: any) =>
+    cpf.isValid(value),
+  ),
+  phone: Yup.string().required('Informe seu telefone.'),
 });
 
-export default function SignUpII() {
+export default function SignUpII({ route }: any) {
   const navigation = useNavigation();
 
-  //   function handleSignUp() {
-  //     const values = getValues();
-  //     // signUp(values.email, values.password)
-  //   }
+  function handleSignUp() {
+    const { email, password } = route.params;
+    const values = getValues();
+
+    navigation.navigate(
+      'SignUpIII' as never,
+      {
+        email,
+        password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        cpf: values.cpf,
+        phone: values.phone,
+        photo: '',
+      } as never,
+    );
+  }
 
   const {
     control,
-    // getValues,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => navigation.navigate('SignUpIII' as never);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
+      <>
         <Header
           title="Cadastro"
-          onPressBackButton={() => {
+          onPressLeftButton={() => {
             navigation.goBack();
           }}
         />
-        <Content>
-          <Balls>
-            <BorderBall1 source={theme.IMAGES.BORDERBALL} />
-            <Ball1 source={theme.IMAGES.GREENBALL} />
+        <Container showsVerticalScrollIndicator={false}>
+          <Content>
+            <Balls>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.GREENBALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+              <BallWrapper>
+                <BorderBall source={theme.IMAGES.BORDERBALL} />
+                <Ball source={theme.IMAGES.BALL} />
+              </BallWrapper>
+            </Balls>
 
-            <BorderBall2 source={theme.IMAGES.BORDERBALL} />
-            <Ball2 source={theme.IMAGES.BALL} />
+            <Person source={personup} />
 
-            <BorderBall3 source={theme.IMAGES.BORDERBALL} />
-            <Ball3 source={theme.IMAGES.BALL} />
-          </Balls>
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="firstName"
+                  placeholder="Nome"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.firstName && errors.firstName.message}
+                  editable={true}
+                  src={theme.ICONS.NAME}
+                />
+              )}
+              name="firstName"
+            />
 
-          <Person source={personup} />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="lastName"
+                  placeholder="Sobrenome"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="default"
+                  onChangeText={onChange}
+                  value={value}
+                  control={control}
+                  error={errors.lastName && errors.lastName.message}
+                  editable={true}
+                  src={theme.ICONS.NAME}
+                />
+              )}
+              name="lastName"
+            />
 
-          <InputForm
-            name="nome"
-            placeholder="Nome"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="email-address"
-            control={control}
-            error={errors.nome && errors.nome.message}
-            editable={true}
-            src={theme.ICONS.NAME}
-          />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputForm
+                  name="cpf"
+                  placeholder="CPF"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="number-pad"
+                  onChangeText={onChange}
+                  value={cpf.format(value)}
+                  control={control}
+                  error={errors.cpf && errors.cpf.message}
+                  editable={true}
+                  src={theme.ICONS.CPF}
+                />
+              )}
+              name="cpf"
+            />
 
-          <InputForm
-            name="cpf"
-            placeholder="CPF"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="number-pad"
-            control={control}
-            error={errors.cpf && errors.cpf.message}
-            editable={true}
-            src={theme.ICONS.CPF}
-          />
+            <Controller
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => (
+                <InputMask
+                  placeholder="Telefone"
+                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  keyboardType="number-pad"
+                  onChangeText={onChange}
+                  value={cpf.format(value)}
+                  error={errors.phone && errors.phone.message}
+                  editable={true}
+                  src={theme.ICONS.PHONE}
+                />
+              )}
+              name="phone"
+            />
+          </Content>
 
-          <InputForm
-            name="telefone"
-            placeholder="Telefone"
-            placeholderTextColor={theme.COLORS.SECONDARY_400}
-            keyboardType="number-pad"
-            control={control}
-            error={errors.telefone && errors.telefone.message}
-            editable={true}
-            src={theme.ICONS.PHONE}
-          />
-        </Content>
-        <BtnView>
-          <ButtonTouchable
-            onPressed={handleSubmit(onSubmit)}
-            title="Continuar"
-            isLoading={false}
-          />
-        </BtnView>
-      </Container>
+          <BtnView>
+            <ButtonTouchable
+              onPressed={handleSubmit(handleSignUp)}
+              title="Continuar"
+              isLoading={false}
+            />
+          </BtnView>
+        </Container>
+      </>
     </TouchableWithoutFeedback>
   );
 }

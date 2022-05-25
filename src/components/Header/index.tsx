@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../hooks/auth';
+import theme from '../../theme';
 
 import { 
     Container, 
@@ -15,19 +17,28 @@ import {
 } from './styles'
 
 interface HeaderProps {
+    name?: string;
     title: string;
-    onPressBackButton: Function;
+    onPressLeftButton: Function;
 }
 
-export function Header({title, onPressBackButton}: HeaderProps) {
+export function Header({name, title, onPressLeftButton}: HeaderProps) {
+
+  const { loading } = useAuth();
 
     return(
         <Container>
 
             <LeftSpace>
 
-                <LeftButton onPress={() => onPressBackButton()}>
-                    <LeftIconButton source={require('../../assets/arrow_back_FILL0_wght400_GRAD0_opsz48.png')}/>
+                <LeftButton 
+                disabled={loading}
+                onPress={() => onPressLeftButton()}>
+                    <LeftIconButton source={
+                    name === 'close' ? theme.ICONS.CLOSE
+                    : theme.ICONS.BACK
+                    }
+                    />
                 </LeftButton>
 
                 <LeftIconWrapper>

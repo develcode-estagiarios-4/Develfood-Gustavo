@@ -6,21 +6,47 @@ import React, {
   useState,
 } from 'react';
 import { usePost } from '../services';
-
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface User {
-  token: string;
-  name: string;
+interface SignUpProps {
   email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  cpf: string;
+  phone: string;
+  photo: string;
+  street: string;
+  number: string;
+  neighborhood: string;
+  city: string;
+  zipcode: string;
+  state: string;
+  nickname: string;
 }
 interface IAuthContextData {
-  user: User;
   loading: boolean;
   signIn(email: string, password: string): Promise<void>;
+  signUp({
+    email,
+    password,
+    firstName,
+    lastName,
+    cpf,
+    phone,
+    photo,
+    street,
+    number,
+    neighborhood,
+    city,
+    zipcode,
+    state,
+    nickname,
+  }: SignUpProps): void;
   token: string;
+  error: boolean;
 }
 
 interface CreateUserRequest {
@@ -38,14 +64,16 @@ interface RequestProps {
   error: {
     title: string;
     message: string;
-  }
+  };
 }
 
 export const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(false);
-  const [request, setRequest] = useState({} as RequestProps)
+  const [request, setRequest] = useState({} as RequestProps);
+  const [signUpUserData, setSignUpUserData] = useState({} as any);
+  const [error, setError] = useState(false);
 
   const {
     data: dataPost,
@@ -56,37 +84,88 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     setLoading(loadingPost);
-  }, [loadingPost]);
+  }, [loadingPost, signUpUserData]);
 
-  useEffect(()=>{
+  useEffect(() => {
     !!request.endpoint &&
-    handlerPost(request.error.title, request.error.message)
-  }, [request])
-
-  const user = {
-    token: '123',
-    name: 'Gustavo Sobbrero',
-    email: 'gustavo.sobbrero@develcode.com.br',
-  };
+      handlerPost(request.error.title, request.error.message);
+    !errorPost ? setError(true) : setError(false);
+  }, [request]);
 
   async function signIn(email: string, password: string) {
     setRequest({
       endpoint: '/auth',
       body: {
         email,
-        password
+        password,
       },
-      error: {title: 'Erro de autenticação', message: 'E-mail e/ou senha inválidos'}
-    })
-    }
+      error: {
+        title: 'Erro de autenticação',
+        message: 'E-mail e/ou senha inválidos',
+      },
+    });
+  }
+
+  function signUp({
+    email,
+    password,
+    firstName,
+    lastName,
+    cpf,
+    phone,
+    photo,
+    street,
+    number,
+    neighborhood,
+    city,
+    zipcode,
+    state,
+    nickname,
+  }: SignUpProps) {
+
+    const signUpData = {
+      email,
+      password,
+      creationDate: new Date(),
+      role: {
+        id: 2,
+      },
+      costumer: {
+        firstName,
+        lastName,
+        cpf,
+        phone,
+        photo,
+        address: [
+          {
+            street,
+            number,
+            neighborhood,
+            city,
+            zipCode: zipcode,
+            state,
+            nickname,
+          },
+        ],
+      },
+    };
+    console.log(signUpData.costumer.address)
+
+    setRequest({
+      endpoint: '/user',
+      body: signUpData, 
+      error: { title: 'Erro de cadastro', message: 'Dados inválidos' },
+    });
+  }
 
   return (
     <AuthContext.Provider
       value={{
-        user,
         loading,
         signIn,
+        signUp,
         token: dataPost.token,
+        error,
       }}
     >
       {children}
