@@ -35,7 +35,6 @@ interface Props extends TextInputProps {
 
 export function InputForm({
   name,
-  control,
   error,
   placeholder,
   placeholderTextColor,
@@ -52,8 +51,6 @@ export function InputForm({
   const [iconHidePassword, setIconHidePassword] = useState<ImageSourcePropType>(
     {},
   );
-
-  const [isPressed, setIsPressed] = useState(true);
 
   const [data, setData] = useState({
     email: '',
@@ -82,6 +79,7 @@ export function InputForm({
     <View>
       <Container>
         <LoginIcon source={src} />
+        
         <InputLogin
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
@@ -93,18 +91,18 @@ export function InputForm({
           editable={editable}
           hasRightIcon={name === 'password' || name === 'confirmPassword'}
           defaultValue={defaultValue}
-        />
+          />
 
         {(name === 'password' || name === 'confirmPassword') && (
           <IconPassword onPress={() => updateSecureTextEntry()}>
             <HideIcon
               source={iconHidePassword}
               style={{ tintColor: theme.COLORS.SECONDARY_100 }}
-            />
+              />
           </IconPassword>
         )}
       </Container>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
     </View>
   );
 }

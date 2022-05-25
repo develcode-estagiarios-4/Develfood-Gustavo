@@ -72,9 +72,9 @@ export default function SignUpIII({ route }: any) {
       nickname: values.nickname,
     });
 
-    // if (error === false) {
+    if (error === false) {
     navigation.navigate('SignUpSuccess' as never);
-    // }
+    }
   }
 
   const {

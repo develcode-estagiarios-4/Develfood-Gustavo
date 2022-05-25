@@ -19,7 +19,7 @@ export function usePost<T = unknown, TResponse = unknown>(url: string, body?: T,
         console.log(response.data);
       } catch (error) {
         setError(error);
-        // Alert.alert(title, message)
+        Alert.alert(title, message)
         console.log(error)
         console.log(title, message)
       } finally {

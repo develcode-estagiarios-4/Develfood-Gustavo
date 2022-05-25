@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
 
@@ -46,15 +46,11 @@ export const LabelLogo = styled.Image`
 
 export const ForgotPasswordButton = styled.TouchableOpacity`
   align-self: flex-end;
-  margin-bottom: ${RFValue(0)}px;
-  margin-top: ${RFValue(0)}px;
-
 `;
 
 export const ForgotPasswordLabel = styled.Text`
   font-size: ${RFValue(14)}px;
   font-weight: bold;
-  margin-top: ${RFValue(0)}px;
   margin-bottom: ${RFValue(19)}px;
 `;
 
@@ -64,7 +60,6 @@ export const RegisterWrapper = styled.View`
   justify-content: center;
   padding: 0 ${RFValue(20)}px;
   z-index: 1;
-
 `;
 
 export const NoRegisterLabel = styled.Text`

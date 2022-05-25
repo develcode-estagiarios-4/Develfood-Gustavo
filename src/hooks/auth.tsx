@@ -89,7 +89,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     !!request.endpoint &&
       handlerPost(request.error.title, request.error.message);
-    !errorPost ? setError(true) : setError(false);
+    errorPost ? setError(true) : setError(false);
   }, [request]);
 
   async function signIn(email: string, password: string) {

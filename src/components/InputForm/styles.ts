@@ -46,6 +46,7 @@ export const HideIcon = styled.Image`
 export const ErrorMessage = styled.Text`
 color: ${({ theme }) => theme.COLORS.ERROR};
 font-size: ${RFValue(14)}px;
-margin-bottom: ${RFValue(8)}px;
+margin-bottom: ${RFValue(12)}px;
+margin-top: ${RFValue(-10)}px;
 align-self: flex-start;
 `;
