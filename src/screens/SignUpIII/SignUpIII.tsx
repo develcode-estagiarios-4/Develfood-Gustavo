@@ -47,7 +47,7 @@ const schema = Yup.object().shape({
 export default function SignUpIII({ route }: any) {
   const navigation = useNavigation();
 
-  const { signUp, loading, error } = useAuth();
+  const { signUp, loading } = useAuth();
 
   async function handleSignUp() {
     const { email, password, firstName, lastName, cpf, phone, photo } =
@@ -72,9 +72,6 @@ export default function SignUpIII({ route }: any) {
       nickname: values.nickname,
     });
 
-    if (error === false) {
-    navigation.navigate('SignUpSuccess' as never);
-    }
   }
 
   const {

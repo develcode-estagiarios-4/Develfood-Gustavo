@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { AxiosError } from 'axios';
 import React, {
   createContext,
   ReactNode,
@@ -5,6 +7,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { Alert } from 'react-native';
 import { usePost } from '../services';
 interface AuthProviderProps {
   children: ReactNode;
@@ -46,7 +49,7 @@ interface IAuthContextData {
     nickname,
   }: SignUpProps): void;
   token: string;
-  error: boolean;
+  // id: number;
 }
 
 interface CreateUserRequest {
@@ -70,26 +73,34 @@ interface RequestProps {
 export const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
+const navigation = useNavigation();
+
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState({} as RequestProps);
-  const [signUpUserData, setSignUpUserData] = useState({} as any);
-  const [error, setError] = useState(false);
 
   const {
     data: dataPost,
     loading: loadingPost,
-    error: errorPost,
     handlerPost,
   } = usePost<any, any>(request.endpoint, request.body);
 
   useEffect(() => {
     setLoading(loadingPost);
-  }, [loadingPost, signUpUserData]);
+  }, [loadingPost, signUp]);
+
+function createUserSuccess(data: any) {
+  data.password && navigation.navigate('SignUpSuccess' as never)
+}
+
+function createUserError(error: AxiosError<any, any> | any) {
+  error && 
+  Alert.alert(request.error.title, request.error.message);
+
+}
 
   useEffect(() => {
     !!request.endpoint &&
-      handlerPost(request.error.title, request.error.message);
-    errorPost ? setError(true) : setError(false);
+      handlerPost(request.error.title, request.error.message, createUserError, createUserSuccess);
   }, [request]);
 
   async function signIn(email: string, password: string) {
@@ -106,7 +117,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     });
   }
 
-  function signUp({
+  async function signUp({
     email,
     password,
     firstName,
@@ -165,7 +176,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         signIn,
         signUp,
         token: dataPost.token,
-        error,
       }}
     >
       {children}
