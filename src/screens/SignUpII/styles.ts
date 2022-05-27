@@ -11,5 +11,6 @@ padding: 0 ${RFValue(36)}px;
 
 export const BtnView = styled.View`
 margin-top: ${RFValue(18)}px;
+margin-bottom: ${RFValue(12)}px;
 padding: 0 ${RFValue(36)}px;
 `;
