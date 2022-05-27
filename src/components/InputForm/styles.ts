@@ -27,7 +27,7 @@ export const InputLogin = styled.TextInput<InputProps>`
   padding-left: ${RFValue(8)}px;
   color: ${({ theme }) => theme.COLORS.SECONDARY_500};
   font-size: ${RFValue(14)}px;
-  width: 88%;
+  width: 74%;
   ${({ hasRightIcon }) => hasRightIcon && css`
   padding-right: ${RFValue(42)}px;
   `}

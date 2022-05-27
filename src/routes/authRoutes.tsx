@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react';
-
-
-import RNBootSplash from 'react-native-bootsplash';
+import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignIn from '../screens/SignIn/SignIn';
@@ -12,10 +9,6 @@ import SignUpSuccess from '../screens/SignUpSuccess/SignUpSuccess';
 
 export default function AuthRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();
-
-  useEffect(() => {
-    RNBootSplash.hide({ fade: true });
-  }, []);
 
   return (
     <>

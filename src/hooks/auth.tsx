@@ -49,7 +49,6 @@ interface IAuthContextData {
     nickname,
   }: SignUpProps): void;
   token: string;
-  // id: number;
 }
 
 interface CreateUserRequest {

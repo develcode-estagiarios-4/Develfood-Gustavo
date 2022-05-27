@@ -78,5 +78,8 @@ export const RegisterButtonLabel = styled.Text`
 
 export const FooterImage = styled.Image`
   margin-top: ${RFValue(-45)}px;
+  margin-bottom: ${RFValue(-40)}px;
+  align-self: center;
+
 `;
 

@@ -1,8 +1,7 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { ButtonTouchable } from '../../components/ButtonTouchable';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 padding: 0 ${RFValue(40)}px;
 
