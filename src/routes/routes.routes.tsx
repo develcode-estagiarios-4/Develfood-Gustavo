@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import RNBootSplash from 'react-native-bootsplash';
 
 import { Home } from '../screens/Home/Home';
 import { History } from '../screens/History/History';
@@ -10,15 +8,14 @@ import { Favorites } from '../screens/Favorites/Favorites';
 import { Profile } from '../screens/Profile/Profile';
 
 import { TabBarIcon } from '../components/NavigationBar/TabBarIcon';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import theme from '../theme';
 
 export default function AppRoutes() {
-  const { Navigator, Screen } = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
 
 
   return (
+
     <Tab.Navigator
     screenOptions={{
       headerShown: false,
@@ -38,6 +35,7 @@ export default function AppRoutes() {
         },
       }}
     />
+
     <Tab.Screen
       name="Favoritos"
       component={Favorites}
@@ -47,6 +45,7 @@ export default function AppRoutes() {
         },
       }}
     />
+
     <Tab.Screen
       name="Pedidos"
       component={History}
@@ -56,6 +55,7 @@ export default function AppRoutes() {
         },
       }}
     />
+
     <Tab.Screen
       name="Perfil"
       component={Profile}
