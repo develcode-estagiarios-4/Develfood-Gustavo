@@ -1,20 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Button } from 'react-native';
-import { Texto, Container } from './styles';
+import { FlatList, View, Button, StatusBar, Alert } from 'react-native';
+import {
+  Container,
+  Banners,
+  Banner,
+  CategorySelect,
+  TitleView,
+  Title,
+  Form,
+  BtnOption,
+  BtnLabel,
+  Content,
+  RestaurantList,
+} from './styles';
 import { useGet, usePost, usePut, useDelete } from '../../services';
 import { useAuth } from '../../hooks/auth';
+import { Header } from '../../components/Header';
+import theme from '../../theme';
+import { InputForm } from '../../components/InputForm';
+import { RestaurantCard } from '../../components/RestaurantCard';
 
-interface IData {
+interface ContentData {
+  id: number;
   name: string;
-  email: string;
-  gender: string;
-  status: string;
+  photo: string;
 }
-interface TResponse {
-  name: string;
-  email: string;
-  gender: string;
-  status: string;
+
+interface DataProps {
+  content?: ContentData[];
 }
 
 interface CreateUserRequest {
@@ -25,100 +38,141 @@ interface CreateUserRequest {
 }
 
 export const Home: React.FC<undefined> = () => {
-  const { data, loading, error } = useGet<IData[]>('/public/v2/users');
-
+  const { token } = useAuth();
   const {
-    data: dataPost,
-    loading: loadingPost,
-    error: errorPost,
-    handlerPost,
-  } = usePost<TResponse, CreateUserRequest>(
-    '/public/v2/users',
-    {
-      email: 'dsaasd@develcode.com.br',
-      name: 'Joao Dias',
-      gender: 'male',
-      status: 'active',
-    },
-    {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
-      },
-    },
-  );
-
-  const {
-    data: dataPut,
-    loading: loadingPut,
-    error: errorPut,
-    handlerPut,
-  } = usePut<TResponse, CreateUserRequest>(
-    '/public/v2/users/5773',
-    {
-      email: 'atualizando@develcode.com.br',
-      name: 'Gustavo L Sobbrero',
-      gender: 'male',
-      status: 'active',
-    },
-    {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
-      },
-    },
-  );
-
-  const {
-    data: dataDelete,
-    loading: loadingDelete,
-    error: errorDelete,
-    handlerDelete,
-  } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/5773', {
+    data: dataGet,
+    loading,
+    error,
+  } = useGet<DataProps>('/restaurant?page=0&quantity=10', {
     headers: {
-      'Content-type': 'application/json',
-      Authorization:
-        'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
+      Authorization: `Bearer ${token}`,
     },
   });
-  const { token } = useAuth();
 
-  useEffect(() => {
-    console.log('teste de acesso ao token: ', token) 
+  console.log(dataGet);
+  const data = [
+    {
+      name: 'joao',
+    },
+    { name: 'maria' },
+  ];
 
-  })
+function handleEndReached(){
+  Alert.alert('oi ne')
+}
+
+  // const { data, loading, error } = useGet<IData[]>('/public/v2/users');
+
+  // const {
+  //   data: dataPut,
+  //   loading: loadingPut,
+  //   error: errorPut,
+  //   handlerPut,
+  // } = usePut<TResponse, CreateUserRequest>(
+  //   '/public/v2/users/5773',
+  //   {
+  //     email: 'atualizando@develcode.com.br',
+  //     name: 'Gustavo L Sobbrero',
+  //     gender: 'male',
+  //     status: 'active',
+  //   },
+  //   {
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //       Authorization:
+  //         'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
+  //     },
+  //   },
+  // );
+
+  // const {
+  //   data: dataDelete,
+  //   loading: loadingDelete,
+  //   error: errorDelete,
+  //   handlerDelete,
+  // } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/5773', {
+  //   headers: {
+  //     'Content-type': 'application/json',
+  //     Authorization:
+  //       'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
+  //   },
+  // });
+  // const { token } = useAuth();
+
+  // useEffect(() => {
+  //   console.log('teste de acesso ao token: ', token)
+
+  // })
 
   return (
-    <Container>
-        {loading ? (
-          <Texto>Carregando dados...</Texto>
-        ) : (
-          <View>
-            <FlatList
-              data={data}
-              renderItem={({ item }) => (
-                <>
-                  <Texto>{item.name}</Texto>
-                </>
-              )}
-            />
-            <Button title="Enviar" onPress={() => handlerPost()} />
-            <Button title="Atualizar" onPress={() => handlerPut()} />
-            <Button title="Excluir" onPress={() => handlerDelete()} />
+    <>
+      <StatusBar backgroundColor={theme.COLORS.BACKGROUND} />
+      <Header
+        name="Home"
+        leftSpaceWidth="1%"
+        title=""
+        onPressLeftButton={() => {}}
+        srcLeftIcon={require('../../assets/localHeader.png')}
+        bgColor={theme.COLORS.BACKGROUND}
+        iconHeight={1}
+        iconWidth={1}
+        fontColor={theme.COLORS.BACKGROUND_LIGHT}
+        fontWeight={'400'}
+        address="rua Arcy da Rocha Nóbrega 667, Panazollo"
+      />
 
-            {loadingPost ? (
-              <Texto>Carregando postagem de usuário</Texto>
-            ) : (
-              <View>
-                <Texto>{dataPost.name}</Texto>
-                <Texto>{dataPost.email}</Texto>
-                <Texto>{dataPost.gender}</Texto>
-              </View>
+      <Container>
+        <Banners horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Banner source={require('../../assets/banner1.png')} />
+          <Banner source={require('../../assets/banner1.png')} />
+        </Banners>
+
+        <TitleView>
+          <Title>Categorias</Title>
+        </TitleView>
+
+        <CategorySelect
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          <BtnOption>
+            <BtnLabel>Pizza</BtnLabel>
+          </BtnOption>
+          <BtnOption>
+            <BtnLabel>Churrasco</BtnLabel>
+          </BtnOption>
+
+          <BtnOption>
+            <BtnLabel>Almoço</BtnLabel>
+          </BtnOption>
+
+          <BtnOption>
+            <BtnLabel>Massas</BtnLabel>
+          </BtnOption>
+        </CategorySelect>
+
+        <Form>
+          <InputForm
+            name="search"
+            editable={true}
+            keyboardType={'default'}
+            placeholder="Buscar restaurantes"
+            src={require('../../assets/search.png')}
+          />
+        </Form>
+        <Content>
+          <RestaurantList
+            numColumns={2}
+            data={dataGet.content}
+            onEndReached={() => handleEndReached()}
+            renderItem={({ item }: any) => (
+              <>
+                <RestaurantCard name={item.name} />
+              </>
             )}
-          </View>
-        )}
-    </Container>
+          />
+        </Content>
+      </Container>
+    </>
   );
 };

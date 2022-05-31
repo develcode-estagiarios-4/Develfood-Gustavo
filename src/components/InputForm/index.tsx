@@ -21,14 +21,14 @@ import {
 interface Props extends TextInputProps {
   name: string;
   placeholder: string;
-  placeholderTextColor: string;
-  keyboardType: KeyboardTypeOptions;
-  onChangeText: (value: string) => void;
-  value: string;
+  placeholderTextColor?: string;
+  keyboardType?: KeyboardTypeOptions;
+  onChangeText?: (value: string) => void;
+  value?: string;
   maxLength?: number;
-  control: Control;
-  error: string;
-  editable: boolean;
+  control?: Control;
+  error?: string;
+  editable?: boolean;
   src: any;
   defaultValue?: string;
 }

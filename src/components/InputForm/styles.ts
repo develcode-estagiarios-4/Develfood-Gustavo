@@ -19,8 +19,7 @@ export const Container = styled.View`
 
 export const LoginIcon = styled.Image`
   margin-left: ${RFValue(11)}px;
-  width: ${RFValue(24.5)}px;
-  height: ${RFValue(26.5)}px;`;
+  `;
 
 
 export const InputLogin = styled.TextInput<InputProps>`
