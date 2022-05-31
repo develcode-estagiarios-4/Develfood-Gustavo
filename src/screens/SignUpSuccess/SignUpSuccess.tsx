@@ -13,6 +13,7 @@ import { ButtonTouchable } from '../../components/ButtonTouchable';
 import successperson from '../../assets/successperson.png';
 
 import { useNavigation } from '@react-navigation/native';
+import theme from '../../theme';
 
 
 export default function SignUpIII() {
@@ -21,12 +22,19 @@ export default function SignUpIII() {
   return (
     <>
       <Header
-        name="close"
-        title="Cadastro"
-        onPressLeftButton={() => {
-          navigation.goBack();
-        }}
-      />
+        leftSpaceWidth='19%'
+        name='Cadastro'
+          bgColor="#FFFFFF"
+          title='Cadastro'
+          fontColor="#000000"
+          fontWeight={'500'}
+          iconHeight={1}
+          iconWidth={1}
+          srcLeftIcon={theme.ICONS.CLOSE}
+          onPressLeftButton={() => {
+            navigation.goBack();
+          }}
+        />
       <Container>
         <Content>
           <Person source={successperson} />
