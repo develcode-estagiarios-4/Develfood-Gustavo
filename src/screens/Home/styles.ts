@@ -1,12 +1,14 @@
 import styled from 'styled-components/native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
 background-color: ${({theme}) => theme.COLORS.BACKGROUND_LIGHT};
+flex: 1;
 `;
 
+
 export const Banners = styled.ScrollView`
-  margin-top: 12px;
+  margin-top: 12px; 
   margin-bottom: 26px;
   flex-direction: row;
 `;
@@ -56,13 +58,18 @@ export const Form = styled.View`
 `;
 
 export const Content = styled.View`
-height: ${RFPercentage(47)}px;
-width: 100%;
-align-items: center;
-
+/* width: 100%; */
+flex: 1;
+background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
 
-export const RestaurantList = styled.FlatList`
 
+export const RestaurantList = styled.FlatList`
+`;
+
+export const Restaurants = styled.View`
+/* flex-grow: 1;
+margin-left: ${RFValue(11)}px;
+margin: 10px; */
 `;
 

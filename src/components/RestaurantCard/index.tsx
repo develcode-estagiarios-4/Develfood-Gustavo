@@ -18,9 +18,10 @@ import {
 
 interface Props {
   name: string;
+  src: any;
 }
 
-export function RestaurantCard({ name }: Props) {
+export function RestaurantCard({ name, src }: Props) {
   const [focused, setFocused] = useState(false);
 
   return (
@@ -28,22 +29,18 @@ export function RestaurantCard({ name }: Props) {
       <FavoriteView>
         <BtnFavorite onPress={() => setFocused(!focused)}>
           <Heart
-            source={
-              focused
-                ? require('../../assets/favoriteheart.png')
-                : require('../../assets/borderheart.png')
-            }
+            source={require('../../assets/borderheart.png')}
             style={focused ? { tintColor: theme.COLORS.BACKGROUND } : null}
           />
         </BtnFavorite>
       </FavoriteView>
 
       <IconView>
-        <Icon source={require('../../assets/rest.png')} />
+        <Icon source={src} />
       </IconView>
 
       <Footer>
-        <Title>{name}</Title>
+        <Title numberOfLines={1}>{name}</Title>
 
         <Wrapper>
           <FoodType>Pizza</FoodType>
@@ -51,7 +48,7 @@ export function RestaurantCard({ name }: Props) {
           <Evaluation>
             <Star source={require('../../assets/star.png')} />
 
-            <Number>4.3</Number>
+            <Number>{Math.ceil(Math.random() * 5)}</Number>
           </Evaluation>
         </Wrapper>
       </Footer>
