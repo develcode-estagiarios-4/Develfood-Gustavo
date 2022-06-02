@@ -19,7 +19,7 @@ width: 50%;
 `;
 
 export const HalfInputTwo = styled.View`
-width: 40%;
+width: 45%;
 `;
 
 export const TwoInputsViewTwo = styled.View`
@@ -28,7 +28,7 @@ justify-content: space-between ;
 `;
 
 export const HalfInputThree = styled.View`
-width: 45%;
+width: 47.5%;
 `;
 
 export const BtnView = styled.View`
