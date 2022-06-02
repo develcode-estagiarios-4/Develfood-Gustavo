@@ -91,6 +91,7 @@ export function InputForm({
           editable={editable}
           hasRightIcon={name === 'password' || name === 'confirmPassword'}
           defaultValue={defaultValue}
+          numberOfLines={1}
           />
 
         {(name === 'password' || name === 'confirmPassword') && (
