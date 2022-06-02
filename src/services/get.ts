@@ -10,8 +10,8 @@ export function useGet<T = unknown>(url: string, options?: AxiosRequestConfig) {
   async function fetchData(onSuccess?: (response: T) => void) {
     try {
       setLoading(true)
-      await api.get(url, options).then((response) => setData(response.data));
-      const response = await api.post(url, options);
+      const response = await api.get(url, options);
+      setData(response.data);
       response.data && onSuccess && onSuccess(response.data);
     } catch (erro) {
       setError(error);

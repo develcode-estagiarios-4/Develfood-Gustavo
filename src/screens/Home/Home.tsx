@@ -52,18 +52,16 @@ export const Home: React.FC<undefined> = () => {
   });
 
   useEffect(() => {
-    () => handleEndReached();
+    (async () => await fetchData(onSuccessLoad))();
   }, []);
 
-  useEffect(() => {
-    !!dataGet.content?.length &&
-      setRestaurants([...restaurants, ...(dataGet?.content as Restaurant[])]);
+  function onSuccessLoad(data?: any) {
+    setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
     setIsLoading(false);
-    console.log('first ', isLoading);
-  }, [dataGet]);
+  }
 
   useEffect(() => {
-    (async () => await fetchData())();
+    (async () => await fetchData(onSuccessLoad))();
   }, [page]);
 
   async function handleEndReached() {
