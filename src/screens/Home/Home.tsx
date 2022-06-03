@@ -1,124 +1,183 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Button } from 'react-native';
-import { Texto, Container } from './styles';
-import { useGet, usePost, usePut, useDelete } from '../../services';
+import { StatusBar, ActivityIndicator, Dimensions, View, Text, Image } from 'react-native';
+import {
+  Container,
+  Banners,
+  Banner,
+  CategorySelect,
+  TitleView,
+  Title,
+  Form,
+  BtnOption,
+  BtnLabel,
+  Content,
+  RestaurantList,
+} from './styles';
+import { useGet } from '../../services';
 import { useAuth } from '../../hooks/auth';
+import theme from '../../theme';
+import { Header } from '../../components/Header';
+import { InputForm } from '../../components/InputForm';
+import { RestaurantCard } from '../../components/RestaurantCard';
+import { RFValue } from 'react-native-responsive-fontsize';
 
-interface IData {
+interface Restaurant {
+  id: number;
   name: string;
-  email: string;
-  gender: string;
-  status: string;
+  photo: string;
 }
-interface TResponse {
-  name: string;
-  email: string;
-  gender: string;
-  status: string;
+interface Restaurants {
+  content?: Restaurant[];
+  totalPages: number;
 }
 
-interface CreateUserRequest {
-  name: string;
-  email: string;
-  gender: string;
-  status: string;
-}
+const CardMargins =
+  (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5);
 
 export const Home: React.FC<undefined> = () => {
-  const { data, loading, error } = useGet<IData[]>('/public/v2/users');
+  const { token } = useAuth();
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   const {
-    data: dataPost,
-    loading: loadingPost,
-    error: errorPost,
-    handlerPost,
-  } = usePost<TResponse, CreateUserRequest>(
-    '/public/v2/users',
-    {
-      email: 'dsaasd@develcode.com.br',
-      name: 'Joao Dias',
-      gender: 'male',
-      status: 'active',
-    },
-    {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
-      },
-    },
-  );
-
-  const {
-    data: dataPut,
-    loading: loadingPut,
-    error: errorPut,
-    handlerPut,
-  } = usePut<TResponse, CreateUserRequest>(
-    '/public/v2/users/5773',
-    {
-      email: 'atualizando@develcode.com.br',
-      name: 'Gustavo L Sobbrero',
-      gender: 'male',
-      status: 'active',
-    },
-    {
-      headers: {
-        'Content-type': 'application/json',
-        Authorization:
-          'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
-      },
-    },
-  );
-
-  const {
-    data: dataDelete,
-    loading: loadingDelete,
-    error: errorDelete,
-    handlerDelete,
-  } = useDelete<TResponse, CreateUserRequest>('/public/v2/users/5773', {
+    data: dataGet,
+    loading,
+    error,
+    fetchData,
+  } = useGet<Restaurants>(`/restaurant?page=${page}&quantity=10`, {
     headers: {
-      'Content-type': 'application/json',
-      Authorization:
-        'Bearer b98e88558e5e5cb87c1a8a654c835d8ea70986ce2294a7285e58850b59d77887',
+      Authorization: `Bearer ${token}`,
     },
   });
-  const { token } = useAuth();
 
   useEffect(() => {
-    console.log('teste de acesso ao token: ', token) 
+    (async () => await fetchData(onSuccessLoad))();
+  }, []);
 
-  })
+  function onSuccessLoad(data?: any) {
+    setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+  }, [page]);
+
+  async function handleEndReached() {
+    if (dataGet.totalPages !== page && (!isLoading || !loading)) {
+      setIsLoading(true);
+      setPage(page + 1);
+    }
+  }
 
   return (
-    <Container>
-        {loading ? (
-          <Texto>Carregando dados...</Texto>
-        ) : (
-          <View>
-            <FlatList
-              data={data}
-              renderItem={({ item }) => (
-                <>
-                  <Texto>{item.name}</Texto>
-                </>
-              )}
-            />
-            <Button title="Enviar" onPress={() => handlerPost()} />
-            <Button title="Atualizar" onPress={() => handlerPut()} />
-            <Button title="Excluir" onPress={() => handlerDelete()} />
-
-            {loadingPost ? (
-              <Texto>Carregando postagem de usuário</Texto>
-            ) : (
-              <View>
-                <Texto>{dataPost.name}</Texto>
-                <Texto>{dataPost.email}</Texto>
-                <Texto>{dataPost.gender}</Texto>
-              </View>
-            )}
+    <>
+      <StatusBar backgroundColor={theme.COLORS.BACKGROUND} />
+      <Content>
+        <RestaurantList
+          columnWrapperStyle={{
+            justifyContent: 'space-between',
+            paddingHorizontal: RFValue(CardMargins),
+            paddingBottom: 10,
+          }}
+          contentContainerStyle={{
+            width: '100%',
+          }}
+          ListEmptyComponent={
+          <View style={{width: 300, height: 300,}}>
+            <Image source={require('../../assets/disconect.png')} />
           </View>
-        )}
-    </Container>
+          }
+          ListHeaderComponent={
+            <Container>
+              <Header
+                name="Home"
+                leftSpaceWidth="7%"
+                title=""
+                onPressLeftButton={() => {}}
+                srcLeftIcon={require('../../assets/localHeader.png')}
+                bgColor={theme.COLORS.BACKGROUND}
+                iconHeight={1}
+                iconWidth={1}
+                fontColor={theme.COLORS.BACKGROUND_LIGHT}
+                fontWeight={'400'}
+                address="rua Arcy da Rocha Nóbrega 667, Panazollo"
+              />
+              <Banners horizontal={true} showsHorizontalScrollIndicator={false}>
+                <Banner source={theme.IMAGES.BANNER} />
+                <Banner source={theme.IMAGES.BANNER} />
+                <Banner source={theme.IMAGES.BANNER} />
+              </Banners>
+
+              <TitleView>
+                <Title>Categorias</Title>
+              </TitleView>
+
+              <CategorySelect
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                <BtnOption>
+                  <BtnLabel>Pizza</BtnLabel>
+                </BtnOption>
+
+                <BtnOption>
+                  <BtnLabel>Churrasco</BtnLabel>
+                </BtnOption>
+
+                <BtnOption>
+                  <BtnLabel>Almoço</BtnLabel>
+                </BtnOption>
+
+                <BtnOption>
+                  <BtnLabel>Massas</BtnLabel>
+                </BtnOption>
+              </CategorySelect>
+
+              <Form>
+                <InputForm
+                  name="search"
+                  editable={true}
+                  keyboardType={'default'}
+                  placeholder="Buscar restaurantes"
+                  src={theme.ICONS.SEARCH}
+                />
+              </Form>
+            </Container>
+          }
+          ListFooterComponent={() => (
+            <View
+              style={{
+                width: '100%',
+                height: RFValue(80),
+                justifyContent: 'center',
+              }}
+            >
+              {loading && (
+                <ActivityIndicator size={50} color={theme.COLORS.BACKGROUND} />
+              )}
+            </View>
+          )}
+          numColumns={2}
+          data={restaurants}
+          keyExtractor={(item: any) => item?.id}
+          renderItem={({ item }: any) => (
+            <>
+              <RestaurantCard
+                name={item.name}
+                src={
+                  item.photo
+                    ? { uri: `${item.photo}` }
+                    : theme.IMAGES.NOIMAGE
+                }
+              />
+            </>
+          )}
+          onEndReachedThreshold={0.01}
+          onEndReached={() => handleEndReached()}
+        />
+      </Content>
+    </>
   );
 };

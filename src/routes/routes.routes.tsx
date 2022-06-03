@@ -13,7 +13,6 @@ import theme from '../theme';
 export default function AppRoutes() {
   const Tab = createBottomTabNavigator();
 
-
   return (
 
     <Tab.Navigator

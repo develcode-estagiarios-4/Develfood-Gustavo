@@ -6,12 +6,15 @@ import SignUpI from '../screens/SignUpI/SignUpI';
 import SignUpII from '../screens/SignUpII/SignUpII';
 import SignUpIII from '../screens/SignUpIII/SignUpIII';
 import SignUpSuccess from '../screens/SignUpSuccess/SignUpSuccess';
+import { StatusBar } from 'react-native';
+import theme from '../theme';
 
 export default function AuthRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();
 
   return (
     <>
+    <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle={'dark-content'}/>
       <Navigator screenOptions={{ headerShown: false }}>
         <Screen name="SignIn" component={SignIn} />
         <Screen name="SignUpI" component={SignUpI} />

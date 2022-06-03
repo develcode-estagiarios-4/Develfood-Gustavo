@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
-import { AuthProvider } from './src/hooks/auth';
+import { Routes } from './src/routes';
 
-import { NavigationContainer } from '@react-navigation/native';
-import AppRoutes from './src/routes/routes.routes';
+import { AuthProvider } from './src/hooks/auth';
 import { ThemeProvider } from 'styled-components/native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import theme from './src/theme';
-import SignIn from './src/screens/SignIn/SignIn';
-import { Routes } from './src/routes';
 
 export default function App() {
   useEffect(() => {

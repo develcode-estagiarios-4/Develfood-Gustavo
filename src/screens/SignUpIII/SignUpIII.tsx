@@ -31,10 +31,11 @@ import { Controller, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { InputZipcodeMask } from '../../components/InputMask/zipcode';
 
 const schema = Yup.object().shape({
   nickname: Yup.string().required('Apelido do endereço é obrigatório.'),
-  cep: Yup.number().required('CEP é obrigatório.').typeError('Somente números'),
+  cep: Yup.string().required('CEP é obrigatório.').typeError('Somente números'),
   street: Yup.string().required('Rua é obrigatória.'),
   city: Yup.string().required('Cidade é obrigatória.'),
   neighborhood: Yup.string().required('Bairro é obrigatório.'),
@@ -71,7 +72,6 @@ export default function SignUpIII({ route }: any) {
       state: values.state,
       nickname: values.nickname,
     });
-
   }
 
   const {
@@ -87,7 +87,15 @@ export default function SignUpIII({ route }: any) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
         <Header
+          leftSpaceWidth="19%"
+          name="Cadastro"
+          bgColor="#FFFFFF"
           title="Cadastro"
+          fontColor="#000000"
+          fontWeight={'500'}
+          iconHeight={1}
+          iconWidth={1}
+          srcLeftIcon={theme.ICONS.BACK}
           onPressLeftButton={() => {
             navigation.goBack();
           }}
@@ -139,14 +147,12 @@ export default function SignUpIII({ route }: any) {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <InputForm
-                      name="cep"
+                    <InputZipcodeMask
                       placeholder="CEP"
                       placeholderTextColor={theme.COLORS.SECONDARY_400}
                       keyboardType="number-pad"
                       onChangeText={onChange}
                       value={value}
-                      control={control}
                       error={errors.cep && errors.cep.message}
                       editable={true}
                       src={theme.ICONS.LOCAL}

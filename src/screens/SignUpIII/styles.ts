@@ -15,11 +15,11 @@ justify-content: space-between ;
 `;
 
 export const HalfInput = styled.View`
-width: ${RFValue(160)}px;
+width: 50%;
 `;
 
 export const HalfInputTwo = styled.View`
-width: ${RFValue(121)}px;
+width: 45%;
 `;
 
 export const TwoInputsViewTwo = styled.View`
@@ -28,7 +28,7 @@ justify-content: space-between ;
 `;
 
 export const HalfInputThree = styled.View`
-width: ${RFValue(140)}px;
+width: 47.5%;
 `;
 
 export const BtnView = styled.View`
