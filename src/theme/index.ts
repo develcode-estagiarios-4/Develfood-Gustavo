@@ -47,12 +47,15 @@ export default {
     PHONE: require('../assets/telefone.png'),
     LOCAL: require('../assets/local2.png') ,
     CLOSE: require('../assets/close.png'),
-    BACK: require('../assets/back.png')
+    BACK: require('../assets/back.png'),
+    SEARCH: require('../assets/search.png')
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),
     BALL: require('../assets/bola.png'),
     PERSON: require('../assets/pessoa1.png'),
-    GREENBALL: require('../assets/bolaverde.png')
+    GREENBALL: require('../assets/bolaverde.png'),
+    BANNER: require('../assets/banner1.png'),
+    NOIMAGE: require('../assets/noimage.png')
   }
 };

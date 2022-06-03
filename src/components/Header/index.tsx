@@ -63,12 +63,12 @@ export function Header({
         </LeftIconWrapper>
       </LeftSpace>
 
-      {name === 'Home' ? <Address>{address}</Address> : null}
-      {name === 'Cadastro' ? (
+      {name === 'Home' && <Address>{address}</Address>}
+      {name === 'Cadastro' && (
           <Title style={{ color: fontColor, fontWeight: fontWeight }}>
           {title}
         </Title>
-      ) : null}
+      )}
 
       <RightSpace>
         {/* <FirstRightIcon source={} /> */}

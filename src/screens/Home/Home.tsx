@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { StatusBar, ActivityIndicator, Dimensions, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StatusBar, ActivityIndicator, Dimensions, View, Text, Image } from 'react-native';
 import {
   Container,
   Banners,
@@ -15,8 +15,8 @@ import {
 } from './styles';
 import { useGet } from '../../services';
 import { useAuth } from '../../hooks/auth';
-import { Header } from '../../components/Header';
 import theme from '../../theme';
+import { Header } from '../../components/Header';
 import { InputForm } from '../../components/InputForm';
 import { RestaurantCard } from '../../components/RestaurantCard';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -68,7 +68,6 @@ export const Home: React.FC<undefined> = () => {
     if (dataGet.totalPages !== page && (!isLoading || !loading)) {
       setIsLoading(true);
       setPage(page + 1);
-      console.log('====================================', isLoading);
     }
   }
 
@@ -85,6 +84,11 @@ export const Home: React.FC<undefined> = () => {
           contentContainerStyle={{
             width: '100%',
           }}
+          ListEmptyComponent={
+          <View style={{width: 300, height: 300,}}>
+            <Image source={require('../../assets/disconect.png')} />
+          </View>
+          }
           ListHeaderComponent={
             <Container>
               <Header
@@ -101,9 +105,9 @@ export const Home: React.FC<undefined> = () => {
                 address="rua Arcy da Rocha Nóbrega 667, Panazollo"
               />
               <Banners horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Banner source={require('../../assets/banner1.png')} />
-                <Banner source={require('../../assets/banner1.png')} />
-                <Banner source={require('../../assets/banner1.png')} />
+                <Banner source={theme.IMAGES.BANNER} />
+                <Banner source={theme.IMAGES.BANNER} />
+                <Banner source={theme.IMAGES.BANNER} />
               </Banners>
 
               <TitleView>
@@ -117,6 +121,7 @@ export const Home: React.FC<undefined> = () => {
                 <BtnOption>
                   <BtnLabel>Pizza</BtnLabel>
                 </BtnOption>
+
                 <BtnOption>
                   <BtnLabel>Churrasco</BtnLabel>
                 </BtnOption>
@@ -136,7 +141,7 @@ export const Home: React.FC<undefined> = () => {
                   editable={true}
                   keyboardType={'default'}
                   placeholder="Buscar restaurantes"
-                  src={require('../../assets/search.png')}
+                  src={theme.ICONS.SEARCH}
                 />
               </Form>
             </Container>
@@ -164,13 +169,12 @@ export const Home: React.FC<undefined> = () => {
                 src={
                   item.photo
                     ? { uri: `${item.photo}` }
-                    : require('../../assets/noimage.png')
+                    : theme.IMAGES.NOIMAGE
                 }
               />
             </>
           )}
           onEndReachedThreshold={0.01}
-          initialNumToRender={10}
           onEndReached={() => handleEndReached()}
         />
       </Content>

@@ -20,7 +20,7 @@ interface SignUpProps {
   lastName: string;
   cpf: string;
   phone: string;
-  photo: string;
+  photo: Object;
   street: string;
   number: string;
   neighborhood: string;
@@ -145,7 +145,7 @@ function createUserError(error: AxiosError<any, any> | any) {
         lastName,
         cpf,
         phone,
-        photo,
+        photo: {code: ''},
         address: [
           {
             street,
