@@ -45,7 +45,7 @@ export const Home: React.FC<undefined> = () => {
     loading,
     error,
     fetchData,
-  } = useGet<Restaurants>(`/restaurant?page=${page}&quantity=10`, {
+  } = useGet<Restaurants>(`/restaurant/filter?name=&page=${page}&quantity=10`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -85,9 +85,10 @@ export const Home: React.FC<undefined> = () => {
             width: '100%',
           }}
           ListEmptyComponent={
+            !isLoading ?
           <View style={{width: 300, height: 300,}}>
-            <Image source={require('../../assets/disconect.png')} />
-          </View>
+            <Image source={theme.IMAGES.DISCONECT} />
+          </View> : null
           }
           ListHeaderComponent={
             <Container>
@@ -154,9 +155,16 @@ export const Home: React.FC<undefined> = () => {
                 justifyContent: 'center',
               }}
             >
-              {loading && (
+              {loading ? 
                 <ActivityIndicator size={50} color={theme.COLORS.BACKGROUND} />
-              )}
+              : page === dataGet.totalPages ? <Text style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 17,
+                color: theme.COLORS.BACKGROUND
+                }}>
+                  Não existem mais restaurantes cadastrados...
+                  </Text>  : null}
             </View>
           )}
           numColumns={2}
@@ -174,7 +182,7 @@ export const Home: React.FC<undefined> = () => {
               />
             </>
           )}
-          onEndReachedThreshold={0.01}
+          onEndReachedThreshold={0.3}
           onEndReached={() => handleEndReached()}
         />
       </Content>

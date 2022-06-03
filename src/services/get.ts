@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { api } from './api';
 
 export function useGet<T = unknown>(url: string, options?: AxiosRequestConfig) {

@@ -3,9 +3,7 @@ import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
 background-color: ${({theme}) => theme.COLORS.BACKGROUND_LIGHT};
-flex: 1;
 `;
-
 
 export const Banners = styled.ScrollView`
   margin-top: 12px; 
@@ -65,6 +63,7 @@ background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 
 
 export const RestaurantList = styled.FlatList`
+flex: 1;
 `;
 
 export const Restaurants = styled.View`

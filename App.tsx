@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { Routes } from './src/routes';
-
 import { AuthProvider } from './src/hooks/auth';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';

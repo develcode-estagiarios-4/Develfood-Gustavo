@@ -48,10 +48,12 @@ export function RestaurantCard({ name, src }: Props) {
           <Evaluation>
             <Star source={require('../../assets/star.png')} />
 
-            <Number>{Math.ceil(Math.random() * 5)}</Number>
+            <Number>4.3</Number>
           </Evaluation>
         </Wrapper>
       </Footer>
     </Container>
   );
 }
+
+// {Math.ceil(Math.random() * 5)}

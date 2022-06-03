@@ -48,7 +48,7 @@ export default {
     LOCAL: require('../assets/local2.png') ,
     CLOSE: require('../assets/close.png'),
     BACK: require('../assets/back.png'),
-    SEARCH: require('../assets/search.png')
+    SEARCH: require('../assets/search.png'),
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),
@@ -56,6 +56,7 @@ export default {
     PERSON: require('../assets/pessoa1.png'),
     GREENBALL: require('../assets/bolaverde.png'),
     BANNER: require('../assets/banner1.png'),
-    NOIMAGE: require('../assets/noimage.png')
+    NOIMAGE: require('../assets/noimage.png'),
+    DISCONECT: require('../assets/disconect.png')
   }
 };
