@@ -32,7 +32,7 @@ export default function SignUpIII() {
           iconWidth={1}
           srcLeftIcon={theme.ICONS.CLOSE}
           onPressLeftButton={() => {
-            navigation.goBack();
+            navigation.navigate('SignIn' as never);
           }}
         />
       <Container>

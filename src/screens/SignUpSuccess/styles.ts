@@ -23,13 +23,13 @@ margin-bottom: ${RFValue(26)}px;
 export const InfoWrapper = styled.View`
 width: ${RFValue(255)}px;
 margin-bottom: ${RFValue(124)}px;
-align-items: center;
+align-items: flex-start;
 text-align: center;
 `;
 
 export const Title = styled.Text`
-font-size: ${RFValue(28)}px;
-line-height: ${RFValue(32.81)}px;
+font-size: ${RFValue(21.52596)}px;
+line-height: ${RFValue(23)}px;
 font-weight: 500;
 color: ${({ theme }) => theme.COLORS.TEXT};
 `;
@@ -38,5 +38,5 @@ export const Description = styled.Text`
 font-size: ${RFValue(12)}px;
 color: ${({ theme }) => theme.COLORS.SECONDARY_100};
 font-weight: 700;
-line-height: ${RFValue(14.06)}px;
+line-height: ${RFValue(12.5)}px;
 `;
