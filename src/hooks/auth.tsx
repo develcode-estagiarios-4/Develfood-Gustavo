@@ -111,7 +111,7 @@ function createUserError(error: AxiosError<any, any> | any) {
       },
       error: {
         title: 'Erro de autenticação',
-        message: 'E-mail e/ou senha inválidos',
+        message: 'E-mail e/ou senha inválidos, ou problemas de conexão',
       },
     });
   }
@@ -164,7 +164,7 @@ function createUserError(error: AxiosError<any, any> | any) {
     setRequest({
       endpoint: '/user',
       body: signUpData, 
-      error: { title: 'Erro de cadastro', message: 'Dados inválidos' },
+      error: { title: 'Erro', message: 'Possível e-mail já cadastrado ou problemas de conexão' },
     });
   }
 

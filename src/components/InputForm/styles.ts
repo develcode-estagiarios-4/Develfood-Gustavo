@@ -11,7 +11,6 @@ export const Container = styled.View`
   align-items: center;
   flex-direction: row;
   margin-bottom: ${RFValue(12)}px;
-  border: ${RFValue(2)}px;
   border-width: ${RFValue(1)}px;
   border-radius: ${RFValue(10)}px;
   border-color: ${({ theme }) => theme.COLORS.SECONDARY_100};

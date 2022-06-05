@@ -59,6 +59,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(14)}px;
   line-height: 16px;
   margin-left: 12px;
+  margin-right: 0.5px;
   color: #2b2b2e;
 `;
 

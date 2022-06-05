@@ -21,5 +21,5 @@ export function useGet<T = unknown>(url: string, options?: AxiosRequestConfig) {
     }
   }
 
-  return { data, loading, error, fetchData };
+  return { data, loading, setLoading, error, fetchData };
 }

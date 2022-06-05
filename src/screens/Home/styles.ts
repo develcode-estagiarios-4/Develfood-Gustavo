@@ -20,7 +20,7 @@ export const Banner = styled.Image`
 
 export const CategorySelect = styled.ScrollView`
   flex-direction: row;
-  margin-bottom: 12px;
+  margin-bottom: 11px;
 `;
 
 export const TitleView = styled.View`
@@ -67,8 +67,5 @@ flex: 1;
 `;
 
 export const Restaurants = styled.View`
-/* flex-grow: 1;
-margin-left: ${RFValue(11)}px;
-margin: 10px; */
 `;
 

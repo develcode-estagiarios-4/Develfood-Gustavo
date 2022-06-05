@@ -37,12 +37,12 @@ const CardMargins =
 export const Home: React.FC<undefined> = () => {
   const { token } = useAuth();
   const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   const {
     data: dataGet,
     loading,
+    setLoading,
     error,
     fetchData,
   } = useGet<Restaurants>(`/restaurant/filter?name=&page=${page}&quantity=10`, {
@@ -57,7 +57,8 @@ export const Home: React.FC<undefined> = () => {
 
   function onSuccessLoad(data?: any) {
     setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
-    setIsLoading(false);
+    setLoading(false)
+
   }
 
   useEffect(() => {
@@ -65,8 +66,8 @@ export const Home: React.FC<undefined> = () => {
   }, [page]);
 
   async function handleEndReached() {
-    if (dataGet.totalPages !== page && (!isLoading || !loading)) {
-      setIsLoading(true);
+    if (dataGet.totalPages !== page && (!loading)) {
+      setLoading(true)
       setPage(page + 1);
     }
   }
@@ -85,8 +86,8 @@ export const Home: React.FC<undefined> = () => {
             width: '100%',
           }}
           ListEmptyComponent={
-            !isLoading ?
-          <View style={{width: 300, height: 300,}}>
+            !loading ?
+          <View style={{width: '100%', height: '100%', alignContent: 'center'}}>
             <Image source={theme.IMAGES.DISCONECT} />
           </View> : null
           }
@@ -155,13 +156,13 @@ export const Home: React.FC<undefined> = () => {
                 justifyContent: 'center',
               }}
             >
-              {loading ? 
+              { loading ? 
                 <ActivityIndicator size={50} color={theme.COLORS.BACKGROUND} />
               : page === dataGet.totalPages ? <Text style={{
                 textAlign: 'center',
                 fontWeight: 'bold',
                 fontSize: 17,
-                color: theme.COLORS.BACKGROUND
+                color: theme.COLORS.SECONDARY_100
                 }}>
                   Não existem mais restaurantes cadastrados...
                   </Text>  : null}

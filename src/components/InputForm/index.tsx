@@ -55,7 +55,7 @@ export function InputForm({
   const [data, setData] = useState({
     email: '',
     password: '',
-    secureTextEntry: false,
+    secureTextEntry: true,
     isPressed: true,
   });
 
@@ -84,7 +84,7 @@ export function InputForm({
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
           keyboardType={keyboardType}
-          secureTextEntry={data.secureTextEntry}
+          secureTextEntry={name === 'password' || name === 'confirmPassword' ? data.secureTextEntry : false}
           onChangeText={onChangeText}
           value={value}
           maxLength={maxLength}
