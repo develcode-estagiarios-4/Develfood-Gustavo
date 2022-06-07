@@ -56,7 +56,6 @@ export const Form = styled.View`
 `;
 
 export const Content = styled.View`
-/* width: 100%; */
 flex: 1;
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;

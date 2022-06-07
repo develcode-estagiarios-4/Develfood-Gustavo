@@ -38,6 +38,12 @@ export const Home: React.FC<undefined> = () => {
   const { token } = useAuth();
   const [page, setPage] = useState(0);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [originalList, setOriginalList] = useState<Restaurant[]>([]);
+  const [searchRestaurant, setSearchRestaurant] = useState('');
+  const [filter, setFilter] = useState({
+    text: '',
+    page: 0,
+  });
 
   const {
     data: dataGet,
@@ -45,7 +51,7 @@ export const Home: React.FC<undefined> = () => {
     setLoading,
     error,
     fetchData,
-  } = useGet<Restaurants>(`/restaurant/filter?name=&page=${page}&quantity=10`, {
+  } = useGet<Restaurants>(`/restaurant/filter?name=${filter.text}&page=${filter.page}&quantity=10`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -58,17 +64,25 @@ export const Home: React.FC<undefined> = () => {
   function onSuccessLoad(data?: any) {
     setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
     setLoading(false)
+    if (filter.page === 0 && filter.text === '') 
+    setOriginalList(data?.content)
 
   }
 
   useEffect(() => {
     (async () => await fetchData(onSuccessLoad))();
-  }, [page]);
+  }, [filter]);
+
+  function searchRestaurants() {
+    
+  }
 
   async function handleEndReached() {
-    if (dataGet.totalPages !== page && (!loading)) {
+    if (dataGet.totalPages !== filter.page && (!loading)) {
       setLoading(true)
-      setPage(page + 1);
+      // setPage(filter.page + 1);
+      setFilter({...filter, page: filter.page + 1});
+
     }
   }
 
@@ -82,13 +96,10 @@ export const Home: React.FC<undefined> = () => {
             paddingHorizontal: RFValue(CardMargins),
             paddingBottom: 10,
           }}
-          contentContainerStyle={{
-            width: '100%',
-          }}
           ListEmptyComponent={
             !loading ?
           <View style={{width: '100%', height: '100%', alignContent: 'center'}}>
-            <Image source={theme.IMAGES.DISCONECT} />
+            <Image source={theme.IMAGES.NOTFOUND} />
           </View> : null
           }
           ListHeaderComponent={
@@ -144,6 +155,17 @@ export const Home: React.FC<undefined> = () => {
                   keyboardType={'default'}
                   placeholder="Buscar restaurantes"
                   src={theme.ICONS.SEARCH}
+                  onChangeText={(text) => { 
+                    if (text.length > 1) {
+                    setRestaurants([])
+                    setFilter({text: text, page: 0 })
+                    } 
+                    else {
+                    // setRestaurants([])
+                    setFilter({text: text, page: 0 })
+                    setRestaurants(originalList)
+                    }
+                  }}
                 />
               </Form>
             </Container>
@@ -158,7 +180,7 @@ export const Home: React.FC<undefined> = () => {
             >
               { loading ? 
                 <ActivityIndicator size={50} color={theme.COLORS.BACKGROUND} />
-              : page === dataGet.totalPages ? <Text style={{
+              : filter.page === dataGet.totalPages ? <Text style={{
                 textAlign: 'center',
                 fontWeight: 'bold',
                 fontSize: 17,
@@ -174,7 +196,7 @@ export const Home: React.FC<undefined> = () => {
           renderItem={({ item }: any) => (
             <>
               <RestaurantCard
-                name={item.name}
+                name={item.id + item.name}
                 src={
                   item.photo
                     ? { uri: `${item.photo}` }
