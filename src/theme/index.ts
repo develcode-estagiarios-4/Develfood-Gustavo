@@ -57,6 +57,7 @@ export default {
     GREENBALL: require('../assets/bolaverde.png'),
     BANNER: require('../assets/banner1.png'),
     NOIMAGE: require('../assets/noimage.png'),
-    DISCONECT: require('../assets/disconect.png')
+    DISCONECT: require('../assets/disconect.png'),
+    NOTFOUND: require('../assets/naoencontrado.png')
   }
 };
