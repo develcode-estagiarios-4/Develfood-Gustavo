@@ -64,7 +64,7 @@ export const Home: React.FC<undefined> = () => {
   function onSuccessLoad(data?: any) {
     setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
     setLoading(false)
-    if (filter.page === 0 && filter.text === '') 
+    if (filter.page === 0 && filter.text.length < 2) 
     setOriginalList(data?.content)
 
   }
@@ -160,10 +160,10 @@ export const Home: React.FC<undefined> = () => {
                     setRestaurants([])
                     setFilter({text: text, page: 0 })
                     } 
-                    else {
-                    // setRestaurants([])
-                    setFilter({text: text, page: 0 })
-                    setRestaurants(originalList)
+                    else if (text.length <= 1){
+                    setRestaurants([])
+                    setFilter({text: '', page: 0 })
+                    // setRestaurants(originalList)
                     }
                   }}
                 />
@@ -196,7 +196,7 @@ export const Home: React.FC<undefined> = () => {
           renderItem={({ item }: any) => (
             <>
               <RestaurantCard
-                name={item.id + item.name}
+                name={item.id + ' ' + item.name}
                 src={
                   item.photo
                     ? { uri: `${item.photo}` }
