@@ -120,7 +120,7 @@ export const Home: React.FC<undefined> = () => {
                   alignContent: 'center',
                 }}
               >
-                <Image source={theme.IMAGES.NOTFOUND} />
+                {/* <Image source={theme.IMAGES.NOTFOUND} /> */}
               </View>
             ) : null
           }
@@ -212,7 +212,7 @@ export const Home: React.FC<undefined> = () => {
           renderItem={({ item }: any) => (
             <>
               <RestaurantCard
-                name={item.id + ' ' + item.name}
+                name={item.name}
                 src={
                   item.photo ? { uri: `${item.photo}` } : theme.IMAGES.NOIMAGE
                 }
