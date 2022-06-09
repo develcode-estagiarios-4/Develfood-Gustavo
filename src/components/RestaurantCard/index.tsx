@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TouchableOpacityProps } from 'react-native';
 import theme from '../../theme';
 import {
   Container,
@@ -16,16 +17,16 @@ import {
   Number,
 } from './styles';
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   name: string;
   src: any;
 }
 
-export function RestaurantCard({ name, src }: Props) {
+export function RestaurantCard({ name, src, ...rest }: Props) {
   const [focused, setFocused] = useState(false);
 
   return (
-    <Container>
+    <Container {...rest}>
       <FavoriteView>
         <BtnFavorite onPress={() => setFocused(!focused)}>
           <Heart

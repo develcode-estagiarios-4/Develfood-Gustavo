@@ -1,14 +1,12 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { TouchableOpacity } from 'react-native';
 
-export const Container = styled.View.attrs({
-  elevation: 10,
-})`
+export const Container = styled(TouchableOpacity)`
   height: ${RFValue(173)}px;
   width: ${RFValue(156)}px;
   border-radius: 8px;
   margin-top: 10px;
-  /* margin-bottom: 2px; */
 `;
 
 export const FavoriteView = styled.View`
@@ -44,7 +42,9 @@ export const Icon = styled.Image.attrs({
   aspect-ratio: 1;
 `;
 
-export const Footer = styled.View`
+export const Footer = styled.View.attrs({
+  elevation: 10
+})`
   background-color: #FFFFFF;
   width: 100%;
   height: ${RFValue(69)}px;

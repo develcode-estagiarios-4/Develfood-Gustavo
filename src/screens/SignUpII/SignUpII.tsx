@@ -67,15 +67,12 @@ export default function SignUpII({ route }: any) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
-      <Header
-        leftSpaceWidth='19%'
-        name='Cadastro'
+        <Header
+          name="Cadastro"
           bgColor="#FFFFFF"
-          title='Cadastro'
+          title="Cadastro"
           fontColor="#000000"
           fontWeight={'500'}
-          iconHeight={1}
-          iconWidth={1}
           srcLeftIcon={theme.ICONS.BACK}
           onPressLeftButton={() => {
             navigation.goBack();
