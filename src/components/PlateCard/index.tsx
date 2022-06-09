@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { Description } from '../../screens/SignUpSuccess/styles';
-import theme from '../../theme';
 import {
   Container,
   Title,
@@ -10,32 +8,31 @@ import {
   Price,
   AddButton,
   AddLabel,
-  PlateImageView,
+  Description,
 } from './styles';
 
 interface Props extends TouchableOpacityProps {
-  name: string;
+  description: string;
   src: any;
+  price: string;
 }
 
-export function PlateCard({ name, src, ...rest }: Props) {
+export function PlateCard({ description, src, price, ...rest }: Props) {
   const [focused, setFocused] = useState(false);
 
   return (
     <Container>
-      <PlateImageView>
-        <PlateImage source={theme.IMAGES.NOIMAGE} />
-      </PlateImageView>
+      <PlateImage source={src} />
       <PlateWrapper>
-        <Title>Prato de Camarão & Fritas</Title>
+        <Title>{description}</Title>
         <Description>
           Um prato de camarão com fritas que é uma ótima opção para pedir quando
           se está com a família
         </Description>
-          <Price>R$ 49,90</Price>
-          <AddButton>
-            <AddLabel>Adicionar</AddLabel>
-          </AddButton>
+        <Price>R$ {price}</Price>
+        <AddButton>
+          <AddLabel>Adicionar</AddLabel>
+        </AddButton>
       </PlateWrapper>
     </Container>
   );

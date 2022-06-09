@@ -3,7 +3,8 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
-flex: 1
+flex: 1;
+
 `;
 
 export const Wrapper = styled.View`
@@ -17,6 +18,8 @@ align-items: center;
 justify-content: space-between;
 border-bottom-width: 2px;
 border-bottom-color: #F0F0F5;
+padding-bottom: 34px;
+padding-top: 26px;
 `;
 
 export const LabelWrapper = styled.View`
@@ -36,7 +39,8 @@ line-height: ${RFValue(14)}px;
 `;
 
 export const RestaurantPhoto = styled.Image`
-background-color: red;
+height: ${RFValue(60)}px;
+width: ${RFValue(60)}px;
 `;
 
 export const PlatesTitle = styled.Text`
@@ -55,5 +59,6 @@ margin-top: ${RFValue(18)}px;
 
 
 export const PlateList = styled.FlatList`
-flex: 1
+  flex: 1;
+
 `;

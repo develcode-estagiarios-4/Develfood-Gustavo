@@ -84,4 +84,3 @@ export const RestaurantList = styled.FlatList`
   flex: 1;
 `;
 
-export const Restaurants = styled.View``;

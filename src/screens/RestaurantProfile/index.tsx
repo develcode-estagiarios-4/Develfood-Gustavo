@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { StatusBar, View } from 'react-native';
+import { ActivityIndicator, Image, StatusBar, View, Text } from 'react-native';
 import { Header } from '../../components/Header';
 import { PlateCard } from '../../components/PlateCard';
 import { useGet } from '../../services';
@@ -19,24 +19,24 @@ import {
 } from './styles';
 import { useAuth } from '../../hooks/auth';
 import { InputForm } from '../../components/InputForm';
+import { RFValue } from 'react-native-responsive-fontsize';
 
-interface Restaurant {
+interface Plate {
   id: number;
-  name: string;
-  photo: string;
+  description: string;
+  price: string;
 }
 interface Restaurants {
-  content?: Restaurant[];
+  content?: Plate[];
   totalPages: number;
 }
 
 export default function RestaurantProfile({ route }: any) {
+  const { token } = useAuth();
   const navigation = useNavigation();
   const { id, name, photo } = route.params;
-  console.log(id, name, photo);
 
-  const [test, setTest] = useState<Restaurant[]>([]);
-  const { token } = useAuth();
+  const [plates, setPlates] = useState<Plate[]>([]);
 
   const {
     data: dataGet,
@@ -44,15 +44,25 @@ export default function RestaurantProfile({ route }: any) {
     setLoading,
     error,
     fetchData,
-  } = useGet<Restaurants>(`/restaurant/filter?name=&page=0&quantity=10`, {
+  } = useGet<Restaurants>(`/plate/restaurant/${id}?page=0&quantity=10`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
+  function onSuccessLoad(data?: any) {
+    setPlates([...plates, ...(data?.content as Plate[])]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+    setLoading(true);
+  }, []);
+
   return (
     <>
-      <StatusBar backgroundColor={theme.COLORS.BACKGROUND} />
+      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} />
       <Container>
         <PlateList
           ListHeaderComponent={
@@ -81,18 +91,58 @@ export default function RestaurantProfile({ route }: any) {
                   name="search"
                   editable={true}
                   keyboardType={'default'}
-                  placeholder= {`Buscar em ${name}`}
+                  placeholder={`Buscar em ${name}`}
                   src={theme.ICONS.SEARCH}
                 />
               </Form>
-              <PlateCard name='Prato' src={theme.ICONS.BACK}/>
             </>
           }
-          data={test}
+          ListEmptyComponent={
+            !loading ? (
+              <View
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  alignContent: 'center',
+                }}
+              >
+                <Image source={theme.IMAGES.NOTFOUND} />
+                <Text style={{
+                    textAlign: 'center',
+                    fontSize: 17,
+                    color: 'black',
+                  }}>Nenhum prato encontrado</Text>
+              </View>
+            ) : null
+          }
+          ListFooterComponent={() => (
+            <View
+              style={{
+                width: '100%',
+                height: RFValue(80),
+                justifyContent: 'flex-end',
+              }}
+            >
+              {loading && (
+                <ActivityIndicator size={50} color={theme.COLORS.BACKGROUND} />
+              )}
+            </View>
+          )}
+          data={plates}
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
-            <>
-            </>
+            <View
+              style={{
+                paddingHorizontal: 10,
+                paddingBottom: 10,
+              }}
+            >
+              <PlateCard
+                price={item.price}
+                description={item.description}
+                src={theme.IMAGES.BANNER}
+              />
+            </View>
           )}
         />
       </Container>

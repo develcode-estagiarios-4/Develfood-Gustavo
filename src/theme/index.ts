@@ -58,6 +58,6 @@ export default {
     BANNER: require('../assets/banner1.png'),
     NOIMAGE: require('../assets/noimage.png'),
     DISCONECT: require('../assets/disconect.png'),
-    NOTFOUND: require('../assets/naoencontrado.png')
+    NOTFOUND: require('../assets/notfound.png')
   }
 };
