@@ -22,7 +22,7 @@ export const Address = styled.Text`
   font-size: ${RFValue(12)}px;
   line-height: ${RFValue(14)}px;
   font-weight: 400;
-  width: 70%;
+  width: 100%;
 `;
 
 export const Banners = styled.ScrollView`

@@ -29,12 +29,14 @@ export function Header({
   srcLeftIcon,
   fontColor,
   fontWeight,
-  bgColor
+  bgColor,
 }: HeaderProps) {
   const { loading } = useAuth();
 
+  const [focused, setFocused] = useState(false);
+
   return (
-    <Container style={{backgroundColor: bgColor}}>
+    <Container style={{ backgroundColor: bgColor }}>
       <LeftButton disabled={loading} onPress={() => onPressLeftButton()}>
         <LeftIconButton resizeMode="contain" source={srcLeftIcon} />
       </LeftButton>
@@ -46,14 +48,15 @@ export function Header({
       )}
 
       <RightSpace>
-        <RightButton>
-         { name === 'Restaurant' &&
-          <FirstRightIcon
-            resizeMode="contain"
-            source={require('../../assets/borderheart.png')}
-          /> 
-         } 
-        </RightButton>
+        {name === 'Restaurant' && (
+          <RightButton onPress={() => setFocused(!focused)}>
+            <FirstRightIcon
+              resizeMode="contain"
+              source={require('../../assets/borderheart.png')}
+              style={focused ? { tintColor: theme.COLORS.BACKGROUND } : null}
+            />
+          </RightButton>
+        )}
       </RightSpace>
     </Container>
   );

@@ -3,12 +3,17 @@ import { TouchableOpacityProps } from 'react-native';
 import {
   Container,
   Title,
+  ImageView,
   PlateImage,
   PlateWrapper,
   Price,
   AddButton,
   AddLabel,
   Description,
+  Footer,
+  AlignWrapperI,
+  AlignWrapperII,
+  AlignWrapperIII,
 } from './styles';
 
 interface Props extends TouchableOpacityProps {
@@ -18,21 +23,30 @@ interface Props extends TouchableOpacityProps {
 }
 
 export function PlateCard({ description, src, price, ...rest }: Props) {
-  const [focused, setFocused] = useState(false);
-
   return (
     <Container>
-      <PlateImage source={src} />
+      <ImageView>
+        <PlateImage source={src} />
+      </ImageView>
       <PlateWrapper>
-        <Title>{description}</Title>
-        <Description>
-          Um prato de camarão com fritas que é uma ótima opção para pedir quando
-          se está com a família
-        </Description>
-        <Price>R$ {price}</Price>
-        <AddButton>
-          <AddLabel>Adicionar</AddLabel>
-        </AddButton>
+        <AlignWrapperI>
+          <Title>{description}</Title>
+        </AlignWrapperI>
+
+        <AlignWrapperII>
+          <Description numberOfLines={3}>
+            Um prato de camarão com fritas que é uma ótima opção para pedir
+            quando se está com a família
+          </Description>
+        </AlignWrapperII>
+        <AlignWrapperIII>
+          <Footer>
+            <Price>R$ {price}</Price>
+            <AddButton>
+              <AddLabel>Adicionar</AddLabel>
+            </AddButton>
+          </Footer>
+        </AlignWrapperIII>
       </PlateWrapper>
     </Container>
   );

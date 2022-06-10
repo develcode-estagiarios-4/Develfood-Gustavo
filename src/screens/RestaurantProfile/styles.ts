@@ -8,7 +8,6 @@ flex: 1;
 `;
 
 export const Wrapper = styled.View`
-padding: 0 ${RFValue(16)}px;
 
 `
 
@@ -19,7 +18,7 @@ justify-content: space-between;
 border-bottom-width: 2px;
 border-bottom-color: #F0F0F5;
 padding-bottom: 34px;
-padding-top: 26px;
+padding-top: 12px;
 `;
 
 export const LabelWrapper = styled.View`
@@ -49,12 +48,11 @@ font-size: 18px;
 line-height: 21px;
 color: #2B2B2E;
 margin-top: ${RFValue(18)}px;
-padding: 0 ${RFValue(16)}px;
 `;
 
 export const Form = styled.View`
-padding: 0 ${RFValue(16)}px;
 margin-top: ${RFValue(18)}px;
+margin-bottom: ${RFValue(1)}px;
 `;
 
 

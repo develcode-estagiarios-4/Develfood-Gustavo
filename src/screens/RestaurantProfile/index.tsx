@@ -26,7 +26,7 @@ interface Plate {
   description: string;
   price: string;
 }
-interface Restaurants {
+interface Plates {
   content?: Plate[];
   totalPages: number;
 }
@@ -35,7 +35,6 @@ export default function RestaurantProfile({ route }: any) {
   const { token } = useAuth();
   const navigation = useNavigation();
   const { id, name, photo } = route.params;
-
   const [plates, setPlates] = useState<Plate[]>([]);
 
   const {
@@ -44,7 +43,7 @@ export default function RestaurantProfile({ route }: any) {
     setLoading,
     error,
     fetchData,
-  } = useGet<Restaurants>(`/plate/restaurant/${id}?page=0&quantity=10`, {
+  } = useGet<Plates>(`/plate/restaurant/${id}?page=0&quantity=10`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -64,18 +63,27 @@ export default function RestaurantProfile({ route }: any) {
     <>
       <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} />
       <Container>
+        <View style={{ paddingLeft: RFValue(6), paddingRight: RFValue(15) }}>
+          <Header
+            name="Restaurant"
+            title=""
+            onPressLeftButton={() => {
+              navigation.goBack();
+            }}
+            srcLeftIcon={require('../../assets/back.png')}
+            bgColor={theme.COLORS.BACKGROUND_LIGHT}
+            fontColor={theme.COLORS.BACKGROUND_LIGHT}
+            fontWeight={'400'}
+          />
+        </View>
+
         <PlateList
+          contentContainerStyle={{
+            paddingLeft: RFValue(18),
+            paddingRight: RFValue(18),
+          }}
           ListHeaderComponent={
-            <>
-              <Header
-                name="Restaurant"
-                title=""
-                onPressLeftButton={() => {}}
-                srcLeftIcon={require('../../assets/back.png')}
-                bgColor={theme.COLORS.BACKGROUND_LIGHT}
-                fontColor={theme.COLORS.BACKGROUND_LIGHT}
-                fontWeight={'400'}
-              />
+            <View>
               <Wrapper>
                 <RestaurantInfo>
                   <LabelWrapper>
@@ -95,7 +103,7 @@ export default function RestaurantProfile({ route }: any) {
                   src={theme.ICONS.SEARCH}
                 />
               </Form>
-            </>
+            </View>
           }
           ListEmptyComponent={
             !loading ? (
@@ -107,11 +115,15 @@ export default function RestaurantProfile({ route }: any) {
                 }}
               >
                 <Image source={theme.IMAGES.NOTFOUND} />
-                <Text style={{
+                <Text
+                  style={{
                     textAlign: 'center',
                     fontSize: 17,
                     color: 'black',
-                  }}>Nenhum prato encontrado</Text>
+                  }}
+                >
+                  Nenhum prato encontrado
+                </Text>
               </View>
             ) : null
           }
@@ -120,7 +132,7 @@ export default function RestaurantProfile({ route }: any) {
               style={{
                 width: '100%',
                 height: RFValue(80),
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
               }}
             >
               {loading && (
@@ -132,15 +144,12 @@ export default function RestaurantProfile({ route }: any) {
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <View
-              style={{
-                paddingHorizontal: 10,
-                paddingBottom: 10,
-              }}
+              style={{ paddingBottom: RFValue(13), marginTop: RFValue(10) }}
             >
               <PlateCard
                 price={item.price}
                 description={item.description}
-                src={theme.IMAGES.BANNER}
+                src={theme.IMAGES.NOIMAGE}
               />
             </View>
           )}

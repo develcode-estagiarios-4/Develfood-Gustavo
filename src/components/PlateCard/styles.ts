@@ -2,52 +2,51 @@ import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View.attrs({
+  elevation: 10
 })`
-  height: ${RFValue(120)}px;
-  width: 100%;
-  border-radius: 8px;
   flex-direction: row;
   align-items: center;
+  border-radius: 15px;
+  height: ${RFValue(130)}px;
+  width: 100%;
+  background: #FFFFFF;
 `;
 
-export const PlateImageView = styled.View`
-
+export const ImageView = styled.View`
+height: ${RFValue(130)}px;
+width: 35%;
+align-items: center;
+justify-content: center;
 `;
+
 
 export const PlateImage = styled.Image.attrs({
     resizeMode: 'cover'
 })`
-width: ${RFValue(91)}px;
-height: ${RFValue(82)}px;
-margin-left: ${RFValue(14)}px;
-padding-bottom: ${RFValue(11)}px;
-padding-top: ${RFValue(10)}px;
 border-radius: 8px;
+height: ${RFValue(87)}px;
+width: ${RFValue(90)}px;
 `;
 
 export const PlateWrapper = styled.View`
-width: ${RFValue(198)}px;
-height: ${RFValue(82)}px;
-align-items: flex-start;
-margin-left: ${RFValue(15.91)}px;
+width: 65%;
+height: ${RFValue(87)}px;
+padding-right: ${RFValue(14)}px ;
+justify-content: center;  
 `;
 
 export const Title = styled.Text`
 color: ${({ theme }) => theme.COLORS.BACKGROUND};
 font-weight: 500;
 font-size: ${RFValue(14)}px;
-line-height: ${RFValue(16)}px;
-margin-bottom: ${RFValue(4)}px;
-
 `;
 
 export const Description = styled.Text`
+width: ${RFValue(180)}px;
 font-weight: 400;
 font-size: ${RFValue(11)}px;
-line-height: ${RFValue(13)}px;
 align-items: center;
-margin-bottom: ${RFValue(8)}px;
-justify-content: flex-start ;
+text-align: justify;
 color: #BFBABA;
 `;
 
@@ -62,18 +61,31 @@ export const Price = styled.Text`
 color: #2B2B2E;
 font-weight: 700;
 font-size: ${RFValue(13)}px;
-line-height: ${RFValue(15)}px;
 `;
 
 export const AddButton = styled.TouchableOpacity`
-position: absolute;
-bottom: 0;
-right: 0;
 `;
 
 export const AddLabel = styled.Text`
 color: ${({ theme }) => theme.COLORS.BACKGROUND};
 font-size: ${RFValue(14)}px;
-line-height: ${RFValue(16)}px;
 font-weight: 500;
+position: absolute;
+right: 0;
+bottom: 5px;
+
+`;
+
+export const AlignWrapperI  = styled.View`
+height: 25%;
+`;
+
+export const AlignWrapperII = styled.View`
+height: 50%;
+`;
+
+export const AlignWrapperIII = styled.View`
+height: 25%;
+margin-top: 7px;
+
 `;
