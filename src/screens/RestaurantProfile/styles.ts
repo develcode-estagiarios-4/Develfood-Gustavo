@@ -35,6 +35,7 @@ margin-bottom: ${RFValue(4)}px;
 export const Category = styled.Text`
 font-size: ${RFValue(12)}px;
 line-height: ${RFValue(14)}px;
+color: #BFBABA;
 `;
 
 export const RestaurantPhoto = styled.Image`
