@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import {
   StatusBar,
   ActivityIndicator,
   Dimensions,
   View,
   Text,
-  Image,
 } from 'react-native';
+
 import {
   Container,
   Banners,
@@ -21,16 +22,18 @@ import {
   RestaurantList,
   HeaderHome,
   LocalImage,
-  Address
+  Address,
 } from './styles';
-import { useGet } from '../../services';
-import { useAuth } from '../../hooks/auth';
-import theme from '../../theme';
+
 import { InputForm } from '../../components/InputForm';
 import { RestaurantCard } from '../../components/RestaurantCard';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { useDebouncedCallback } from 'use-debounce';
+
+import { useGet } from '../../services';
+import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
+import { useDebouncedCallback } from 'use-debounce';
+import theme from '../../theme';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 interface Restaurant {
   id: number;

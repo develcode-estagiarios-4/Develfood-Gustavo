@@ -1,10 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+
 import { ActivityIndicator, Image, StatusBar, View, Text } from 'react-native';
-import { Header } from '../../components/Header';
-import { PlateCard } from '../../components/PlateCard';
-import { useGet } from '../../services';
-import theme from '../../theme';
+
 import {
   Container,
   Wrapper,
@@ -17,8 +14,16 @@ import {
   Form,
   PlateList,
 } from './styles';
-import { useAuth } from '../../hooks/auth';
+
+import { Header } from '../../components/Header';
+import { PlateCard } from '../../components/PlateCard';
 import { InputForm } from '../../components/InputForm';
+
+import { useGet } from '../../services';
+import { useAuth } from '../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
+
+import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 interface Plate {
@@ -32,8 +37,8 @@ interface Plates {
 }
 
 export default function RestaurantProfile({ route }: any) {
-  const { token } = useAuth();
   const navigation = useNavigation();
+  const { token } = useAuth();
   const { id, name, photo } = route.params;
   const [plates, setPlates] = useState<Plate[]>([]);
 
