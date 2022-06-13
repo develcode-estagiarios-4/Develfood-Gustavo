@@ -177,6 +177,7 @@ export const Home: React.FC<undefined> = () => {
                   editable={true}
                   keyboardType={'default'}
                   placeholder="Buscar restaurantes"
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   src={theme.ICONS.SEARCH}
                   onChangeText={(text) => debounced(text)}
                 />

@@ -94,7 +94,7 @@ export default function SignIn() {
                 <InputForm
                   name="email"
                   placeholder="exemplo@email.com"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="email-address"
                   onChangeText={onChange}
                   value={value}
@@ -114,7 +114,7 @@ export default function SignIn() {
                 <InputForm
                   name="password"
                   placeholder="********"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}

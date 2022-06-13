@@ -20,6 +20,8 @@ width: ${RFValue(35)}px;
 
 export const Title = styled.Text`
 font-size: ${RFValue(15)}px;
+right: 30%;
+
 `;
 
 export const RightSpace = styled.View`

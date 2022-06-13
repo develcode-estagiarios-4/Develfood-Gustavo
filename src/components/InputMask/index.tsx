@@ -37,6 +37,7 @@ export function InputMask({
           type="cel-phone"
           options={{maskType: 'BRL', withDDD: true, dddMask: '(99) '}}
           placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
           autoCapitalize="none"
           onChangeText={onChangeText}
           value={value}

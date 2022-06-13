@@ -41,6 +41,7 @@ color: #BFBABA;
 export const RestaurantPhoto = styled.Image`
 height: ${RFValue(60)}px;
 width: ${RFValue(60)}px;
+border-radius: 50px;
 `;
 
 export const PlatesTitle = styled.Text`

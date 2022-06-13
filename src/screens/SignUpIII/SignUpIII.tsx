@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import {
   Container,
@@ -28,27 +28,68 @@ import theme from '../../theme';
 import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
+import { useCep } from '../../services/viaCep';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputZipcodeMask } from '../../components/InputMask/zipcode';
 
-const schema = Yup.object().shape({
-  nickname: Yup.string().required('Apelido do endereço é obrigatório.'),
-  cep: Yup.string().required('CEP é obrigatório.').typeError('Somente números'),
-  street: Yup.string().required('Rua é obrigatória.'),
-  city: Yup.string().required('Cidade é obrigatória.'),
-  neighborhood: Yup.string().required('Bairro é obrigatório.'),
-  state: Yup.string().required('Estado é obrigatório.'),
-  number: Yup.number()
-    .required('Número é obrigatório.')
-    .typeError('Somente números'),
-});
+interface RequestProps {
+  endpoint: string;
+}
 
 export default function SignUpIII({ route }: any) {
   const navigation = useNavigation();
+  const [cep, setCep] = useState('');
+  const [request, setRequest] = useState({} as RequestProps);
+  const [isError, setIsError] = useState(false);
+  const { data, handleCep } = useCep(request.endpoint);
 
   const { signUp, loading } = useAuth();
+
+  function onSuccess(data: any) {
+    data.localidade
+      ? (setIsError(false))
+      : (setIsError(true));
+  }
+
+  const schema = Yup.object().shape({
+    nickname: Yup.string().required('Apelido do endereço é obrigatório.'),
+    cep: Yup.string()
+      .min(9, 'Cep inválido')
+      .test('is-cep', 'Cep inválido', () => !isError),
+    street: Yup.string().required('Rua é obrigatória.'),
+    city: Yup.string().required('Cidade é obrigatória.'),
+    neighborhood: Yup.string().required('Bairro é obrigatório.'),
+    state: Yup.string().required('Estado é obrigatório.'),
+    number: Yup.number()
+      .required('Número é obrigatório.')
+      .typeError('Somente números'),
+  });
+
+  const {
+    control,
+    getValues,
+    handleSubmit,
+    setValue,
+    reset,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  useEffect(() => {
+    !!request.endpoint && handleCep(onSuccess);
+  }, [request]);
+
+  useEffect(() => {
+    setValue('street', data.logradouro);
+    setValue('city', data.localidade);
+    setValue('neighborhood', data.bairro);
+    setValue('state', data.uf);
+    setValue('cep', cep);
+  }, [data]);
 
   async function handleSignUp() {
     const { email, password, firstName, lastName, cpf, phone, photo } =
@@ -74,14 +115,9 @@ export default function SignUpIII({ route }: any) {
     });
   }
 
-  const {
-    control,
-    getValues,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  function handleCepWriter() {
+    setRequest({ endpoint: `/${cep}/json/` });
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -125,7 +161,7 @@ export default function SignUpIII({ route }: any) {
                     <InputForm
                       name="nickname"
                       placeholder="Apelido do End."
-                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      placeholderTextColor={theme.COLORS.SECONDARY_100}
                       keyboardType="default"
                       onChangeText={onChange}
                       value={value}
@@ -145,14 +181,21 @@ export default function SignUpIII({ route }: any) {
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
                     <InputZipcodeMask
+                      name={'cep'}
                       placeholder="CEP"
-                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      placeholderTextColor={theme.COLORS.SECONDARY_100}
                       keyboardType="number-pad"
-                      onChangeText={onChange}
+                      onChangeText={(text) => {
+                        onChange;
+                        setCep(text);
+                      }}
                       value={value}
                       error={errors.cep && errors.cep.message}
                       editable={true}
                       src={theme.ICONS.LOCAL}
+                      onEndEditing={() => {
+                        handleCepWriter();
+                      }}
                     />
                   )}
                   name="cep"
@@ -167,7 +210,7 @@ export default function SignUpIII({ route }: any) {
                 <InputForm
                   name="street"
                   placeholder="Rua"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}
@@ -187,7 +230,7 @@ export default function SignUpIII({ route }: any) {
                 <InputForm
                   name="city"
                   placeholder="Cidade"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}
@@ -207,7 +250,7 @@ export default function SignUpIII({ route }: any) {
                 <InputForm
                   name="neighborhood"
                   placeholder="Bairro"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}
@@ -229,7 +272,7 @@ export default function SignUpIII({ route }: any) {
                     <InputForm
                       name="state"
                       placeholder="Estado"
-                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      placeholderTextColor={theme.COLORS.SECONDARY_100}
                       keyboardType="default"
                       onChangeText={onChange}
                       value={value}
@@ -251,7 +294,7 @@ export default function SignUpIII({ route }: any) {
                     <InputForm
                       name="number"
                       placeholder="Número"
-                      placeholderTextColor={theme.COLORS.SECONDARY_400}
+                      placeholderTextColor={theme.COLORS.SECONDARY_100}
                       keyboardType="default"
                       onChangeText={onChange}
                       value={value}
