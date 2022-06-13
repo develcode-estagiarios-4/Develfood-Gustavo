@@ -90,7 +90,7 @@ export const Home: React.FC<undefined> = () => {
     if (text.length > 1) {
       setRestaurants([]);
       setFilter({ text: text, page: 0 });
-    } else if (text.length <= 1) {
+    } else {
       setRestaurants([]);
       setFilter({ text: '', page: 0 });
     }
