@@ -50,8 +50,9 @@ export const ForgotPasswordButton = styled.TouchableOpacity`
 
 export const ForgotPasswordLabel = styled.Text`
   font-size: ${RFValue(14)}px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: ${RFValue(19)}px;
+  color: ${({ theme }) => theme.COLORS.SECONDARY_600};
 `;
 
 export const RegisterWrapper = styled.View`
@@ -64,7 +65,9 @@ export const RegisterWrapper = styled.View`
 
 export const NoRegisterLabel = styled.Text`
   font-size: ${RFValue(14)}px;
-  font-weight: bold;
+  font-weight: 700;
+  color: ${({ theme }) => theme.COLORS.SECONDARY_600};
+
 `;
 
 export const RegisterButton = styled.TouchableOpacity`

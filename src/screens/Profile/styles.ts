@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Title = styled.Text`
-textAlign: center
-fontSize: 18px
-marginTop: 40px
+text-align: center;
+font-size: 18px;
+margin-top: 40px;
 `;

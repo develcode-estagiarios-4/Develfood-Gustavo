@@ -28,7 +28,7 @@ export const InputLogin = styled.TextInput<InputProps>`
   width: 74%;
   ${({ hasRightIcon }) => hasRightIcon && css`
   padding-right: ${RFValue(42)}px;
-  `}
+`}
 `;
 
 export const IconPassword = styled.TouchableOpacity`

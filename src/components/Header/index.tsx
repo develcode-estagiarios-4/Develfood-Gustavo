@@ -4,17 +4,12 @@ import theme from '../../theme';
 
 import {
   Container,
-  LeftSpace,
   LeftButton,
   LeftIconButton,
-  LeftIconWrapper,
-  LeftIcon,
-  LeftLabel,
   Title,
   RightSpace,
+  RightButton,
   FirstRightIcon,
-  SecondRightIcon,
-  Address,
 } from './styles';
 
 interface HeaderProps {
@@ -22,13 +17,9 @@ interface HeaderProps {
   title?: string;
   onPressLeftButton: Function;
   srcLeftIcon: any;
-  bgColor: string;
-  iconHeight: number;
-  iconWidth: number;
   fontColor: string;
   fontWeight: any;
-  address?: string;
-  leftSpaceWidth: string
+  bgColor: any;
 }
 
 export function Header({
@@ -36,43 +27,36 @@ export function Header({
   title,
   onPressLeftButton,
   srcLeftIcon,
-  bgColor,
-  iconHeight,
-  iconWidth,
   fontColor,
   fontWeight,
-  address,
-  leftSpaceWidth
+  bgColor,
 }: HeaderProps) {
   const { loading } = useAuth();
 
+  const [focused, setFocused] = useState(false);
+
   return (
     <Container style={{ backgroundColor: bgColor }}>
-      <LeftSpace style={{width: leftSpaceWidth}}>
-        <LeftButton disabled={loading} onPress={() => onPressLeftButton()}>
-          <LeftIconButton
-            source={srcLeftIcon}
-            height={iconHeight}
-            width={iconWidth}
-            />
-        </LeftButton>
+      <LeftButton disabled={loading} onPress={() => onPressLeftButton()}>
+        <LeftIconButton resizeMode="contain" source={srcLeftIcon} />
+      </LeftButton>
 
-        <LeftIconWrapper>
-          {/* <LeftIcon /> */}
-          {/* <LeftLabel /> */}
-        </LeftIconWrapper>
-      </LeftSpace>
-
-      {name === 'Home' && <Address>{address}</Address>}
       {name === 'Cadastro' && (
-          <Title style={{ color: fontColor, fontWeight: fontWeight }}>
+        <Title style={{ color: fontColor, fontWeight: fontWeight }}>
           {title}
         </Title>
       )}
 
       <RightSpace>
-        {/* <FirstRightIcon source={} /> */}
-        {/* <SecondRightIcon source={} /> */}
+        {name === 'Restaurant' && (
+          <RightButton onPress={() => setFocused(!focused)}>
+            <FirstRightIcon
+              resizeMode="contain"
+              source={require('../../assets/borderheart.png')}
+              style={focused ? { tintColor: theme.COLORS.BACKGROUND } : null}
+            />
+          </RightButton>
+        )}
       </RightSpace>
     </Container>
   );

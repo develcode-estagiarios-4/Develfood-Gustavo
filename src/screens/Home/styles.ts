@@ -2,11 +2,31 @@ import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
-background-color: ${({theme}) => theme.COLORS.BACKGROUND_LIGHT};
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
+`;
+
+export const HeaderHome = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+  flex-direction: row;
+  align-items: center;
+  height: ${RFValue(56)}px;
+`;
+
+export const LocalImage = styled.Image`
+  margin-left: ${RFValue(11)}px;
+`;
+
+export const Address = styled.Text`
+  color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
+  margin-left: ${RFValue(6)}px;
+  font-size: ${RFValue(12)}px;
+  line-height: ${RFValue(14)}px;
+  font-weight: 400;
+  width: 100%;
 `;
 
 export const Banners = styled.ScrollView`
-  margin-top: 12px; 
+  margin-top: 12px;
   margin-bottom: 26px;
   flex-direction: row;
 `;
@@ -24,7 +44,7 @@ export const CategorySelect = styled.ScrollView`
 `;
 
 export const TitleView = styled.View`
-margin-bottom: 18px;
+  margin-bottom: 18px;
 `;
 
 export const Title = styled.Text`
@@ -45,8 +65,8 @@ export const BtnOption = styled.TouchableOpacity`
   align-items: center;
 `;
 export const BtnLabel = styled.Text`
-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
-font-weight: 700;
+  color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
+  font-weight: 700;
 `;
 
 export const Form = styled.View`
@@ -56,15 +76,11 @@ export const Form = styled.View`
 `;
 
 export const Content = styled.View`
-flex: 1;
-background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
+  flex: 1;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
-
 
 export const RestaurantList = styled.FlatList`
-flex: 1;
-`;
-
-export const Restaurants = styled.View`
+  flex: 1;
 `;
 

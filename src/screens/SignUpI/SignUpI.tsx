@@ -69,14 +69,11 @@ export default function SignUpI() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
         <Header
-        leftSpaceWidth='19%'
         name='Cadastro'
           bgColor="#FFFFFF"
           title='Cadastro'
           fontColor="#000000"
           fontWeight={'500'}
-          iconHeight={1}
-          iconWidth={1}
           srcLeftIcon={theme.ICONS.BACK}
           onPressLeftButton={() => {
             navigation.goBack();
@@ -108,7 +105,7 @@ export default function SignUpI() {
                 <InputForm
                   name="email"
                   placeholder="exemplo@email.com"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="email-address"
                   onChangeText={onChange}
                   value={value}
@@ -128,7 +125,7 @@ export default function SignUpI() {
                 <InputForm
                   name="password"
                   placeholder="senha"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}
@@ -148,7 +145,7 @@ export default function SignUpI() {
                 <InputForm
                   name="confirmPassword"
                   placeholder="confirmar senha"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}

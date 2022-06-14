@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import {
   StatusBar,
   ActivityIndicator,
   Dimensions,
   View,
   Text,
-  Image,
 } from 'react-native';
+
 import {
   Container,
   Banners,
@@ -19,15 +20,20 @@ import {
   BtnLabel,
   Content,
   RestaurantList,
+  HeaderHome,
+  LocalImage,
+  Address,
 } from './styles';
-import { useGet } from '../../services';
-import { useAuth } from '../../hooks/auth';
-import theme from '../../theme';
-import { Header } from '../../components/Header';
+
 import { InputForm } from '../../components/InputForm';
 import { RestaurantCard } from '../../components/RestaurantCard';
-import { RFValue } from 'react-native-responsive-fontsize';
+
+import { useGet } from '../../services';
+import { useAuth } from '../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
 import { useDebouncedCallback } from 'use-debounce';
+import theme from '../../theme';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 interface Restaurant {
   id: number;
@@ -43,6 +49,8 @@ const CardMargins =
   (Dimensions.get('screen').width - RFValue(312)) / RFValue(3.5);
 
 export const Home: React.FC<undefined> = () => {
+  const navigation = useNavigation();
+
   const { token } = useAuth();
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [filter, setFilter] = useState({
@@ -65,10 +73,6 @@ export const Home: React.FC<undefined> = () => {
     },
   );
 
-  useEffect(() => {
-    (async () => await fetchData(onSuccessLoad))();
-  }, []);
-
   function onSuccessLoad(data?: any) {
     setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
     setLoading(false);
@@ -83,14 +87,12 @@ export const Home: React.FC<undefined> = () => {
   }, 1500);
 
   function searchRestaurants(text: string) {
-    {
-      if (text.length > 1) {
-        setRestaurants([]);
-        setFilter({ text: text, page: 0 });
-      } else if (text.length <= 1) {
-        setRestaurants([]);
-        setFilter({ text: '', page: 0 });
-      }
+    if (text.length > 1) {
+      setRestaurants([]);
+      setFilter({ text: text, page: 0 });
+    } else {
+      setRestaurants([]);
+      setFilter({ text: '', page: 0 });
     }
   }
 
@@ -99,6 +101,17 @@ export const Home: React.FC<undefined> = () => {
       setLoading(true);
       setFilter({ ...filter, page: filter.page + 1 });
     }
+  }
+
+  function handleRestaurant(id: number, name: string, photo: any) {
+    navigation.navigate(
+      'RestaurantProfile' as never,
+      {
+        id,
+        name,
+        photo,
+      } as never,
+    );
   }
 
   return (
@@ -126,19 +139,10 @@ export const Home: React.FC<undefined> = () => {
           }
           ListHeaderComponent={
             <Container>
-              <Header
-                name="Home"
-                leftSpaceWidth="7%"
-                title=""
-                onPressLeftButton={() => {}}
-                srcLeftIcon={require('../../assets/localHeader.png')}
-                bgColor={theme.COLORS.BACKGROUND}
-                iconHeight={1}
-                iconWidth={1}
-                fontColor={theme.COLORS.BACKGROUND_LIGHT}
-                fontWeight={'400'}
-                address="rua Arcy da Rocha Nóbrega 667, Panazollo"
-              />
+              <HeaderHome>
+                <LocalImage source={require('../../assets/localHeader.png')} />
+                <Address> rua Arcy da Rocha Nóbrega 667, Panazollo</Address>
+              </HeaderHome>
               <Banners horizontal={true} showsHorizontalScrollIndicator={false}>
                 <Banner source={theme.IMAGES.BANNER} />
                 <Banner source={theme.IMAGES.BANNER} />
@@ -176,6 +180,7 @@ export const Home: React.FC<undefined> = () => {
                   editable={true}
                   keyboardType={'default'}
                   placeholder="Buscar restaurantes"
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   src={theme.ICONS.SEARCH}
                   onChangeText={(text) => debounced(text)}
                 />
@@ -212,6 +217,7 @@ export const Home: React.FC<undefined> = () => {
           renderItem={({ item }: any) => (
             <>
               <RestaurantCard
+                onPress={() => handleRestaurant(item.id, item.name, item.photo)}
                 name={item.name}
                 src={
                   item.photo ? { uri: `${item.photo}` } : theme.IMAGES.NOIMAGE

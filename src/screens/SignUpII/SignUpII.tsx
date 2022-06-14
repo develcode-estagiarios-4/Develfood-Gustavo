@@ -67,15 +67,12 @@ export default function SignUpII({ route }: any) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
-      <Header
-        leftSpaceWidth='19%'
-        name='Cadastro'
+        <Header
+          name="Cadastro"
           bgColor="#FFFFFF"
-          title='Cadastro'
+          title="Cadastro"
           fontColor="#000000"
           fontWeight={'500'}
-          iconHeight={1}
-          iconWidth={1}
           srcLeftIcon={theme.ICONS.BACK}
           onPressLeftButton={() => {
             navigation.goBack();
@@ -107,7 +104,7 @@ export default function SignUpII({ route }: any) {
                 <InputForm
                   name="firstName"
                   placeholder="Nome"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}
@@ -127,7 +124,7 @@ export default function SignUpII({ route }: any) {
                 <InputForm
                   name="lastName"
                   placeholder="Sobrenome"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="default"
                   onChangeText={onChange}
                   value={value}
@@ -147,7 +144,7 @@ export default function SignUpII({ route }: any) {
                 <InputForm
                   name="cpf"
                   placeholder="CPF"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="number-pad"
                   onChangeText={onChange}
                   value={cpf.format(value)}
@@ -166,7 +163,7 @@ export default function SignUpII({ route }: any) {
               render={({ field: { onChange, value } }) => (
                 <InputMask
                   placeholder="Telefone"
-                  placeholderTextColor={theme.COLORS.SECONDARY_400}
+                  placeholderTextColor={theme.COLORS.SECONDARY_100}
                   keyboardType="number-pad"
                   onChangeText={onChange}
                   value={value}

@@ -9,6 +9,7 @@ import { Profile } from '../screens/Profile/Profile';
 
 import { TabBarIcon } from '../components/NavigationBar/TabBarIcon';
 import theme from '../theme';
+import RestaurantRoutes from './restaurantRoutes';
 
 export default function AppRoutes() {
   const Tab = createBottomTabNavigator();
@@ -17,6 +18,7 @@ export default function AppRoutes() {
 
     <Tab.Navigator
     screenOptions={{
+      unmountOnBlur: true,
       headerShown: false,
       tabBarActiveTintColor: theme.COLORS.PRIMARY_900,
       tabBarStyle: {marginTop: 5},
