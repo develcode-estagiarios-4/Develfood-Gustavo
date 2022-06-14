@@ -1,6 +1,11 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+export interface RightSideProps {
+  height?: number;
+  margTop?: number;
+}
+
 export const Container = styled.View.attrs({
   elevation: 10
 })`
@@ -76,16 +81,8 @@ bottom: 5px;
 
 `;
 
-export const AlignWrapperI  = styled.View`
-height: 25%;
+export const RightSideContainer = styled.View`
+height: ${( props: RightSideProps) => props.height ? props.height : 10 }% ;
+margin-top: ${( props: RightSideProps) => props.margTop ? props.margTop : 0}px ;
 `;
 
-export const AlignWrapperII = styled.View`
-height: 50%;
-`;
-
-export const AlignWrapperIII = styled.View`
-height: 25%;
-margin-top: 7px;
-
-`;

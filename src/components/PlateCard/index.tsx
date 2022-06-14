@@ -11,9 +11,7 @@ import {
   AddLabel,
   Description,
   Footer,
-  AlignWrapperI,
-  AlignWrapperII,
-  AlignWrapperIII,
+  RightSideContainer,
 } from './styles';
 
 interface Props extends TouchableOpacityProps {
@@ -28,25 +26,27 @@ export function PlateCard({ description, src, price, ...rest }: Props) {
       <ImageView>
         <PlateImage source={src} />
       </ImageView>
-      <PlateWrapper>
-        <AlignWrapperI>
-          <Title>{description}</Title>
-        </AlignWrapperI>
 
-        <AlignWrapperII>
+      <PlateWrapper>
+        <RightSideContainer height={25}>
+          <Title>{description}</Title>
+        </RightSideContainer>
+
+        <RightSideContainer height={50}>
           <Description numberOfLines={3}>
             Um prato de camarão com fritas que é uma ótima opção para pedir
             quando se está com a família
           </Description>
-        </AlignWrapperII>
-        <AlignWrapperIII>
+        </RightSideContainer>
+
+        <RightSideContainer height={25} margTop={7}>
           <Footer>
             <Price>R$ {price}</Price>
             <AddButton>
               <AddLabel>Adicionar</AddLabel>
             </AddButton>
           </Footer>
-        </AlignWrapperIII>
+        </RightSideContainer>
       </PlateWrapper>
     </Container>
   );
