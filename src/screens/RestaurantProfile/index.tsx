@@ -22,6 +22,7 @@ import { InputForm } from '../../components/InputForm';
 import { useGet } from '../../services';
 import { useAuth } from '../../hooks/auth';
 import { useNavigation } from '@react-navigation/native';
+import { useDebouncedCallback } from 'use-debounce';
 
 import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -41,6 +42,10 @@ export default function RestaurantProfile({ route }: any) {
   const { token } = useAuth();
   const { id, name, photo } = route.params;
   const [plates, setPlates] = useState<Plate[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [filter, setFilter] = useState({
+    text: '',
+  });
 
   const {
     data: dataGet,
@@ -48,14 +53,14 @@ export default function RestaurantProfile({ route }: any) {
     setLoading,
     error,
     fetchData,
-  } = useGet<Plates>(`/plate/restaurant/${id}?page=0&quantity=10`, {
+  } = useGet<Plates>(`/plate/search?name=${filter.text}&restaurantid=${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
   function onSuccessLoad(data?: any) {
-    setPlates([...plates, ...(data?.content as Plate[])]);
+    setPlates([...plates, ...(data as Plate[])]);
     setLoading(false);
   }
 
@@ -63,6 +68,26 @@ export default function RestaurantProfile({ route }: any) {
     (async () => await fetchData(onSuccessLoad))();
     setLoading(true);
   }, []);
+
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+  }, [filter]);
+
+  const debounced = useDebouncedCallback((text) => {
+    searchRestaurants(text);
+  }, 1500);
+
+  function searchRestaurants(text: string) {
+    setIsLoading(true);
+    if (text.length > 1) {
+      setPlates([]);
+      setFilter({ text: text });
+    } else {
+      setPlates([]);
+      setFilter({ text: '' });
+    }
+    setIsLoading(false);
+  }
 
   return (
     <>
@@ -75,7 +100,7 @@ export default function RestaurantProfile({ route }: any) {
             onPressLeftButton={() => {
               navigation.goBack();
             }}
-            srcLeftIcon={require('../../assets/back.png')}
+            srcLeftIcon={theme.ICONS.BACK}
             bgColor={theme.COLORS.BACKGROUND_LIGHT}
             fontColor={theme.COLORS.BACKGROUND_LIGHT}
             fontWeight={'400'}
@@ -106,6 +131,7 @@ export default function RestaurantProfile({ route }: any) {
                   keyboardType={'default'}
                   placeholder={`Buscar em ${name}`}
                   src={theme.ICONS.SEARCH}
+                  onChangeText={(text) => debounced(text)}
                 />
               </Form>
             </View>

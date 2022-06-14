@@ -6,6 +6,7 @@ import {
   Dimensions,
   View,
   Text,
+  Image,
 } from 'react-native';
 
 import {
@@ -53,6 +54,7 @@ export const Home: React.FC<undefined> = () => {
 
   const { token } = useAuth();
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState({
     text: '',
     page: 0,
@@ -87,6 +89,7 @@ export const Home: React.FC<undefined> = () => {
   }, 1500);
 
   function searchRestaurants(text: string) {
+    setIsLoading(true);
     if (text.length > 1) {
       setRestaurants([]);
       setFilter({ text: text, page: 0 });
@@ -94,6 +97,7 @@ export const Home: React.FC<undefined> = () => {
       setRestaurants([]);
       setFilter({ text: '', page: 0 });
     }
+    setIsLoading(false);
   }
 
   async function handleEndReached() {
@@ -133,7 +137,19 @@ export const Home: React.FC<undefined> = () => {
                   alignContent: 'center',
                 }}
               >
-                {/* <Image source={theme.IMAGES.NOTFOUND} /> */}
+                <Image
+                  style={{ alignSelf: 'center' }}
+                  source={theme.IMAGES.NOTFOUND}
+                />
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    fontSize: 17,
+                    color: 'black',
+                  }}
+                >
+                  Nenhum restaurante encontrado
+                </Text>
               </View>
             ) : null
           }
