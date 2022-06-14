@@ -21,6 +21,7 @@ interface Props extends TouchableOpacityProps {
 }
 
 export function PlateCard({ description, src, price, ...rest }: Props) {
+
   return (
     <Container>
       <ImageView>
@@ -41,7 +42,7 @@ export function PlateCard({ description, src, price, ...rest }: Props) {
 
         <RightSideContainer height={25} margTop={7}>
           <Footer>
-            <Price>R$ {price}</Price>
+            <Price>R$ {price.toString().replace(".", ",")}</Price>
             <AddButton>
               <AddLabel>Adicionar</AddLabel>
             </AddButton>
