@@ -39,7 +39,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 interface Restaurant {
   id: number;
   name: string;
-  photo: string;
+  photo_url: string;
 }
 interface Restaurants {
   content?: Restaurant[];
@@ -107,13 +107,13 @@ export const Home: React.FC<undefined> = () => {
     }
   }
 
-  function handleRestaurant(id: number, name: string, photo: any) {
+  function handleRestaurant(id: number, name: string, photo_url: any) {
     navigation.navigate(
       'RestaurantProfile' as never,
       {
         id,
         name,
-        photo,
+        photo_url,
       } as never,
     );
   }
@@ -235,9 +235,7 @@ export const Home: React.FC<undefined> = () => {
               <RestaurantCard
                 onPress={() => handleRestaurant(item.id, item.name, item.photo)}
                 name={item.name}
-                src={
-                  item.photo ? { uri: `${item.photo}` } : theme.IMAGES.NOIMAGE
-                }
+                src={ item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
               />
             </>
           )}

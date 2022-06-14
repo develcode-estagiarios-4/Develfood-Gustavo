@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacityProps } from 'react-native';
+import { useAuth } from '../../hooks/auth';
+import { useGet } from '../../services';
 import theme from '../../theme';
 import {
   Container,
@@ -22,8 +24,37 @@ interface Props extends TouchableOpacityProps {
   src: any;
 }
 
+interface Photos {
+  id: number;
+  code: string;
+}
+
 export function RestaurantCard({ name, src, ...rest }: Props) {
   const [focused, setFocused] = useState(false);
+  const { token } = useAuth();
+  const {
+    data: dataGet,
+    loading,
+    setLoading,
+    error,
+    fetchData,
+  } = useGet<Photos>(`/photo/${src.slice(40)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  
+  const [photos, setPhotos] = useState<Photos[]>([])
+
+  function onSuccessLoad(data?: any) {
+    setPhotos([...photos, ...(data as Photos[])]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+    setLoading(true);
+  }, []);
 
   return (
     <Container {...rest}>
@@ -37,7 +68,7 @@ export function RestaurantCard({ name, src, ...rest }: Props) {
       </FavoriteView>
 
       <IconView>
-        <Icon source={src} />
+        <Icon source= { dataGet.code ? {uri: `${dataGet.code}`} : theme.IMAGES.NOIMAGE} />
       </IconView>
 
       <Footer>

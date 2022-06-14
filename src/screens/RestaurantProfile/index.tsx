@@ -31,6 +31,7 @@ interface Plate {
   id: number;
   description: string;
   price: string;
+  photo_url: string;
 }
 interface Plates {
   content?: Plate[];
@@ -40,7 +41,7 @@ interface Plates {
 export default function RestaurantProfile({ route }: any) {
   const navigation = useNavigation();
   const { token } = useAuth();
-  const { id, name, photo } = route.params;
+  const { id, name, photo_url } = route.params;
   const [plates, setPlates] = useState<Plate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState({
@@ -74,10 +75,10 @@ export default function RestaurantProfile({ route }: any) {
   }, [filter]);
 
   const debounced = useDebouncedCallback((text) => {
-    searchRestaurants(text);
+    searchPlates(text);
   }, 1500);
 
-  function searchRestaurants(text: string) {
+  function searchPlates(text: string) {
     setIsLoading(true);
     if (text.length > 1) {
       setPlates([]);
@@ -180,7 +181,7 @@ export default function RestaurantProfile({ route }: any) {
               <PlateCard
                 price={item.price}
                 description={item.description}
-                src={theme.IMAGES.NOIMAGE}
+                src={ item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
               />
             </View>
           )}

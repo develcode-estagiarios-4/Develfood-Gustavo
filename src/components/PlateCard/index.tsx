@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacityProps } from 'react-native';
+import { useAuth } from '../../hooks/auth';
+import { useGet } from '../../services';
+import theme from '../../theme';
 import {
   Container,
   Title,
@@ -20,12 +23,42 @@ interface Props extends TouchableOpacityProps {
   price: string;
 }
 
+interface Photos {
+  id: number;
+  code: string;
+}
+
 export function PlateCard({ description, src, price, ...rest }: Props) {
+
+  const { token } = useAuth();
+  const {
+    data: dataGet,
+    loading,
+    setLoading,
+    error,
+    fetchData,
+  } = useGet<Photos>(`/photo/${src.slice(40)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  
+  const [photos, setPhotos] = useState<Photos[]>([])
+
+  function onSuccessLoad(data?: any) {
+    setPhotos([...photos, ...(data as Photos[])]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+    setLoading(true);
+  }, []);
 
   return (
     <Container>
       <ImageView>
-        <PlateImage source={src} />
+        <PlateImage source={ dataGet.code ? { uri: `${dataGet.code}` } : theme.IMAGES.NOIMAGE } />
       </ImageView>
 
       <PlateWrapper>

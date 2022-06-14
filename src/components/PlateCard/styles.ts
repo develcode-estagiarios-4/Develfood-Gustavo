@@ -14,7 +14,7 @@ export const Container = styled.View.attrs({
   border-radius: 15px;
   height: ${RFValue(130)}px;
   width: 100%;
-  background: #FFFFFF;
+  background: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
 
 export const ImageView = styled.View`
