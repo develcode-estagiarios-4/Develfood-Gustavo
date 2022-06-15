@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { ComposedGesture } from 'react-native-gesture-handler/lib/typescript/handlers/gestures/gestureComposition';
-import { useAuth } from '../../hooks/auth';
-import { useGet } from '../../services';
-import theme from '../../theme';
 import {
   Container,
   FavoriteView,
@@ -20,6 +16,9 @@ import {
   Number,
 } from './styles';
 
+import { useAuth } from '../../hooks/auth';
+import { useGet } from '../../services';
+import theme from '../../theme';
 interface Props extends TouchableOpacityProps {
   name: string;
   src: any;
@@ -41,7 +40,9 @@ export function RestaurantCard({
   evaluation,
   ...rest
 }: Props) {
+  
   const { token } = useAuth();
+  
   const {
     data: dataGet,
     loading,
@@ -54,8 +55,10 @@ export function RestaurantCard({
     },
   });
 
-  const { data: dataGetEvaluation, fetchData: fetchDataEvaluation } =
-    useGet<number>(`/restaurantEvaluation/${id}/grade`, {
+  const { 
+    data: dataGetEvaluation, 
+    fetchData: fetchDataEvaluation 
+  } = useGet<number>(`/restaurantEvaluation/${id}/grade`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
