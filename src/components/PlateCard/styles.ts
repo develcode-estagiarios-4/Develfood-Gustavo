@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-
 export interface RightSideProps {
   height?: number;
   margTop?: number;
@@ -47,20 +46,16 @@ font-size: ${RFValue(14)}px;
 `;
 
 export const Description = styled.Text`
-width: ${RFValue(180)}px;
 font-weight: 400;
 font-size: ${RFValue(11)}px;
-align-items: center;
-text-align: justify;
 color: #BFBABA;
+padding-right: ${RFValue(10)}px;
 `;
-
 
 export const Footer = styled.View`
 flex-direction: row;
 justify-content: space-between;
 `;
-
 
 export const Price = styled.Text`
 color: #2B2B2E;
@@ -78,7 +73,6 @@ font-weight: 500;
 position: absolute;
 right: 0;
 bottom: 5px;
-
 `;
 
 export const RightSideContainer = styled.View`

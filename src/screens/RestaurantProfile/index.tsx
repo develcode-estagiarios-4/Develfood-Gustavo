@@ -80,7 +80,7 @@ export default function RestaurantProfile({ route }: any) {
 
   function searchPlates(text: string) {
     setIsLoading(true);
-    if (text.length > 1) {
+    if (text.length > 0) {
       setPlates([]);
       setFilter({ text: text });
     } else {
@@ -180,8 +180,9 @@ export default function RestaurantProfile({ route }: any) {
             >
               <PlateCard
                 price={item.price}
-                description={item.description}
+                name={item.name}
                 src={ item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
+                description={item.description}
               />
             </View>
           )}

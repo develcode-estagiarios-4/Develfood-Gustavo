@@ -21,6 +21,7 @@ interface Props extends TouchableOpacityProps {
   description: string;
   src: any;
   price: string;
+  name: string;
 }
 
 interface Photos {
@@ -28,7 +29,7 @@ interface Photos {
   code: string;
 }
 
-export function PlateCard({ description, src, price, ...rest }: Props) {
+export function PlateCard({ description, src, price, name, ...rest }: Props) {
 
   const { token } = useAuth();
   const {
@@ -37,7 +38,7 @@ export function PlateCard({ description, src, price, ...rest }: Props) {
     setLoading,
     error,
     fetchData,
-  } = useGet<Photos>(`/photo/${src.slice(40)}`, {
+  } = useGet<Photos>(src, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -63,14 +64,11 @@ export function PlateCard({ description, src, price, ...rest }: Props) {
 
       <PlateWrapper>
         <RightSideContainer height={25}>
-          <Title>{description}</Title>
+          <Title>{name}</Title>
         </RightSideContainer>
 
         <RightSideContainer height={50}>
-          <Description numberOfLines={3}>
-            Um prato de camarão com fritas que é uma ótima opção para pedir
-            quando se está com a família
-          </Description>
+          <Description>{description}</Description>
         </RightSideContainer>
 
         <RightSideContainer height={25} margTop={7}>

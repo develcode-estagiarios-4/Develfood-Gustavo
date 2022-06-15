@@ -4,11 +4,9 @@ import styled from "styled-components/native";
 export const Container = styled.View`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 flex: 1;
-
 `;
 
 export const Wrapper = styled.View`
-
 `
 
 export const RestaurantInfo = styled.View`
@@ -57,8 +55,6 @@ margin-top: ${RFValue(18)}px;
 margin-bottom: ${RFValue(1)}px;
 `;
 
-
 export const PlateList = styled.FlatList`
   flex: 1;
-
 `;

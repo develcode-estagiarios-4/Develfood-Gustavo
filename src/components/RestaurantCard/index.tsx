@@ -22,6 +22,7 @@ import {
 interface Props extends TouchableOpacityProps {
   name: string;
   src: any;
+  foodType: string;
 }
 
 interface Photos {
@@ -29,8 +30,7 @@ interface Photos {
   code: string;
 }
 
-export function RestaurantCard({ name, src, ...rest }: Props) {
-  const [focused, setFocused] = useState(false);
+export function RestaurantCard({ name, src, foodType, ...rest }: Props) {
   const { token } = useAuth();
   const {
     data: dataGet,
@@ -38,12 +38,13 @@ export function RestaurantCard({ name, src, ...rest }: Props) {
     setLoading,
     error,
     fetchData,
-  } = useGet<Photos>(`/photo/${src.slice(40)}`, {
+  } = useGet<Photos>(src, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
   
+  const [focused, setFocused] = useState(false);
   const [photos, setPhotos] = useState<Photos[]>([])
 
   function onSuccessLoad(data?: any) {
@@ -61,7 +62,7 @@ export function RestaurantCard({ name, src, ...rest }: Props) {
       <FavoriteView>
         <BtnFavorite onPress={() => setFocused(!focused)}>
           <Heart
-            source={require('../../assets/borderheart.png')}
+            source={theme.ICONS.BORDERHEART}
             style={focused ? { tintColor: theme.COLORS.BACKGROUND } : null}
           />
         </BtnFavorite>
@@ -75,11 +76,9 @@ export function RestaurantCard({ name, src, ...rest }: Props) {
         <Title numberOfLines={1}>{name}</Title>
 
         <Wrapper>
-          <FoodType>Pizza</FoodType>
-
+          <FoodType>{foodType}</FoodType>
           <Evaluation>
-            <Star source={require('../../assets/star.png')} />
-
+            <Star source={theme.ICONS.STAR} />
             <Number>4.3</Number>
           </Evaluation>
         </Wrapper>
@@ -87,5 +86,4 @@ export function RestaurantCard({ name, src, ...rest }: Props) {
     </Container>
   );
 }
-
 // {Math.ceil(Math.random() * 5)}

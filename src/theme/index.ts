@@ -50,6 +50,8 @@ export default {
     CLOSE: require('../assets/close.png'),
     BACK: require('../assets/back.png'),
     SEARCH: require('../assets/search.png'),
+    STAR: require('../assets/star.png'),
+    BORDERHEART: require('../assets/borderheart.png'),
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),

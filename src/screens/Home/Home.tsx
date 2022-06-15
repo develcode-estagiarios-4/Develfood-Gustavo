@@ -36,10 +36,15 @@ import { useDebouncedCallback } from 'use-debounce';
 import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+interface FoodTypes {
+  id: number;
+  name: string;
+}
 interface Restaurant {
   id: number;
   name: string;
   photo_url: string;
+  food_types?: FoodTypes[];
 }
 interface Restaurants {
   content?: Restaurant[];
@@ -74,6 +79,10 @@ export const Home: React.FC<undefined> = () => {
       },
     },
   );
+
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+  }, []);
 
   function onSuccessLoad(data?: any) {
     setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
@@ -235,7 +244,13 @@ export const Home: React.FC<undefined> = () => {
               <RestaurantCard
                 onPress={() => handleRestaurant(item.id, item.name, item.photo)}
                 name={item.name}
-                src={ item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
+                src={item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
+                foodType={
+                  item.food_types.length > 0
+                    ? item.food_types[0].name.charAt(0).toUpperCase() +
+                      item.food_types[0].name.slice(1).toLowerCase()
+                    : ''
+                }
               />
             </>
           )}
