@@ -245,6 +245,7 @@ export const Home: React.FC<undefined> = () => {
                 onPress={() => handleRestaurant(item.id, item.name, item.photo_url)}
                 name={item.name}
                 src={item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
+                id={item.id}
                 foodType={
                   item.food_types.length > 0
                     ? item.food_types[0].name.charAt(0).toUpperCase() +
