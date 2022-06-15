@@ -46,7 +46,7 @@ interface Photo {
 export default function RestaurantProfile({ route }: any) {
   const navigation = useNavigation();
   const { token } = useAuth();
-  const { id, name, photo_url } = route.params;
+  const { id, name, photo_url, food_types } = route.params;
   const [plates, setPlates] = useState<Plate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState({
@@ -65,14 +65,14 @@ export default function RestaurantProfile({ route }: any) {
     },
   });
 
-  const {
-    data: dataGetPhoto,
-    fetchData: fetchDataPhoto,
-  } = useGet<Photo>(photo_url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const { data: dataGetPhoto, fetchData: fetchDataPhoto } = useGet<Photo>(
+    photo_url,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   function onSuccessLoad(data?: any) {
     setPlates([...plates, ...(data as Plate[])]);
@@ -134,9 +134,18 @@ export default function RestaurantProfile({ route }: any) {
                 <RestaurantInfo>
                   <LabelWrapper>
                     <Title>{name}</Title>
-                    <Category>Lanches</Category>
+                    <Category>
+                      {food_types.charAt(0).toUpperCase() +
+                        food_types.slice(1).toLowerCase()}
+                    </Category>
                   </LabelWrapper>
-                  <RestaurantPhoto source={dataGetPhoto.code ? { uri: `${dataGetPhoto.code}` } : theme.IMAGES.NOIMAGE} />
+                  <RestaurantPhoto
+                    source={
+                      dataGetPhoto.code
+                        ? { uri: `${dataGetPhoto.code}` }
+                        : theme.IMAGES.NOIMAGE
+                    }
+                  />
                 </RestaurantInfo>
               </Wrapper>
               <PlatesTitle>Pratos</PlatesTitle>
@@ -196,7 +205,7 @@ export default function RestaurantProfile({ route }: any) {
               <PlateCard
                 price={item.price}
                 name={item.name}
-                src={ item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
+                src={item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
                 description={item.description}
               />
             </View>

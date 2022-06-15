@@ -116,13 +116,14 @@ export const Home: React.FC<undefined> = () => {
     }
   }
 
-  function handleRestaurant(id: number, name: string, photo_url: any) {
+  function handleRestaurant(id: number, name: string, photo_url: any, food_types: string ) {
     navigation.navigate(
       'RestaurantProfile' as never,
       {
         id,
         name,
         photo_url,
+        food_types
       } as never,
     );
   }
@@ -242,7 +243,7 @@ export const Home: React.FC<undefined> = () => {
           renderItem={({ item }: any) => (
             <>
               <RestaurantCard
-                onPress={() => handleRestaurant(item.id, item.name, item.photo_url)}
+                onPress={() => handleRestaurant(item.id, item.name, item.photo_url, item.food_types.length > 0 ? item.food_types[0].name : '')}
                 name={item.name}
                 src={item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
                 id={item.id}
