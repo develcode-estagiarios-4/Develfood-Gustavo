@@ -38,6 +38,11 @@ interface Plates {
   totalPages: number;
 }
 
+interface Photo {
+  id: number;
+  code: string;
+}
+
 export default function RestaurantProfile({ route }: any) {
   const navigation = useNavigation();
   const { token } = useAuth();
@@ -60,6 +65,15 @@ export default function RestaurantProfile({ route }: any) {
     },
   });
 
+  const {
+    data: dataGetPhoto,
+    fetchData: fetchDataPhoto,
+  } = useGet<Photo>(photo_url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   function onSuccessLoad(data?: any) {
     setPlates([...plates, ...(data as Plate[])]);
     setLoading(false);
@@ -67,6 +81,7 @@ export default function RestaurantProfile({ route }: any) {
 
   useEffect(() => {
     (async () => await fetchData(onSuccessLoad))();
+    (async () => await fetchDataPhoto(onSuccessLoad))();
     setLoading(true);
   }, []);
 
@@ -121,7 +136,7 @@ export default function RestaurantProfile({ route }: any) {
                     <Title>{name}</Title>
                     <Category>Lanches</Category>
                   </LabelWrapper>
-                  <RestaurantPhoto source={theme.IMAGES.NOIMAGE} />
+                  <RestaurantPhoto source={dataGetPhoto.code ? { uri: `${dataGetPhoto.code}` } : theme.IMAGES.NOIMAGE} />
                 </RestaurantInfo>
               </Wrapper>
               <PlatesTitle>Pratos</PlatesTitle>

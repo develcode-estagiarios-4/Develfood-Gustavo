@@ -86,7 +86,7 @@ export const Home: React.FC<undefined> = () => {
 
   function onSuccessLoad(data?: any) {
     setRestaurants([...restaurants, ...(data?.content as Restaurant[])]);
-    setLoading(false);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -242,7 +242,7 @@ export const Home: React.FC<undefined> = () => {
           renderItem={({ item }: any) => (
             <>
               <RestaurantCard
-                onPress={() => handleRestaurant(item.id, item.name, item.photo)}
+                onPress={() => handleRestaurant(item.id, item.name, item.photo_url)}
                 name={item.name}
                 src={item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
                 foodType={
