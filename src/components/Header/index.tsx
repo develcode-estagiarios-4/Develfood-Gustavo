@@ -52,7 +52,7 @@ export function Header({
           <RightButton onPress={() => setFocused(!focused)}>
             <FirstRightIcon
               resizeMode="contain"
-              source={require('../../assets/borderheart.png')}
+              source={theme.ICONS.BORDERHEART}
               style={focused ? { tintColor: theme.COLORS.BACKGROUND } : null}
             />
           </RightButton>
