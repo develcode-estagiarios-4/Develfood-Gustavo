@@ -22,7 +22,7 @@ Projeto Develfood está em construção...
 
 
 <h1>Licença</h1>
-<p>Este projeto esta sobre a licença MIT</p>
+<p>Este projeto está sobre a licença MIT</p>
 
 Made by Gustavo Lucas Sobbrero 
 
