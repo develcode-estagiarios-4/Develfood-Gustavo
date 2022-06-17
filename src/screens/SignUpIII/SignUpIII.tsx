@@ -295,7 +295,7 @@ export default function SignUpIII({ route }: any) {
                       name="number"
                       placeholder="Número"
                       placeholderTextColor={theme.COLORS.SECONDARY_100}
-                      keyboardType="default"
+                      keyboardType="numeric"
                       onChangeText={onChange}
                       value={value}
                       control={control}
