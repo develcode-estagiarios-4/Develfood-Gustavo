@@ -49,6 +49,7 @@ interface Restaurant {
 interface Restaurants {
   content?: Restaurant[];
   totalPages: number;
+  totalElements: number;
 }
 
 const CardMargins =
@@ -144,7 +145,7 @@ export const Home: React.FC<undefined> = () => {
             paddingBottom: 10,
           }}
           ListEmptyComponent={
-            !loading ? (
+            !loading && dataGet.totalElements == 0 ? (
               <View
                 style={{
                   width: '100%',
