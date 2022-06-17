@@ -17,9 +17,10 @@ Projeto Develfood está em construção...
   <li>Cadastro e autenticação de usuário</li>
   <li>Validação em todos os campos e máscaras de CPF, telefone e CEP</li>
   <li>Preenchimento de campos de endereço automáticos após digitar CEP</li>
+  <li>Tela de início com cabeçalho, banners, categorias, barra de pesquisa e lista de restaurantes</li>
   <li>Lista de restaurantes com scroll infinito e pesquisa por nome</li>
+  <li>Tela de perfil do restaurante com cabeçalho, informações do restaurante, barra de pesquisa e lista de pratos</li>
   <li>Lista de pratos de cada restaurante com pesquisa por nome</li>
-  <li>Lista de restaurantes com scroll infinito e pesquisa</li>
 </ul>
 
 <h1>Tecnologias</h1>
@@ -37,9 +38,4 @@ Projeto Develfood está em construção...
 <h1>Licença</h1>
 <p>Este projeto está sobre a licença MIT</p>
 
-Made by Gustavo Lucas Sobbrero 
-
-
-
-
- 
+Made by Gustavo Lucas Sobbrero
