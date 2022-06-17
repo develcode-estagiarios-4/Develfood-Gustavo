@@ -3,6 +3,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const TabTouchable = styled.View`
 align-items: center;
+width: 70px
 `
 export const Texto = styled.Text`
 font-size: ${RFValue(12)}px;
