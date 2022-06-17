@@ -7,7 +7,10 @@ Projeto Develfood está em construção...
 </h4>
 
 <h1>Sobre o projeto</h1>
-<p>Develfood é uma plataforma de entrega de comida pela internet</p>
+<ul>
+<li>Develfood é uma plataforma de entrega de comida pela internet</li>
+<li>Desenvolvido por Gustavo Lucas Sobbrero, estudante de Análise e Desenvolvimento de Sistemas na UNIFTEC, sob o programa de estágio da empresa Develcode - Tecnologia em Sistemas</li>
+</ul>
 
 <h1>Funcionalidades</h1>
 <ul>
@@ -30,12 +33,11 @@ Projeto Develfood está em construção...
 </ul>
 
 <h1>Pré-requisitos</h1>
+<ul>
   <li>Node.js</li>
   <li>Git</li>
   <li>IDE Visual Studio Code (opcional)</li>
-
+</ul>
 
 <h1>Licença</h1>
 <p>Este projeto está sobre a licença MIT</p>
-
-Made by Gustavo Lucas Sobbrero
