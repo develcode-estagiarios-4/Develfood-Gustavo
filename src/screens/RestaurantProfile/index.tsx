@@ -175,7 +175,7 @@ export default function RestaurantProfile({ route }: any) {
                   style={{
                     textAlign: 'center',
                     fontSize: 17,
-                    color: 'black',
+                    color: '#2B2B2E',
                   }}
                 >
                   Nenhum prato encontrado

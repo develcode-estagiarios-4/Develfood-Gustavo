@@ -160,7 +160,7 @@ export const Home: React.FC<undefined> = () => {
                   style={{
                     alignSelf: 'center',
                     fontSize: 17,
-                    color: 'black',
+                    color: '#2B2B2E',
                   }}
                 >
                   Nenhum restaurante encontrado
