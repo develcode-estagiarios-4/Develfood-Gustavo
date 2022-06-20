@@ -30,7 +30,6 @@ interface Photos {
 }
 
 export function PlateCard({ description, src, price, name, ...rest }: Props) {
-
   const { token } = useAuth();
   const {
     data: dataGet,
@@ -43,8 +42,8 @@ export function PlateCard({ description, src, price, name, ...rest }: Props) {
       Authorization: `Bearer ${token}`,
     },
   });
-  
-  const [photos, setPhotos] = useState<Photos[]>([])
+
+  const [photos, setPhotos] = useState<Photos[]>([]);
 
   function onSuccessLoad(data?: any) {
     setPhotos([...photos, ...(data as Photos[])]);
@@ -56,17 +55,21 @@ export function PlateCard({ description, src, price, name, ...rest }: Props) {
     setLoading(true);
   }, []);
 
-   function priceConverter() {
-   const priceWZeros = parseFloat(price).toFixed(2);
-   const priceFormatted = priceWZeros.toString().replace(".", ",");
-   return priceFormatted;
+  function priceConverter() {
+    const priceWZeros = parseFloat(price).toFixed(2);
+    const priceFormatted = priceWZeros.toString().replace('.', ',');
+    return priceFormatted;
   }
   const priceFormatted = priceConverter();
 
   return (
     <Container>
       <ImageView>
-        <PlateImage source={ dataGet.code ? { uri: `${dataGet.code}` } : theme.IMAGES.NOIMAGE } />
+        <PlateImage
+          source={
+            dataGet.code ? { uri: `${dataGet.code}` } : theme.IMAGES.NOIMAGE
+          }
+        />
       </ImageView>
 
       <PlateWrapper>
