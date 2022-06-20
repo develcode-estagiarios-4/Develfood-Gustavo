@@ -56,6 +56,13 @@ export function PlateCard({ description, src, price, name, ...rest }: Props) {
     setLoading(true);
   }, []);
 
+   function priceConverter() {
+   const priceWZeros = parseFloat(price).toFixed(2);
+   const priceFormatted = priceWZeros.toString().replace(".", ",");
+   return priceFormatted;
+  }
+  const priceFormatted = priceConverter();
+
   return (
     <Container>
       <ImageView>
@@ -73,7 +80,7 @@ export function PlateCard({ description, src, price, name, ...rest }: Props) {
 
         <RightSideContainer height={25} margTop={7}>
           <Footer>
-            <Price>R$ {price.toString().replace(".", ",")}</Price>
+            <Price>R$ {priceFormatted}</Price>
             <AddButton>
               <AddLabel>Adicionar</AddLabel>
             </AddButton>

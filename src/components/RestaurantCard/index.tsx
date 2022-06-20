@@ -45,9 +45,7 @@ export function RestaurantCard({
   
   const {
     data: dataGet,
-    loading,
     setLoading,
-    error,
     fetchData,
   } = useGet<Photos>(src, {
     headers: {
@@ -82,7 +80,7 @@ export function RestaurantCard({
   }, [id]);
 
   return (
-    <Container {...rest}>
+    <Container activeOpacity={0.1} {...rest}>
       <FavoriteView>
         <BtnFavorite onPress={() => setFocused(!focused)}>
           <Heart

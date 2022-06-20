@@ -33,10 +33,6 @@ interface Plate {
   price: string;
   photo_url: string;
 }
-interface Plates {
-  content?: Plate[];
-  totalPages: number;
-}
 
 interface Photo {
   id: number;
@@ -57,9 +53,8 @@ export default function RestaurantProfile({ route }: any) {
     data: dataGet,
     loading,
     setLoading,
-    error,
     fetchData,
-  } = useGet<Plates>(`/plate/search?name=${filter.text}&restaurantid=${id}`, {
+  } = useGet<Plate[]>(`/plate/search?name=${filter.text}&restaurantid=${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -95,7 +90,7 @@ export default function RestaurantProfile({ route }: any) {
 
   function searchPlates(text: string) {
     setIsLoading(true);
-    if (text.length > 0) {
+    if (text.length > 1) {
       setPlates([]);
       setFilter({ text: text });
     } else {
@@ -162,7 +157,7 @@ export default function RestaurantProfile({ route }: any) {
             </View>
           }
           ListEmptyComponent={
-            !loading ? (
+           dataGet.length == 0 && !loading ? (
               <View
                 style={{
                   width: '100%',
