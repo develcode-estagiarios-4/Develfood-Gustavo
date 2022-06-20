@@ -73,6 +73,7 @@ export default function SignIn() {
 
   return (
     <>
+    <StatusBar hidden/>
       <Container>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView

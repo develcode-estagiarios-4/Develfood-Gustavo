@@ -35,7 +35,6 @@ export function PlateCard({ description, src, price, name, ...rest }: Props) {
     data: dataGet,
     loading,
     setLoading,
-    error,
     fetchData,
   } = useGet<Photos>(src, {
     headers: {

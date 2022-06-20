@@ -14,7 +14,6 @@ export default function AuthRoutes() {
 
   return (
     <>
-    <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle={'dark-content'}/>
       <Navigator screenOptions={{ headerShown: false }}>
         <Screen name="SignIn" component={SignIn} />
         <Screen name="SignUpI" component={SignUpI} />

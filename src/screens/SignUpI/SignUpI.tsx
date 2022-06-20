@@ -68,7 +68,7 @@ export default function SignUpI() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
-      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle='dark-content' />
+      <StatusBar hidden={false} backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle='dark-content' />
         <Header
         name='Cadastro'
           bgColor="#FFFFFF"
