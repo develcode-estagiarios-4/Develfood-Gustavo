@@ -102,7 +102,7 @@ export default function RestaurantProfile({ route }: any) {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} />
+      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle='dark-content' />
       <Container>
         <View style={{ paddingLeft: RFValue(6), paddingRight: RFValue(15) }}>
           <Header

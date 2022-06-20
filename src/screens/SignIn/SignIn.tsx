@@ -6,6 +6,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  StatusBar,
 } from 'react-native';
 
 import * as Yup from 'yup';
@@ -71,85 +72,87 @@ export default function SignIn() {
   });
 
   return (
-    <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <Brands>
-            <Salad source={brandsalada} />
-            <Pizza source={pizza} />
-          </Brands>
+    <>
+      <Container>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          >
+            <Brands>
+              <Salad source={brandsalada} />
+              <Pizza source={pizza} />
+            </Brands>
 
-          <Content>
-            <LogoWrapper>
-              <Logo source={logodevel} />
-              <LabelLogo source={develfood} />
-            </LogoWrapper>
+            <Content>
+              <LogoWrapper>
+                <Logo source={logodevel} />
+                <LabelLogo source={develfood} />
+              </LogoWrapper>
 
-            <Controller
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <InputForm
-                  name="email"
-                  placeholder="exemplo@email.com"
-                  placeholderTextColor={theme.COLORS.SECONDARY_100}
-                  keyboardType="email-address"
-                  onChangeText={onChange}
-                  value={value}
-                  control={control}
-                  error={errors.email && errors.email.message}
-                  editable={!loading}
-                  src={theme.ICONS.EMAIL}
-                />
-              )}
-              name="email"
-            />
+              <Controller
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <InputForm
+                    name="email"
+                    placeholder="exemplo@email.com"
+                    placeholderTextColor={theme.COLORS.SECONDARY_100}
+                    keyboardType="email-address"
+                    onChangeText={onChange}
+                    value={value}
+                    control={control}
+                    error={errors.email && errors.email.message}
+                    editable={!loading}
+                    src={theme.ICONS.EMAIL}
+                  />
+                )}
+                name="email"
+              />
 
-            <Controller
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { onChange, value } }) => (
-                <InputForm
-                  name="password"
-                  placeholder="********"
-                  placeholderTextColor={theme.COLORS.SECONDARY_100}
-                  keyboardType="default"
-                  onChangeText={onChange}
-                  value={value}
-                  control={control}
-                  error={errors.password && errors.password.message}
-                  editable={!loading}
-                  src={theme.ICONS.PASSWORD}
-                />
-              )}
-              name="password"
-            />
+              <Controller
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <InputForm
+                    name="password"
+                    placeholder="********"
+                    placeholderTextColor={theme.COLORS.SECONDARY_100}
+                    keyboardType="default"
+                    onChangeText={onChange}
+                    value={value}
+                    control={control}
+                    error={errors.password && errors.password.message}
+                    editable={!loading}
+                    src={theme.ICONS.PASSWORD}
+                  />
+                )}
+                name="password"
+              />
 
-            <ForgotPasswordButton disabled={loading}>
-              <ForgotPasswordLabel>Esqueci minha senha</ForgotPasswordLabel>
-            </ForgotPasswordButton>
+              <ForgotPasswordButton disabled={loading}>
+                <ForgotPasswordLabel>Esqueci minha senha</ForgotPasswordLabel>
+              </ForgotPasswordButton>
 
-            <ButtonTouchable
-              onPressed={handleSubmit(handleLogin)}
-              title="Entrar"
-              isLoading={loading}
-            />
+              <ButtonTouchable
+                onPressed={handleSubmit(handleLogin)}
+                title="Entrar"
+                isLoading={loading}
+              />
 
-            <RegisterWrapper>
-              <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
-              <RegisterButton
-                disabled={loading}
-                onPress={() => navigation.navigate('SignUpI' as never)}
-              >
-                <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
-              </RegisterButton>
-            </RegisterWrapper>
-            <FooterImage source={povermelho} />
-          </Content>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </Container>
+              <RegisterWrapper>
+                <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
+                <RegisterButton
+                  disabled={loading}
+                  onPress={() => navigation.navigate('SignUpI' as never)}
+                >
+                  <RegisterButtonLabel>Cadastre-se aqui!</RegisterButtonLabel>
+                </RegisterButton>
+              </RegisterWrapper>
+              <FooterImage source={povermelho} />
+            </Content>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </Container>
+    </>
   );
 }

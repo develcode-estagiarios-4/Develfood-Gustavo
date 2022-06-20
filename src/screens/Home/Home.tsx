@@ -136,7 +136,7 @@ export const Home: React.FC<undefined> = () => {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.COLORS.BACKGROUND} />
+      <StatusBar backgroundColor={theme.COLORS.BACKGROUND} barStyle='light-content'  />
       <Content>
         <RestaurantList
           columnWrapperStyle={{

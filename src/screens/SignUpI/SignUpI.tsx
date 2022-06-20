@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, View, StatusBar } from 'react-native';
 import {
   Container,
   Content,
@@ -68,6 +68,7 @@ export default function SignUpI() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <>
+      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle='dark-content' />
         <Header
         name='Cadastro'
           bgColor="#FFFFFF"
