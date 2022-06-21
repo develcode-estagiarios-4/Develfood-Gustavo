@@ -44,9 +44,9 @@ export default {
     HIDE: require('../assets/visibility_off_FILL0_wght400_GRAD0_opsz48.png'),
     NOHIDE: require('../assets/visibility_FILL0_wght400_GRAD0_opsz48.png'),
     NAME: require('../assets/usuario2.png'),
-    CPF: require('../assets/cpf24.png') ,
+    CPF: require('../assets/cpf24.png'),
     PHONE: require('../assets/telefone.png'),
-    LOCAL: require('../assets/local2.png') ,
+    LOCAL: require('../assets/local2.png'),
     CLOSE: require('../assets/close.png'),
     BACK: require('../assets/back.png'),
     SEARCH: require('../assets/search.png'),
@@ -61,6 +61,12 @@ export default {
     BANNER: require('../assets/banner1.png'),
     NOIMAGE: require('../assets/noimage.png'),
     DISCONECT: require('../assets/disconect.png'),
-    NOTFOUND: require('../assets/notfound.png')
-  }
+    NOTFOUND: require('../assets/notfound.png'),
+  },
 };
+
+export const photosUri = [
+  require('../assets/banner1.png'),
+  require('../assets/banner2.png'),
+  require('../assets/banner3.png'),
+];
