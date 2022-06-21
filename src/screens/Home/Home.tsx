@@ -138,7 +138,7 @@ export const Home: React.FC<undefined> = () => {
     <>
       <StatusBar backgroundColor={theme.COLORS.BACKGROUND} barStyle='light-content'  />
       <Content>
-        <RestaurantList
+        <RestaurantList showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: 'space-between',
             paddingHorizontal: RFValue(CardMargins),
