@@ -118,7 +118,7 @@ export default function RestaurantProfile({ route }: any) {
           />
         </View>
 
-        <PlateList
+        <PlateList showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingLeft: RFValue(18),
             paddingRight: RFValue(18),
