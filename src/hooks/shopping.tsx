@@ -77,7 +77,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
       setTotalItems(totalItems + 1);
     } else {
       Alert.alert(
-        'Esvazie seu carrinho para adicionar produtos de restaurantes diferentes.',
+        'Esvazie seu carrinho para adicionar produtos de outro restaurante.',
       );
     }
   }
