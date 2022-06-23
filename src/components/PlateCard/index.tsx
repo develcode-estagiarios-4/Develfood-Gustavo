@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacityProps } from 'react-native';
 import { useAuth } from '../../hooks/auth';
+import { useShopping } from '../../hooks/shopping';
 import { useGet } from '../../services';
 import theme from '../../theme';
 import {
@@ -22,6 +23,8 @@ interface Props extends TouchableOpacityProps {
   src: any;
   price: string;
   name: string;
+  id: number;
+  restaurantId: number;
 }
 
 interface Photos {
@@ -29,8 +32,9 @@ interface Photos {
   code: string;
 }
 
-export function PlateCard({ description, src, price, name, ...rest }: Props) {
+export function PlateCard({ description, src, price, name, restaurantId, id, ...rest }: Props) {
   const { token } = useAuth();
+  const { addItem, shopping, totalValue, totalItems, removeItem  } = useShopping();
   const {
     data: dataGet,
     loading,
@@ -83,8 +87,11 @@ export function PlateCard({ description, src, price, name, ...rest }: Props) {
         <RightSideContainer height={25} margTop={7}>
           <Footer>
             <Price>R$ {priceFormatted}</Price>
-            <AddButton>
+            <AddButton onPress={() => { addItem(id, price, restaurantId)}}>
               <AddLabel>Adicionar</AddLabel>
+            </AddButton>
+            <AddButton onPress={() => { removeItem(id, price)}}>
+              <AddLabel>Tirar</AddLabel>
             </AddButton>
           </Footer>
         </RightSideContainer>

@@ -26,6 +26,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useShopping } from '../../hooks/shopping';
 
 interface Plate {
   id: number;
@@ -202,6 +203,8 @@ export default function RestaurantProfile({ route }: any) {
                 name={item.name}
                 src={item.photo_url ? item.photo_url : theme.IMAGES.NOIMAGE}
                 description={item.description}
+                restaurantId={id}
+                id={item.id}
               />
             </View>
           )}
