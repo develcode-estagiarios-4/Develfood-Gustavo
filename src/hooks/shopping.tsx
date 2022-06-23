@@ -17,6 +17,14 @@ interface RequestProps {
   shopping: any;
   totalValue: number;
   totalItems: number;
+}
+
+interface ItemProps {
+  id: number;
+  quantity: number;
+  price: number;
+  restaurantId: number;
+}
   // costumer: {id: number},
   // restaurant: {id: number},
   // date: Date,
@@ -36,7 +44,6 @@ interface RequestProps {
   //     }
   // ],
   // restaurantPromotion: {id: number} | null
-}
 
 // interface PlateProps {
 //         id: number,
@@ -54,7 +61,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
     console.log(shopping, 'Valor total: ' + totalValue, 'Itens: ' + totalItems);
   }, [shopping]);
 
-  function addItem(id: any, price: number, restaurantId: any) {
+  function addItem(id: number, price: number, restaurantId: number) {
     const addingProducts = [...shopping];
     const item = addingProducts.find((product: any) => product.id === id);
     const fromOtherRestaurant = addingProducts.find(
@@ -67,7 +74,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
           quantity: 1,
           price: price,
           restaurantId: restaurantId,
-        });
+        } as ItemProps );
       } else {
         item.quantity += 1;
         item.price += price;

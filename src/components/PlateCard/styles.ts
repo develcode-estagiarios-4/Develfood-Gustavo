@@ -11,7 +11,7 @@ export const Container = styled.View.attrs({
   flex-direction: row;
   align-items: center;
   border-radius: 15px;
-  height: ${RFValue(130)}px;
+  height: ${RFValue(120)}px;
   width: 100%;
   background: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 `;
@@ -35,7 +35,7 @@ width: ${RFValue(90)}px;
 export const PlateWrapper = styled.View`
 width: 65%;
 height: ${RFValue(87)}px;
-padding-right: ${RFValue(14)}px ;
+padding-right: ${RFValue(4)}px ;
 justify-content: center;  
 `;
 
@@ -63,16 +63,44 @@ font-weight: 700;
 font-size: ${RFValue(13)}px;
 `;
 
+export const QuantityWrapper = styled.View`
+flex-direction: row;
+justify-content: center;
+align-items: center;
+`;
+
 export const AddButton = styled.TouchableOpacity`
 `;
 
 export const AddLabel = styled.Text`
 color: ${({ theme }) => theme.COLORS.BACKGROUND};
-font-size: ${RFValue(14)}px;
+font-size: ${RFValue(15)}px;
+margin: 0 9px;
+font-weight: 700;
+`;
+
+export const AddWord = styled.Text`
+color: ${({ theme }) => theme.COLORS.BACKGROUND};
+font-size: ${RFValue(13)}px;
+margin: 0 13px;
 font-weight: 500;
-position: absolute;
-right: 0;
-bottom: 5px;
+`;
+
+export const ItemQuantityContainer = styled.View`
+background-color: ${({theme}) => theme.COLORS.BACKGROUND};
+width: ${RFValue(24)}px;
+height: ${RFValue(24)}px;
+border-radius: 4px;
+border: 1px solid #C20C18;
+justify-content: center;
+
+`;
+
+export const ItemQuantity = styled.Text`
+text-align: center;
+color: #F0F0F5;
+font-size: ${RFValue(12)}px;
+
 `;
 
 export const RightSideContainer = styled.View`

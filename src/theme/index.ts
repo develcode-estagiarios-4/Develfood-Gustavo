@@ -52,6 +52,7 @@ export default {
     SEARCH: require('../assets/search.png'),
     STAR: require('../assets/star.png'),
     BORDERHEART: require('../assets/borderheart.png'),
+    TRASH: require('../assets/trash.png'),
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),
