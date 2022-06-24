@@ -6,6 +6,7 @@ import RestaurantProfile from '../screens/RestaurantProfile';
 import { StatusBar } from 'react-native';
 import AppRoutes from './routes.routes';
 import ShoppingProvider from '../hooks/shopping';
+import { Order } from '../screens/Order';
 
 export default function RestaurantRoutes() {
   const { Navigator, Screen } = createNativeStackNavigator();
@@ -20,6 +21,7 @@ export default function RestaurantRoutes() {
         <Navigator screenOptions={{ headerShown: false }}>
           <Screen name="Home" component={AppRoutes} />
           <Screen name="RestaurantProfile" component={RestaurantProfile} />
+          <Screen name="Order" component={Order} />
         </Navigator>
       </ShoppingProvider>
     </>

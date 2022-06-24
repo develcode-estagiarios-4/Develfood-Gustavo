@@ -210,6 +210,9 @@ export default function RestaurantProfile({ route }: any) {
                 description={item.description}
                 restaurantId={id}
                 id={item.id}
+                restaurantPhoto={photo_url}
+                restaurantName={name}
+                restaurantFoodType={food_types}
               />
             </View>
           )}
@@ -219,7 +222,9 @@ export default function RestaurantProfile({ route }: any) {
         <ShoppingBar
           hasBottomBar={false}
           src={theme.ICONS.CART}
-          onPressed={() => {}}
+          onPressed={() => { navigation.navigate('Order' as never)}}
+          hasQuantity={true}
+          title={'Ver carrinho'}
         />
       )}
     </>

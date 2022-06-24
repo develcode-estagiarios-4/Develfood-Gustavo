@@ -11,10 +11,13 @@ import { TabBarIcon } from '../components/NavigationBar/TabBarIcon';
 import { ShoppingBar } from '../components/ShoppingBar';
 import { useShopping } from '../hooks/shopping';
 import theme from '../theme';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AppRoutes() {
   const Tab = createBottomTabNavigator();
   const { totalItems } = useShopping();
+  const navigation = useNavigation();
+
 
   return (
     <>
@@ -22,7 +25,9 @@ export default function AppRoutes() {
         <ShoppingBar
           hasBottomBar
           src={theme.ICONS.CART}
-          onPressed={() => {}}
+          onPressed={() => { navigation.navigate('Order' as never)}}
+          hasQuantity
+          title={'Ver carrinho'}
         />
       )}
       <Tab.Navigator

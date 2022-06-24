@@ -29,6 +29,9 @@ interface Props extends TouchableOpacityProps {
   name: string;
   id: number;
   restaurantId: number;
+  restaurantPhoto: any;
+  restaurantName: string;
+  restaurantFoodType: string;
 }
 
 interface Photos {
@@ -43,6 +46,9 @@ export function PlateCard({
   name,
   restaurantId,
   id,
+  restaurantPhoto,
+  restaurantName,
+  restaurantFoodType,
   ...rest
 }: Props) {
   const { token } = useAuth();
@@ -133,7 +139,7 @@ export function PlateCard({
             ) : (
               <AddButton
                 onPress={() => {
-                  addItem(id, price, restaurantId);
+                  addItem(id, price, restaurantId, restaurantPhoto, restaurantName, restaurantFoodType);
                 }}
               >
                 <AddWord>Adicionar</AddWord>
