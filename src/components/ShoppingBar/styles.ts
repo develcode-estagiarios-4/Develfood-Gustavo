@@ -1,4 +1,3 @@
-import { TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
@@ -33,13 +32,11 @@ export const LeftImageView = styled.View`
 width: 20%;
 flex-direction: row;
 height: ${RFValue(24)}px;
-
 `;
 
 
 export const LeftImage = styled.Image`
 margin-left: ${(RFValue(10))}px;
-
 `;
 
 export const QuantityBall = styled.View`
@@ -50,15 +47,12 @@ height: 14px;
 position: absolute;
 left: 25px;
 justify-content: center;
-
 `;
 
 export const QuantityLabel = styled.Text`
 align-self: center;
 font-size: 8px;
 color: ${({theme}) => theme.COLORS.BACKGROUND};
-
-
 `;
 
 export const Title = styled.Text`
@@ -72,6 +66,4 @@ width: 20%;
 font-weight: 700;
 color: #FFFFFF;
 font-size: ${RFValue(12)}px;
-
-
 `;

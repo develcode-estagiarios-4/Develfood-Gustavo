@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { ActivityIndicator, Image, StatusBar, View, Text } from 'react-native';
 
 import {
@@ -105,7 +104,10 @@ export default function RestaurantProfile({ route }: any) {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle='dark-content' />
+      <StatusBar
+        backgroundColor={theme.COLORS.BACKGROUND_LIGHT}
+        barStyle="dark-content"
+      />
       <Container>
         <View style={{ paddingLeft: RFValue(6), paddingRight: RFValue(15) }}>
           <Header
@@ -121,7 +123,8 @@ export default function RestaurantProfile({ route }: any) {
           />
         </View>
 
-        <PlateList showsVerticalScrollIndicator={false}
+        <PlateList
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingLeft: RFValue(18),
             paddingRight: RFValue(18),
@@ -160,7 +163,7 @@ export default function RestaurantProfile({ route }: any) {
             </View>
           }
           ListEmptyComponent={
-           dataGet.length == 0 && !loading ? (
+            dataGet.length == 0 && !loading ? (
               <View
                 style={{
                   width: '100%',
@@ -212,8 +215,13 @@ export default function RestaurantProfile({ route }: any) {
           )}
         />
       </Container>
-  { totalItems > 0 && <ShoppingBar hasBottomBar={false} src={require('../../assets/cart.png')} />}
-
+      {totalItems > 0 && (
+        <ShoppingBar
+          hasBottomBar={false}
+          src={theme.ICONS.CART}
+          onPressed={() => {}}
+        />
+      )}
     </>
   );
 }

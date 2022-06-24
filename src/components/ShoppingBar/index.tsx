@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TouchableOpacityProps, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useShopping } from '../../hooks/shopping';
@@ -17,10 +17,11 @@ import {
 interface Props extends TouchableOpacityProps {
   src: any;
   hasBottomBar: boolean;
+  onPressed: Function;
 }
 
-export function ShoppingBar({ src, hasBottomBar, ...rest }: Props) {
-  const { totalValue, totalItems } = useShopping();
+export function ShoppingBar({ src, hasBottomBar, onPressed, ...rest }: Props) {
+  const { totalValue, totalItems, clearShopping } = useShopping();
 
   function priceConverter() {
     const priceWZeros = totalValue.toFixed(2);
@@ -30,8 +31,8 @@ export function ShoppingBar({ src, hasBottomBar, ...rest }: Props) {
   const priceFormatted = priceConverter();
 
   return (
-    <Container bottom={hasBottomBar == true ? RFValue(46.75) : RFValue(-3)}>
-      <Btn activeOpacity={0.9} onPress={() => console.log('oi')}>
+    <Container bottom={hasBottomBar ? RFValue(46.75) : RFValue(-3)}>
+      <Btn activeOpacity={0.9} onPress={() => { onPressed() }}>
         <LeftImageView>
           <LeftImage
             source={src}

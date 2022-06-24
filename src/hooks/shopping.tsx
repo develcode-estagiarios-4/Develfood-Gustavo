@@ -6,7 +6,6 @@ import React, {
   ReactNode,
 } from 'react';
 import { Alert } from 'react-native';
-import { ShoppingBar } from '../components/ShoppingBar';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -15,6 +14,7 @@ interface AuthProviderProps {
 interface RequestProps {
   addItem: Function;
   removeItem: Function;
+  clearShopping: Function;
   shopping: any;
   totalValue: number;
   totalItems: number;
@@ -26,30 +26,6 @@ interface ItemProps {
   price: number;
   restaurantId: number;
 }
-  // costumer: {id: number},
-  // restaurant: {id: number},
-  // date: Date,
-  // dateLastUpdated: Date,
-  // totalValue: number,
-  // paymentType: string,
-  // status: string,
-  // requestItems: [
-  //     {
-  //         plate: {
-  //             id: number,
-  //             price: number,
-  //         },
-  //         quantity: number,
-  //         price: number,
-  //         observation: string
-  //     }
-  // ],
-  // restaurantPromotion: {id: number} | null
-
-// interface PlateProps {
-//         id: number,
-//         price: number
-// }
 
 const ShoppingContext = createContext({} as RequestProps);
 
@@ -75,7 +51,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
           quantity: 1,
           price: price,
           restaurantId: restaurantId,
-        } as ItemProps );
+        } as ItemProps);
       } else {
         item.quantity += 1;
         item.price += price;
@@ -111,11 +87,14 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
 
   function clearShopping() {
     setShopping([]);
+    setTotalItems(0);
+    setTotalValue(0);
   }
 
   const store = {
     addItem,
     removeItem,
+    clearShopping,
     shopping,
     totalValue,
     totalItems,
@@ -123,8 +102,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
 
   return (
     <ShoppingContext.Provider value={store}>
-       {children}
-     {/* { totalItems > 0 && <ShoppingBar hasBottomBar={false} src={require('../assets/cart.png')} /> } */}
+      {children}
     </ShoppingContext.Provider>
   );
 }
@@ -132,12 +110,20 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
 export function useShopping() {
   const context = useContext(ShoppingContext);
 
-  const { shopping, addItem, removeItem, totalValue, totalItems } = context;
+  const {
+    shopping,
+    addItem,
+    removeItem,
+    clearShopping,
+    totalValue,
+    totalItems,
+  } = context;
 
   return {
     shopping,
     addItem,
     removeItem,
+    clearShopping,
     totalValue,
     totalItems,
   };

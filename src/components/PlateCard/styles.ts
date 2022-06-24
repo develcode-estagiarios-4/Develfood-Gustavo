@@ -93,14 +93,12 @@ height: ${RFValue(24)}px;
 border-radius: 4px;
 border: 1px solid #C20C18;
 justify-content: center;
-
 `;
 
 export const ItemQuantity = styled.Text`
 text-align: center;
 color: #F0F0F5;
 font-size: ${RFValue(12)}px;
-
 `;
 
 export const RightSideContainer = styled.View`

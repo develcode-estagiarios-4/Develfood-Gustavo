@@ -53,6 +53,7 @@ export default {
     STAR: require('../assets/star.png'),
     BORDERHEART: require('../assets/borderheart.png'),
     TRASH: require('../assets/trash.png'),
+    CART: require('../assets/cart.png'),
   },
   IMAGES: {
     BORDERBALL: require('../assets/bordabola.png'),
