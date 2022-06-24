@@ -27,6 +27,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useShopping } from '../../hooks/shopping';
+import { ShoppingBar } from '../../components/ShoppingBar';
 
 interface Plate {
   id: number;
@@ -43,6 +44,7 @@ interface Photo {
 export default function RestaurantProfile({ route }: any) {
   const navigation = useNavigation();
   const { token } = useAuth();
+  const { totalItems } = useShopping();
   const { id, name, photo_url, food_types } = route.params;
   const [plates, setPlates] = useState<Plate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -210,6 +212,8 @@ export default function RestaurantProfile({ route }: any) {
           )}
         />
       </Container>
+  { totalItems > 0 && <ShoppingBar hasBottomBar={false} src={require('../../assets/cart.png')} />}
+
     </>
   );
 }

@@ -10,18 +10,22 @@ import { Profile } from '../screens/Profile/Profile';
 import { TabBarIcon } from '../components/NavigationBar/TabBarIcon';
 import theme from '../theme';
 import RestaurantRoutes from './restaurantRoutes';
+import { ShoppingBar } from '../components/ShoppingBar';
+import { useShopping } from '../hooks/shopping';
 
 export default function AppRoutes() {
   const Tab = createBottomTabNavigator();
+  const { totalItems } = useShopping();
 
   return (
-
+    <>
+  { totalItems > 0 && <ShoppingBar hasBottomBar={true} src={require('../assets/cart.png')} />}
     <Tab.Navigator
     screenOptions={{
       unmountOnBlur: true,
       headerShown: false,
       tabBarActiveTintColor: theme.COLORS.PRIMARY_900,
-      tabBarStyle: {marginTop: 5},
+      tabBarStyle: {marginTop: 5, zIndex: 1},
       tabBarLabelStyle: {
         display: 'none'
       }
@@ -67,5 +71,7 @@ export default function AppRoutes() {
       }}
     />
   </Tab.Navigator>
+  </>
+  
   );
 }

@@ -223,7 +223,7 @@ export const Home: React.FC<undefined> = () => {
             <View
               style={{
                 width: '100%',
-                height: RFValue(80),
+                height: RFValue(200),
                 justifyContent: 'center',
               }}
             >

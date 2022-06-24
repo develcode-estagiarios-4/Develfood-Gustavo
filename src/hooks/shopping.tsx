@@ -6,6 +6,7 @@ import React, {
   ReactNode,
 } from 'react';
 import { Alert } from 'react-native';
+import { ShoppingBar } from '../components/ShoppingBar';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -55,7 +56,7 @@ const ShoppingContext = createContext({} as RequestProps);
 export default function ShoppingProvider({ children }: AuthProviderProps) {
   const [shopping, setShopping] = useState<any[]>([]);
   const [totalValue, setTotalValue] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   useEffect(() => {
     console.log(shopping, 'Valor total: ' + totalValue, 'Itens: ' + totalItems);
@@ -122,7 +123,8 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
 
   return (
     <ShoppingContext.Provider value={store}>
-      {children}
+       {children}
+     {/* { totalItems > 0 && <ShoppingBar hasBottomBar={false} src={require('../assets/cart.png')} /> } */}
     </ShoppingContext.Provider>
   );
 }
