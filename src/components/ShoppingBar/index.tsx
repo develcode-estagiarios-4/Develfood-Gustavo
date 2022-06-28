@@ -34,7 +34,7 @@ export function ShoppingBar({ src, hasBottomBar, onPressed, title, hasQuantity, 
 
   return (
     <Container bottom={hasBottomBar ? RFValue(46.75) : RFValue(-3)}>
-      <Btn activeOpacity={0.9} onPress={() => { onPressed() }}>
+      <Btn onPress={() => { onPressed() }}>
         <LeftImageView>
           <LeftImage
             source={src}

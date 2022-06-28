@@ -67,12 +67,6 @@ export function Order() {
     (async () => await fetchDataPhoto())();
   }, []);
 
-  function closeShopping() {
-    if (shopping.length < 1) {
-      navigation.goBack();
-    }
-  }
-
   return (
     <>
       <StatusBar
@@ -115,6 +109,7 @@ export function Order() {
               restaurantName={restaurantName}
               restaurantFoodType={restaurantFoodType}
               restaurantPhoto={restaurantPhoto}
+              isSwipeable
             />
           </View>
         )}

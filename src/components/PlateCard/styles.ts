@@ -6,7 +6,13 @@ export interface RightSideProps {
 }
 
 export const Container = styled.View.attrs({
-  elevation: 10
+  elevation: 10,
+  shadowOpacity: 0.08,
+  shadowOffset: {
+    width: 0,
+    height: 20,
+  },
+  shadowRadius: 10,
 })`
   flex-direction: row;
   align-items: center;
@@ -30,6 +36,7 @@ export const PlateImage = styled.Image.attrs({
 border-radius: 8px;
 height: ${RFValue(87)}px;
 width: ${RFValue(90)}px;
+z-index: 1;
 `;
 
 export const PlateWrapper = styled.View`
@@ -108,3 +115,12 @@ height: ${( props: RightSideProps) => props.height ? props.height : 10 }% ;
 margin-top: ${( props: RightSideProps) => props.margTop ? props.margTop : 0}px ;
 `;
 
+export const DeleteView = styled.View`
+  height: ${RFValue(120)}px;
+  width: 70%;
+  background-color: red;
+  border-radius: 15px;
+  position: absolute;
+  justify-content: center;
+  left: 7.7%;
+`;

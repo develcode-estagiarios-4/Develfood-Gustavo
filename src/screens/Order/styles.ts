@@ -86,5 +86,6 @@ color: #2B2B2E
 
 export const PlatesList = styled.FlatList`
 background-color: ${({theme}) => theme.COLORS.BACKGROUND_LIGHT};
+flex: 1;
 `;
 
