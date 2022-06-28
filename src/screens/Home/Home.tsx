@@ -148,18 +148,15 @@ export const Home: React.FC<undefined> = () => {
             !loading && dataGet.totalElements == 0 ? (
               <View
                 style={{
-                  width: '100%',
                   height: '100%',
-                  alignContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 <Image
-                  style={{ alignSelf: 'center' }}
                   source={theme.IMAGES.NOTFOUND}
                 />
                 <Text
                   style={{
-                    alignSelf: 'center',
                     fontSize: 17,
                     color: '#2B2B2E',
                   }}

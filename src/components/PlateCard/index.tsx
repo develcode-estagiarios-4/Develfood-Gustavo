@@ -28,10 +28,10 @@ interface Props extends TouchableOpacityProps {
   price: string;
   name: string;
   id: number;
-  restaurantId: number;
-  restaurantPhoto: any;
-  restaurantName: string;
-  restaurantFoodType: string;
+  restaurantId?: number;
+  restaurantPhoto?: any;
+  restaurantName?: string;
+  restaurantFoodType?: string;
 }
 
 interface Photos {
@@ -52,7 +52,7 @@ export function PlateCard({
   ...rest
 }: Props) {
   const { token } = useAuth();
-  const { addItem, shopping, totalValue, totalItems, removeItem } =
+  const { addItem, shopping, totalValue, totalItems, removeItem, clearShopping, clearShoppingItem } =
     useShopping();
   const {
     data: dataGet,
@@ -130,7 +130,7 @@ export function PlateCard({
                 </ItemQuantityContainer>
                 <AddButton
                   onPress={() => {
-                    addItem(id, price, restaurantId);
+                    addItem(id, price, name, description, src, restaurantId, restaurantPhoto, restaurantName, restaurantFoodType);
                   }}
                 >
                   <AddLabel>+</AddLabel>
@@ -139,7 +139,7 @@ export function PlateCard({
             ) : (
               <AddButton
                 onPress={() => {
-                  addItem(id, price, restaurantId, restaurantPhoto, restaurantName, restaurantFoodType);
+                  addItem(id, price, name, description, src, restaurantId, restaurantPhoto, restaurantName, restaurantFoodType);
                 }}
               >
                 <AddWord>Adicionar</AddWord>

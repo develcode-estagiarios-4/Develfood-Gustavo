@@ -50,6 +50,8 @@ font-weight: 400;
 font-size: ${RFValue(11)}px;
 color: #BFBABA;
 padding-right: ${RFValue(10)}px;
+width: 90%;
+text-align: justify;
 `;
 
 export const Footer = styled.View`

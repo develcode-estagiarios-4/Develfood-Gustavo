@@ -101,7 +101,6 @@ export default function RestaurantProfile({ route }: any) {
     }
     setIsLoading(false);
   }
-
   return (
     <>
       <StatusBar

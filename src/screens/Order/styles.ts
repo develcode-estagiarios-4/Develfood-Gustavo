@@ -3,7 +3,6 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
 background-color: ${({theme}) => theme.COLORS.BACKGROUND_LIGHT};
-flex: 1;
 `;
 
 export const LocalizationWrapper = styled.View`
@@ -48,5 +47,44 @@ position: absolute;
 right: 16px
 `;
 
-// export const Address = styled.View`
-// `;
+export const RestaurantInfo = styled.View`
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+padding-bottom: 34px;
+padding-top: 12px;
+`;
+
+export const RestaurantWrapper = styled.View`
+margin-left: ${RFValue(20)}px;
+`;
+
+export const RestaurantPhoto = styled.Image`
+margin-right: ${RFValue(15)}px;
+height: ${RFValue(60)}px;
+width: ${RFValue(60)}px;
+border-radius: 50px;
+
+`;
+
+export const PlatesListContainer = styled.View`
+background-color: ${({theme}) => theme.COLORS.SECONDARY_300};
+border-top-left-radius: 80px;
+margin-left: ${RFValue(30)}px;
+height: ${RFValue(60)}px;
+
+
+`;
+
+export const PlatesListTitle = styled.Text`
+align-self: center;
+font-size: ${RFValue(18)}px;
+margin-top: ${RFValue(10)}px;
+color: #2B2B2E
+
+`;
+
+export const PlatesList = styled.FlatList`
+background-color: ${({theme}) => theme.COLORS.BACKGROUND_LIGHT};
+`;
+
