@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import theme from '../theme';
 import RestaurantProfile from '../screens/RestaurantProfile';
 import { StatusBar } from 'react-native';
-import theme from '../theme';
 import AppRoutes from './routes.routes';
 import ShoppingProvider from '../hooks/shopping';
 

@@ -14,47 +14,31 @@ interface AuthProviderProps {
 interface RequestProps {
   addItem: Function;
   removeItem: Function;
+  clearShopping: Function;
   shopping: any;
   totalValue: number;
   totalItems: number;
-  // costumer: {id: number},
-  // restaurant: {id: number},
-  // date: Date,
-  // dateLastUpdated: Date,
-  // totalValue: number,
-  // paymentType: string,
-  // status: string,
-  // requestItems: [
-  //     {
-  //         plate: {
-  //             id: number,
-  //             price: number,
-  //         },
-  //         quantity: number,
-  //         price: number,
-  //         observation: string
-  //     }
-  // ],
-  // restaurantPromotion: {id: number} | null
 }
 
-// interface PlateProps {
-//         id: number,
-//         price: number
-// }
+interface ItemProps {
+  id: number;
+  quantity: number;
+  price: number;
+  restaurantId: number;
+}
 
 const ShoppingContext = createContext({} as RequestProps);
 
 export default function ShoppingProvider({ children }: AuthProviderProps) {
   const [shopping, setShopping] = useState<any[]>([]);
   const [totalValue, setTotalValue] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   useEffect(() => {
     console.log(shopping, 'Valor total: ' + totalValue, 'Itens: ' + totalItems);
   }, [shopping]);
 
-  function addItem(id: any, price: number, restaurantId: any) {
+  function addItem(id: number, price: number, restaurantId: number) {
     const addingProducts = [...shopping];
     const item = addingProducts.find((product: any) => product.id === id);
     const fromOtherRestaurant = addingProducts.find(
@@ -67,7 +51,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
           quantity: 1,
           price: price,
           restaurantId: restaurantId,
-        });
+        } as ItemProps);
       } else {
         item.quantity += 1;
         item.price += price;
@@ -103,11 +87,14 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
 
   function clearShopping() {
     setShopping([]);
+    setTotalItems(0);
+    setTotalValue(0);
   }
 
   const store = {
     addItem,
     removeItem,
+    clearShopping,
     shopping,
     totalValue,
     totalItems,
@@ -123,12 +110,20 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
 export function useShopping() {
   const context = useContext(ShoppingContext);
 
-  const { shopping, addItem, removeItem, totalValue, totalItems } = context;
+  const {
+    shopping,
+    addItem,
+    removeItem,
+    clearShopping,
+    totalValue,
+    totalItems,
+  } = context;
 
   return {
     shopping,
     addItem,
     removeItem,
+    clearShopping,
     totalValue,
     totalItems,
   };

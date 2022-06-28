@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { ActivityIndicator, Image, StatusBar, View, Text } from 'react-native';
 
 import {
@@ -27,6 +26,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useShopping } from '../../hooks/shopping';
+import { ShoppingBar } from '../../components/ShoppingBar';
 
 interface Plate {
   id: number;
@@ -43,6 +43,7 @@ interface Photo {
 export default function RestaurantProfile({ route }: any) {
   const navigation = useNavigation();
   const { token } = useAuth();
+  const { totalItems } = useShopping();
   const { id, name, photo_url, food_types } = route.params;
   const [plates, setPlates] = useState<Plate[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -103,7 +104,10 @@ export default function RestaurantProfile({ route }: any) {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.COLORS.BACKGROUND_LIGHT} barStyle='dark-content' />
+      <StatusBar
+        backgroundColor={theme.COLORS.BACKGROUND_LIGHT}
+        barStyle="dark-content"
+      />
       <Container>
         <View style={{ paddingLeft: RFValue(6), paddingRight: RFValue(15) }}>
           <Header
@@ -119,7 +123,8 @@ export default function RestaurantProfile({ route }: any) {
           />
         </View>
 
-        <PlateList showsVerticalScrollIndicator={false}
+        <PlateList
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingLeft: RFValue(18),
             paddingRight: RFValue(18),
@@ -158,7 +163,7 @@ export default function RestaurantProfile({ route }: any) {
             </View>
           }
           ListEmptyComponent={
-           dataGet.length == 0 && !loading ? (
+            dataGet.length == 0 && !loading ? (
               <View
                 style={{
                   width: '100%',
@@ -210,6 +215,13 @@ export default function RestaurantProfile({ route }: any) {
           )}
         />
       </Container>
+      {totalItems > 0 && (
+        <ShoppingBar
+          hasBottomBar={false}
+          src={theme.ICONS.CART}
+          onPressed={() => {}}
+        />
+      )}
     </>
   );
 }

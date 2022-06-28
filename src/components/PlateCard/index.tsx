@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacityProps } from 'react-native';
+import { Image, TouchableOpacityProps } from 'react-native';
 import { useAuth } from '../../hooks/auth';
 import { useShopping } from '../../hooks/shopping';
 import { useGet } from '../../services';
@@ -13,9 +13,13 @@ import {
   Price,
   AddButton,
   AddLabel,
+  AddWord,
   Description,
   Footer,
   RightSideContainer,
+  QuantityWrapper,
+  ItemQuantity,
+  ItemQuantityContainer,
 } from './styles';
 
 interface Props extends TouchableOpacityProps {
@@ -32,9 +36,18 @@ interface Photos {
   code: string;
 }
 
-export function PlateCard({ description, src, price, name, restaurantId, id, ...rest }: Props) {
+export function PlateCard({
+  description,
+  src,
+  price,
+  name,
+  restaurantId,
+  id,
+  ...rest
+}: Props) {
   const { token } = useAuth();
-  const { addItem, shopping, totalValue, totalItems, removeItem  } = useShopping();
+  const { addItem, shopping, totalValue, totalItems, removeItem } =
+    useShopping();
   const {
     data: dataGet,
     loading,
@@ -81,18 +94,51 @@ export function PlateCard({ description, src, price, name, restaurantId, id, ...
         </RightSideContainer>
 
         <RightSideContainer height={50}>
-          <Description>{description}</Description>
+          <Description numberOfLines={3}>{description}</Description>
         </RightSideContainer>
 
         <RightSideContainer height={25} margTop={7}>
           <Footer>
             <Price>R$ {priceFormatted}</Price>
-            <AddButton onPress={() => { addItem(id, price, restaurantId)}}>
-              <AddLabel>Adicionar</AddLabel>
-            </AddButton>
-            <AddButton onPress={() => { removeItem(id, price)}}>
-              <AddLabel>Tirar</AddLabel>
-            </AddButton>
+            {shopping.find((item: any) => item?.id === id)?.quantity > 0 ? (
+              <QuantityWrapper>
+                <AddButton
+                  onPress={() => {
+                    removeItem(id, price);
+                  }}
+                >
+                  <AddLabel>
+                    {shopping.find((item: any) => item?.id == id)?.quantity ==
+                    1 ? (
+                      <Image
+                        resizeMode="cover"
+                        source={theme.ICONS.TRASH}
+                      />
+                    ) : (  '-' )}
+                  </AddLabel>
+                </AddButton>
+                <ItemQuantityContainer>
+                  <ItemQuantity>
+                    {shopping.find((item: any) => item?.id == id)?.quantity}
+                  </ItemQuantity>
+                </ItemQuantityContainer>
+                <AddButton
+                  onPress={() => {
+                    addItem(id, price, restaurantId);
+                  }}
+                >
+                  <AddLabel>+</AddLabel>
+                </AddButton>
+              </QuantityWrapper>
+            ) : (
+              <AddButton
+                onPress={() => {
+                  addItem(id, price, restaurantId);
+                }}
+              >
+                <AddWord>Adicionar</AddWord>
+              </AddButton>
+            )}
           </Footer>
         </RightSideContainer>
       </PlateWrapper>
