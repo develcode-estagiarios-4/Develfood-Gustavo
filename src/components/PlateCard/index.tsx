@@ -4,23 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacityProps,
-  View,
 } from 'react-native';
-import {
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler';
-import Animated, {
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { useAuth } from '../../hooks/auth';
-import { useShopping } from '../../hooks/shopping';
-import { useGet } from '../../services';
-import theme from '../../theme';
 import {
   Container,
   Title,
@@ -39,6 +23,21 @@ import {
   ItemQuantityContainer,
   DeleteView,
 } from './styles';
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useAuth } from '../../hooks/auth';
+import { useShopping } from '../../hooks/shopping';
+import { useGet } from '../../services';
+import theme from '../../theme';
 
 interface Props extends TouchableOpacityProps {
   description: string;
@@ -111,7 +110,7 @@ export function PlateCard({
     onEnd: () => {
       translateX.value = withTiming(translateX.value > 0 ? 150 : 0, {
         duration: 1500,
-      })
+      });
     },
     onStart: () => {
       translateX.value = withTiming(0, {
@@ -125,7 +124,7 @@ export function PlateCard({
     transform: [
       {
         translateX:
-          translateX.value > 0 
+          translateX.value > 0
             ? translateX.value
             : withTiming(0, {
                 duration: 1500,
@@ -136,7 +135,7 @@ export function PlateCard({
 
   return (
     <>
-      <PanGestureHandler 
+      <PanGestureHandler
         onGestureEvent={panGesture}
         failOffsetY={[-5, 5]}
         activeOffsetX={[-5, 5]}

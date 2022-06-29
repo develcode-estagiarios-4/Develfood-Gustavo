@@ -5,14 +5,17 @@ import React, {
   useEffect,
   ReactNode,
 } from 'react';
-import { Alert, NativeModules } from 'react-native';
-import { Description } from '../components/PlateCard/styles';
+import { Alert } from 'react-native';
+import { AxiosError } from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import { useGet, usePost } from '../services';
+import { RequestProps, useAuth } from './auth';
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface RequestProps {
+interface Props {
   addItem: Function;
   removeItem: Function;
   clearShopping: Function;
@@ -27,6 +30,7 @@ interface RequestProps {
   restaurantPhoto: string;
   restaurantName: string;
   restaurantFoodType: string;
+  foodRequest: Function;
 }
 
 interface ItemProps {
@@ -36,24 +40,38 @@ interface ItemProps {
   restaurantId: number;
 }
 
-const ShoppingContext = createContext({} as RequestProps);
+interface Costumer {
+  id: number;
+}
+
+const ShoppingContext = createContext({} as Props);
 
 export default function ShoppingProvider({ children }: AuthProviderProps) {
+  const { token } = useAuth();
+  const navigation = useNavigation();
+
   const [shopping, setShopping] = useState<any[]>([]);
   const [totalValue, setTotalValue] = useState(0);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [platePhoto, setPlatePhoto] = useState<any>('');
+  const [plateId, setPlateId] = useState<number>(0);
   const [restaurantId, setRestaurantId] = useState<number>(0);
   const [restaurantPhoto, setRestaurantPhoto] = useState<string>('');
   const [restaurantName, setRestaurantName] = useState<string>('');
   const [restaurantFoodType, setRestaurantFoodType] = useState<string>('');
 
   useEffect(() => {
-    console.log(shopping, 'Valor total: ' + totalValue, 'Itens: ' + totalItems);
+    console.log(
+      shopping,
+      'Valor total: ' + totalValue,
+      'Itens: ' + totalItems,
+      plateId,
+      restaurantId,
+    );
   }, [shopping]);
-
+  
   function addItem(
     id: number,
     price: number,
@@ -99,6 +117,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
       setName(name);
       setDescription(description);
       setPlatePhoto(platePhoto);
+      setPlateId(id);
     } else {
       Alert.alert(
         'Esvazie seu carrinho para adicionar produtos de restaurantes diferentes.',
@@ -124,15 +143,10 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
     setTotalItems(totalItems - 1);
   }
 
-  function clearShopping(id: string) {
-    const removeAllProducts = [...shopping];
-    const item = removeAllProducts.find((product: any) => product.id === id);
-
-    if (item.quantity >= 1) {
-      setShopping([]);
-      setTotalValue(0);
-      setTotalItems(0);
-    }
+  function clearShopping() {
+    shopping.splice(0, shopping.length);
+    setTotalValue(0);
+    setTotalItems(0);
   }
 
   function clearShoppingItem(id: string) {
@@ -148,8 +162,90 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
     }
   }
 
+  const { data: dataGetCostumer, fetchData } = useGet<Costumer>(`/auth`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log(dataGetCostumer.id);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // const [loading, setLoading] = useState(false);
+  const [request, setRequest] = useState({} as RequestProps);
+
+  const {
+    data: dataPost,
+    loading: loadingPost,
+    handlerPost,
+  } = usePost<any, any>(request.endpoint, request.body, request.options);
+
+  function createFoodRequestSuccess(data: any) {
+    data.id && navigation.navigate('OrderSuccess' as never);
+    clearShopping();
+  }
+
+  function createFoodRequestError(error: AxiosError<any, any> | any) {
+    error && Alert.alert(request.error.title, request.error.message);
+  }
+
+  useEffect(() => {
+    !!request.body &&
+      handlerPost(
+        request.error.title,
+        request.error.message,
+        createFoodRequestError,
+        createFoodRequestSuccess,
+      );
+  }, [request]);
+
+  const foodRequestData = {
+    costumer: {
+      id: dataGetCostumer.id,
+    },
+    restaurant: {
+      id: restaurantId,
+    },
+    date: new Date().toString,
+    dateLastUpdated: new Date().toString,
+    totalValue: totalValue,
+    paymentType: 'card',
+    status: 'PEDIDO_REALIZADO',
+    requestItems: shopping.map((item: any) => {
+      return {
+        plate: {
+          id: item.id,
+          price: item.unityPrice,
+        },
+        quantity: item.quantity,
+        price: item.price,
+        observation: '',
+      };
+    }),
+    restaurantPromotion: null,
+  };
+
+  function foodRequest() {
+    setRequest({
+      endpoint: '/request',
+      body: foodRequestData,
+      error: {
+        title: 'Ops',
+        message: 'Não foi possível realizar seu pedido, desculpe o incômodo',
+      },
+      options: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    });
+  }
+
   const store = {
     addItem,
+    foodRequest,
     removeItem,
     clearShopping,
     clearShoppingItem,
@@ -179,6 +275,7 @@ export function useShopping() {
     shopping,
     addItem,
     removeItem,
+    foodRequest,
     clearShopping,
     clearShoppingItem,
     totalValue,
@@ -194,6 +291,7 @@ export function useShopping() {
 
   return {
     shopping,
+    foodRequest,
     addItem,
     removeItem,
     clearShopping,

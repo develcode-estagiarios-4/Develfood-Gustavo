@@ -60,13 +60,14 @@ interface TResponse {
   type: string;
 }
 
-interface RequestProps {
+export interface RequestProps {
   endpoint: string;
   body: {};
   error: {
     title: string;
     message: string;
   };
+  options?: {};
 }
 
 export const AuthContext = createContext({} as IAuthContextData);

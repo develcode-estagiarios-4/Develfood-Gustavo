@@ -1,16 +1,5 @@
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Image, StatusBar, Text, View } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { Header } from '../../components/Header';
-import { PlateCard } from '../../components/PlateCard';
-import { ItemQuantity } from '../../components/PlateCard/styles';
-import { ShoppingBar } from '../../components/ShoppingBar';
-import { useAuth } from '../../hooks/auth';
-import { useShopping } from '../../hooks/shopping';
-import { useGet } from '../../services';
-import theme from '../../theme';
-import { Category, Title, Wrapper } from '../RestaurantProfile/styles';
 import {
   Address,
   Complement,
@@ -27,6 +16,16 @@ import {
   PlatesListTitle,
   PlatesList,
 } from './styles';
+import { Category, Title, Wrapper } from '../RestaurantProfile/styles';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { PlateCard } from '../../components/PlateCard';
+import { Header } from '../../components/Header';
+import { ShoppingBar } from '../../components/ShoppingBar';
+import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
+import { useShopping } from '../../hooks/shopping';
+import { useGet } from '../../services';
+import theme from '../../theme';
 
 interface Photo {
   id: number;
@@ -42,6 +41,7 @@ export function Order() {
     totalItems,
     platePhoto,
     restaurantId,
+    foodRequest,
   } = useShopping();
   const { token } = useAuth();
 
@@ -86,7 +86,7 @@ export function Order() {
       />
 
       <PlatesList
-      showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         data={shopping}
         keyExtractor={(item: any) => item.id}
         renderItem={({ item }: any) => (
@@ -179,9 +179,7 @@ export function Order() {
               backgroundColor: theme.COLORS.BACKGROUND_LIGHT,
             }}
           >
-            <Image
-              source={require('../../assets/emptyshopping.png')}
-            />
+            <Image source={require('../../assets/emptyshopping.png')} />
             <Text
               style={{
                 fontSize: RFValue(18),
@@ -198,7 +196,9 @@ export function Order() {
         <ShoppingBar
           hasBottomBar={false}
           src={require('../../assets/dollar.png')}
-          onPressed={() => {}}
+          onPressed={() => {
+            foodRequest();
+          }}
           hasQuantity={false}
           title="Finalizar pedido"
         />
