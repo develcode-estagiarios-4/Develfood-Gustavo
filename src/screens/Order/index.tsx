@@ -1,5 +1,5 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { Image, StatusBar, Text, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Header } from '../../components/Header';

@@ -9,7 +9,6 @@ import {
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
-  RectButton,
 } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
@@ -112,13 +111,13 @@ export function PlateCard({
     onEnd: () => {
       translateX.value = withTiming(translateX.value > 0 ? 150 : 0, {
         duration: 1500,
+      })
+    },
+    onStart: () => {
+      translateX.value = withTiming(0, {
+        duration: 1000,
       });
     },
-    // onStart: () => {
-    //   translateX.value = withTiming(0, {
-    //     duration: 1000,
-    //   });
-    // },
   });
 
   const rStyle = useAnimatedStyle(() => ({
@@ -137,7 +136,11 @@ export function PlateCard({
 
   return (
     <>
-      <PanGestureHandler onGestureEvent={panGesture}>
+      <PanGestureHandler 
+        onGestureEvent={panGesture}
+        failOffsetY={[-5, 5]}
+        activeOffsetX={[-5, 5]}
+      >
         <Animated.View style={[isSwipeable && rStyle]}>
           <Container>
             <ImageView>
