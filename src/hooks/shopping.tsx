@@ -36,6 +36,7 @@ interface Props {
 interface ItemProps {
   id: number;
   quantity: number;
+  unityPrice: number;
   price: number;
   restaurantId: number;
 }
@@ -71,7 +72,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
       restaurantId,
     );
   }, [shopping]);
-  
+
   function addItem(
     id: number,
     price: number,
