@@ -8,7 +8,7 @@ flex: 1
 `;
 
 export const Title = styled.Text`
-margin-bottom: ${RFValue(27)}px;
+margin-bottom: ${RFValue(1)}px;
 margin-top: ${RFValue(22)}px;
 font-size: ${RFValue(18)}px;
 color: #2b2b2E;
