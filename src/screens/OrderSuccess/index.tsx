@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import { Container, Title, Description, BtnView } from './styles';
 import { Header } from '../../components/Header';
 import { ButtonTouchable } from '../../components/ButtonTouchable';
@@ -7,14 +7,15 @@ import theme from '../../theme';
 import { useNavigation } from '@react-navigation/native';
 
 export function OrderSuccess() {
-
   const navigation = useNavigation();
 
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: theme.COLORS.BACKGROUND_LIGHT }}>
       <Header
         bgColor={theme.COLORS.BACKGROUND}
-        onPressLeftButton={() => { navigation.navigate('Início' as never) }}
+        onPressLeftButton={() => {
+          navigation.navigate('Início' as never);
+        }}
         fontColor={theme.COLORS.BACKGROUND_LIGHT}
         srcLeftIcon={theme.ICONS.CLOSE}
         tint={theme.COLORS.BACKGROUND_LIGHT}
@@ -35,9 +36,11 @@ export function OrderSuccess() {
           isLoading={false}
           title="Ver o pedido"
           disabled={false}
-          onPressed={() => {  navigation.navigate('Pedidos' as never) }}
+          onPressed={() => {
+            navigation.navigate('Pedidos' as never);
+          }}
         />
       </BtnView>
-    </>
+    </View>
   );
 }

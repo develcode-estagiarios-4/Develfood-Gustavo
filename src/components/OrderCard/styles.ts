@@ -18,6 +18,7 @@ align-self: center;
 border-radius: 8px;
 height: ${RFValue(100)}px;
 margin-top: ${RFValue(14)}px;
+margin-bottom: 10px;
 
 `;
 
@@ -65,7 +66,7 @@ font-weight: 700;
 export const OrderId = styled.Text`
 padding-left: ${RFValue(50)}px;
 color: ${({ theme }) => theme.COLORS.SECONDARY_100};     
-font-weight: 700;
+font-weight: 400;
 `;
 
 export const PlatesLabel = styled.Text`

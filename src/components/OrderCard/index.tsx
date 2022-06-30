@@ -17,11 +17,12 @@ import { useGet } from '../../services';
 import theme from '../../theme';
 
 interface Props {
-  name?: string;
   src?: any;
-  foodType?: string;
-  id?: number;
-  evaluation?: number;
+  name?: string;
+  id: number;
+  date: Date;
+  quantity: number;
+  plateName: string;
 }
 
 interface Photos {
@@ -32,60 +33,54 @@ interface Photos {
 export function OrderCard({
   name,
   src,
-  foodType,
   id,
-  evaluation,
+  date,
+  quantity,
+  plateName,
   ...rest
 }: Props) {
   const { token } = useAuth();
 
-  // const {
-  //   data: dataGet,
-  //   loading,
-  //   setLoading,
-  //   fetchData,
-  // } = useGet<Plate[]>(`/plate/search?name=${filter.text}&restaurantid=${id}`, {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // });
-
-  // const {
-  //   data: dataGet,
-  //   setLoading,
-  //   fetchData,
-  // } = useGet<Photos>(src, {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // });
+  const {
+    data: dataGet,
+    setLoading,
+    fetchData,
+  } = useGet<Photos>(src, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const [photos, setPhotos] = useState<Photos[]>([]);
 
-  // function onSuccessLoad(data?: any) {
-  //   setPhotos([...photos, ...(data as Photos[])]);
-  //   setLoading(false);
-  // }
+  function onSuccessLoad(data?: any) {
+    setPhotos([...photos, ...(data as Photos[])]);
+    setLoading(false);
+  }
 
-  // useEffect(() => {
-  //   (async () => await fetchData(onSuccessLoad))();
-  //   setLoading(true);
-  // }, []);
+  useEffect(() => {
+    (async () => await fetchData(onSuccessLoad))();
+    setLoading(true);
+  }, []);
 
   return (
     <>
-    <DateText>Sáb 02 abril 2022</DateText>
+      <DateText>{date.toString()}</DateText>
       <Container>
-        <RestaurantPhoto source={theme.IMAGES.BANNER} />
+        <RestaurantPhoto
+          source={
+            dataGet.code ? { uri: `${dataGet.code}` } : theme.IMAGES.NOIMAGE
+          }
+        />
         <InfoWrapper>
-          <Title>McDonald's - São Luis Drive</Title>
+          <Title>{name}</Title>
           <OrderWrapper>
-            <CheckImage source={theme.IMAGES.GREENBALL} />
-            <OrderStatus>    Pedido finalizado N°</OrderStatus>
-            <OrderId> 12345</OrderId>
+            <CheckImage source={require('../../assets/checkorder.png')} />
+            <OrderStatus> Pedido finalizado N°</OrderStatus>
+            <OrderId> {id}</OrderId>
           </OrderWrapper>
           <PlatesLabel>
-            Family Box 3 pessoas: 2 Mcofertas médias + MCLanche Feliz
+            {quantity > 1 && quantity} {plateName}
           </PlatesLabel>
         </InfoWrapper>
       </Container>
