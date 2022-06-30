@@ -33,12 +33,18 @@ interface Props {
   foodRequest: Function;
 }
 
-interface ItemProps {
+export interface ItemProps {
   id: number;
   quantity: number;
   unityPrice: number;
   price: number;
   restaurantId: number;
+  name: string;
+  src: string;
+  description: string;
+  restaurantPhoto: string;
+  restaurantName: string;
+  restaurantFoodType: string;
 }
 
 interface Costumer {
@@ -63,15 +69,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
   const [restaurantName, setRestaurantName] = useState<string>('');
   const [restaurantFoodType, setRestaurantFoodType] = useState<string>('');
 
-  useEffect(() => {
-    console.log(
-      shopping,
-      'Valor total: ' + totalValue,
-      'Itens: ' + totalItems,
-      plateId,
-      restaurantId,
-    );
-  }, [shopping]);
+  useEffect(() => {}, [shopping]);
 
   function addItem(
     id: number,

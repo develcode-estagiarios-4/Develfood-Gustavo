@@ -16,7 +16,7 @@ interface HeaderProps {
   name?: string;
   title?: string;
   onPressLeftButton: Function;
-  srcLeftIcon: any;
+  srcLeftIcon?: any;
   fontColor: string;
   fontWeight?: any;
   bgColor: any;

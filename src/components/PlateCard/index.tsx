@@ -38,6 +38,7 @@ import { useAuth } from '../../hooks/auth';
 import { useShopping } from '../../hooks/shopping';
 import { useGet } from '../../services';
 import theme from '../../theme';
+import { ItemProps } from '../../hooks/shopping'
 
 interface Props extends TouchableOpacityProps {
   description: string;
@@ -164,7 +165,7 @@ export function PlateCard({
               <RightSideContainer height={25} margTop={7}>
                 <Footer>
                   <Price>R$ {priceFormatted}</Price>
-                  {shopping.find((item: any) => item?.id === id)?.quantity >
+                  {shopping.find((item: ItemProps) => item?.id === id)?.quantity >
                   0 ? (
                     <QuantityWrapper>
                       <AddButton
@@ -173,7 +174,7 @@ export function PlateCard({
                         }}
                       >
                         <AddLabel>
-                          {shopping.find((item: any) => item?.id == id)
+                          {shopping.find((item: ItemProps) => item?.id == id)
                             ?.quantity == 1 ? (
                             <Image
                               resizeMode="cover"
@@ -187,7 +188,7 @@ export function PlateCard({
                       <ItemQuantityContainer>
                         <ItemQuantity>
                           {
-                            shopping.find((item: any) => item?.id == id)
+                            shopping.find((item: ItemProps) => item?.id == id)
                               ?.quantity
                           }
                         </ItemQuantity>
