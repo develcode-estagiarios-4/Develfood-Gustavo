@@ -73,7 +73,7 @@ export default function SignIn() {
 
   return (
     <>
-    <StatusBar hidden/>
+      <StatusBar hidden />
       <Container>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
@@ -138,11 +138,13 @@ export default function SignIn() {
                 onPressed={handleSubmit(handleLogin)}
                 title="Entrar"
                 isLoading={loading}
+                disabled={loading}
               />
 
               <RegisterWrapper>
                 <NoRegisterLabel>Não possui cadastro? </NoRegisterLabel>
                 <RegisterButton
+                  activeOpacity={0.9}
                   disabled={loading}
                   onPress={() => navigation.navigate('SignUpI' as never)}
                 >

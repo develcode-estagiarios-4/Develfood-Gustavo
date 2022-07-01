@@ -16,10 +16,11 @@ interface HeaderProps {
   name?: string;
   title?: string;
   onPressLeftButton: Function;
-  srcLeftIcon: any;
+  srcLeftIcon?: any;
   fontColor: string;
-  fontWeight: any;
+  fontWeight?: any;
   bgColor: any;
+  tint?: string;
 }
 
 export function Header({
@@ -30,6 +31,7 @@ export function Header({
   fontColor,
   fontWeight,
   bgColor,
+  tint,
 }: HeaderProps) {
   const { loading } = useAuth();
 
@@ -38,10 +40,10 @@ export function Header({
   return (
     <Container style={{ backgroundColor: bgColor }}>
       <LeftButton disabled={loading} onPress={() => onPressLeftButton()}>
-        <LeftIconButton resizeMode="contain" source={srcLeftIcon} />
+        <LeftIconButton resizeMode="contain" source={srcLeftIcon} style={{tintColor: tint}} />
       </LeftButton>
 
-      {name === 'Cadastro' && (
+      {name === 'Cadastro' || name == 'Order' && (
         <Title style={{ color: fontColor, fontWeight: fontWeight }}>
           {title}
         </Title>

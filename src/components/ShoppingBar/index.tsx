@@ -18,9 +18,11 @@ interface Props extends TouchableOpacityProps {
   src: any;
   hasBottomBar: boolean;
   onPressed: Function;
+  title: string;
+  hasQuantity: boolean;
 }
 
-export function ShoppingBar({ src, hasBottomBar, onPressed, ...rest }: Props) {
+export function ShoppingBar({ src, hasBottomBar, onPressed, title, hasQuantity, ...rest }: Props) {
   const { totalValue, totalItems, clearShopping } = useShopping();
 
   function priceConverter() {
@@ -32,17 +34,17 @@ export function ShoppingBar({ src, hasBottomBar, onPressed, ...rest }: Props) {
 
   return (
     <Container bottom={hasBottomBar ? RFValue(46.75) : RFValue(-3)}>
-      <Btn activeOpacity={0.9} onPress={() => { onPressed() }}>
+      <Btn onPress={() => { onPressed() }}>
         <LeftImageView>
           <LeftImage
             source={src}
             style={{ tintColor: theme.COLORS.BACKGROUND_LIGHT }}
           />
-          <QuantityBall>
+          { hasQuantity && <QuantityBall>
             <QuantityLabel>{totalItems > 9 ? '9+' : totalItems}</QuantityLabel>
-          </QuantityBall>
+          </QuantityBall> }
         </LeftImageView>
-        <Title>Ver carrinho</Title>
+        <Title>{title}</Title>
         <Amount numberOfLines={1}>R$ {priceFormatted}</Amount>
       </Btn>
     </Container>
