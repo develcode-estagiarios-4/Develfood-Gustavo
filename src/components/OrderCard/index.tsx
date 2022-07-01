@@ -21,8 +21,7 @@ interface Props {
   name: string;
   id: number;
   date: Date;
-  quantity: number;
-  plateName: string;
+  quantityAndName?: string;
 }
 
 interface Photos {
@@ -35,16 +34,12 @@ export function OrderCard({
   src,
   id,
   date,
-  quantity,
-  plateName,
+  quantityAndName,
   ...rest
 }: Props) {
   const { token } = useAuth();
 
-  const {
-    data: dataGet,
-    fetchData,
-  } = useGet<Photos>(src, {
+  const { data: dataGet, fetchData } = useGet<Photos>(src, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -62,7 +57,7 @@ export function OrderCard({
 
   return (
     <>
-      <DateText>{date.toString()}</DateText>
+      {/* <DateText>{date}</DateText> */}
       <Container>
         <RestaurantPhoto
           source={
@@ -73,11 +68,11 @@ export function OrderCard({
           <Title>{name}</Title>
           <OrderWrapper>
             <CheckImage source={require('../../assets/checkorder.png')} />
-            <OrderStatus>    Pedido finalizado N°</OrderStatus>
+            <OrderStatus> Pedido finalizado N°</OrderStatus>
             <OrderId> {id}</OrderId>
           </OrderWrapper>
           <PlatesLabel>
-            {quantity > 1 && quantity} {plateName}
+            {quantityAndName}
           </PlatesLabel>
         </InfoWrapper>
       </Container>

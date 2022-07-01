@@ -70,7 +70,7 @@ font-weight: 400;
 `;
 
 export const PlatesLabel = styled.Text`
-width: 91.5%;
+width: 99%;
 font-size: ${RFValue(10)}px;
 font-weight: 700;
 color: ${({ theme }) => theme.COLORS.SECONDARY_100};     

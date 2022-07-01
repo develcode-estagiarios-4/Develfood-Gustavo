@@ -10,7 +10,7 @@ font-weight: 400;
 
 `;
 
-export const OrderList = styled.FlatList`
+export const OrderList = styled.SectionList`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
 
 `;
