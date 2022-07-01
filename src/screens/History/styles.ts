@@ -12,6 +12,5 @@ font-weight: 400;
 
 export const OrderList = styled.FlatList`
 background-color: ${({ theme }) => theme.COLORS.BACKGROUND_LIGHT};
-flex:1
 
 `;

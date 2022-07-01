@@ -27,7 +27,7 @@ width: ${RFValue(32)}px;
 height: ${RFValue(32)}px;
 border-radius: 50px;
 margin: 0 ${RFValue(14)}px;
-margin-top: ${RFValue(13)}px;
+margin-top: ${RFValue(15)}px;
 `;
 
 export const InfoWrapper = styled.View`

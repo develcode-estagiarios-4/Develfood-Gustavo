@@ -17,8 +17,8 @@ import { useGet } from '../../services';
 import theme from '../../theme';
 
 interface Props {
-  src?: any;
-  name?: string;
+  src: string;
+  name: string;
   id: number;
   date: Date;
   quantity: number;
@@ -43,7 +43,6 @@ export function OrderCard({
 
   const {
     data: dataGet,
-    setLoading,
     fetchData,
   } = useGet<Photos>(src, {
     headers: {
@@ -55,12 +54,10 @@ export function OrderCard({
 
   function onSuccessLoad(data?: any) {
     setPhotos([...photos, ...(data as Photos[])]);
-    setLoading(false);
   }
 
   useEffect(() => {
     (async () => await fetchData(onSuccessLoad))();
-    setLoading(true);
   }, []);
 
   return (
@@ -76,7 +73,7 @@ export function OrderCard({
           <Title>{name}</Title>
           <OrderWrapper>
             <CheckImage source={require('../../assets/checkorder.png')} />
-            <OrderStatus> Pedido finalizado N°</OrderStatus>
+            <OrderStatus>    Pedido finalizado N°</OrderStatus>
             <OrderId> {id}</OrderId>
           </OrderWrapper>
           <PlatesLabel>

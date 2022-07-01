@@ -63,7 +63,6 @@ export const History: React.FC<undefined> = () => {
 
   async function handleEndReached() {
     if (dataGet.totalPages !== page && !loading) {
-      setLoading(true);
       setPage(page + 1);
     }
   }
@@ -123,7 +122,7 @@ export const History: React.FC<undefined> = () => {
           </>
         )}
         onEndReached={() => handleEndReached()}
-        ListFooterComponent={() => (
+        ListFooterComponent={
           <View
             style={{
               height: RFValue(200),
@@ -134,7 +133,7 @@ export const History: React.FC<undefined> = () => {
               <ActivityIndicator size={50} color={theme.COLORS.BACKGROUND} />
             ) : null}
           </View>
-        )}
+        }
       />
     </>
   );

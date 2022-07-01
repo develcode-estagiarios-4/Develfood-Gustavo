@@ -47,7 +47,7 @@ interface Props extends TouchableOpacityProps {
   name: string;
   id: number;
   restaurantId?: number;
-  restaurantPhoto?: any;
+  restaurantPhoto?: string;
   restaurantName?: string;
   restaurantFoodType?: string;
   isSwipeable?: boolean;
