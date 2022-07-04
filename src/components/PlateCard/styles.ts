@@ -3,6 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export interface RightSideProps {
   height?: number;
   margTop?: number;
+  width?: number;
 }
 
 export const Container = styled.View.attrs({

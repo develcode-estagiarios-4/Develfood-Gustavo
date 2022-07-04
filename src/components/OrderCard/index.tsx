@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  DateText,
   Container,
   RestaurantPhoto,
   InfoWrapper,
@@ -10,11 +9,13 @@ import {
   OrderWrapper,
   PlatesLabel,
   Title,
+  RightSideContainer,
 } from './styles';
 
 import { useAuth } from '../../hooks/auth';
 import { useGet } from '../../services';
 import theme from '../../theme';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 interface Props {
   src: string;
@@ -57,7 +58,6 @@ export function OrderCard({
 
   return (
     <>
-      {/* <DateText>{date}</DateText> */}
       <Container>
         <RestaurantPhoto
           source={
@@ -65,15 +65,21 @@ export function OrderCard({
           }
         />
         <InfoWrapper>
-          <Title>{name}</Title>
-          <OrderWrapper>
-            <CheckImage source={require('../../assets/checkorder.png')} />
-            <OrderStatus> Pedido finalizado N°</OrderStatus>
-            <OrderId> {id}</OrderId>
-          </OrderWrapper>
-          <PlatesLabel>
-            {quantityAndName}
-          </PlatesLabel>
+          <RightSideContainer height={25} width={100}>
+            <Title>{name}</Title>
+          </RightSideContainer>
+
+          <RightSideContainer height={24} width={100}>
+            <OrderWrapper>
+              <CheckImage source={require('../../assets/checkorder.png')} />
+              <OrderStatus>    Pedido finalizado N°</OrderStatus>
+              <OrderId> {id}</OrderId>
+            </OrderWrapper>
+          </RightSideContainer>
+
+          <RightSideContainer height={42} width={RFPercentage(13.718)}>
+            <PlatesLabel>{quantityAndName}</PlatesLabel>
+          </RightSideContainer>
         </InfoWrapper>
       </Container>
     </>

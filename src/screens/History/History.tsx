@@ -8,7 +8,7 @@ import { useGet } from '../../services';
 import theme from '../../theme';
 import { Title, OrderList } from './styles';
 import moment from 'moment';
-
+import 'moment/locale/pt-br';
 interface SectionListData {
   title: string;
   data: Order[];
@@ -60,7 +60,7 @@ export const History: React.FC<undefined> = () => {
     },
   });
 
-  function onSuccessLoad(data?: any) {
+  function onSuccessLoad(data?: UserOrders) {
     setOrders([...orders, ...(data?.content as Order[])]);
   }
 
@@ -150,7 +150,9 @@ export const History: React.FC<undefined> = () => {
               id={item.id}
               date={item.date}
               quantityAndName={`${
-                item.requestItems.quantity > 1 ? item.requestItems.quantity : ''
+                item.requestItems[0].quantity > 1
+                  ? item.requestItems[0].quantity + ' '
+                  : ''
               }${item.requestItems[0].plateDTO.name} ${
                 item.requestItems[1]
                   ? ` + ${
