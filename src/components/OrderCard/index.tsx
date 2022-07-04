@@ -74,7 +74,15 @@ export function OrderCard({
           <RightSideContainer height={24} width={100}>
             <OrderWrapper>
               <CheckImage source={require('../../assets/checkorder.png')} />
-              <OrderStatus>    {status} N°</OrderStatus>
+              <OrderStatus>
+                {'    ' + status.charAt(0).toUpperCase() +
+                  status
+                    .slice(1)
+                    .toLowerCase()
+                    .replace('_', ' ')
+                    .replace('_', ' ')}{' '}
+                N°
+              </OrderStatus>
               <OrderId> {id}</OrderId>
             </OrderWrapper>
           </RightSideContainer>
