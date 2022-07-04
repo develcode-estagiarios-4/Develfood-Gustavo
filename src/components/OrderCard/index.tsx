@@ -23,6 +23,7 @@ interface Props {
   id: number;
   date: Date;
   quantityAndName?: string;
+  status: string;
 }
 
 interface Photos {
@@ -35,6 +36,7 @@ export function OrderCard({
   src,
   id,
   date,
+  status,
   quantityAndName,
   ...rest
 }: Props) {
@@ -72,7 +74,7 @@ export function OrderCard({
           <RightSideContainer height={24} width={100}>
             <OrderWrapper>
               <CheckImage source={require('../../assets/checkorder.png')} />
-              <OrderStatus>    Pedido finalizado N°</OrderStatus>
+              <OrderStatus>    {status} N°</OrderStatus>
               <OrderId> {id}</OrderId>
             </OrderWrapper>
           </RightSideContainer>

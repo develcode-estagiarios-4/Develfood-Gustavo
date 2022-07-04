@@ -23,6 +23,7 @@ interface Order {
   restaurant: Restaurant;
   date: string;
   requestItems: Plate[];
+  status: string;
 }
 
 interface Restaurant {
@@ -146,6 +147,7 @@ export const History: React.FC<undefined> = () => {
           <>
             <OrderCard
               name={item.restaurant.name}
+              status={item.status}
               src={item.restaurant.photo_url}
               id={item.id}
               date={item.date}

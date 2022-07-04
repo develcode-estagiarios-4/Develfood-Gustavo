@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import { Container, Title, Description, BtnView } from './styles';
 import { Header } from '../../components/Header';
 import { ButtonTouchable } from '../../components/ButtonTouchable';
@@ -10,7 +10,7 @@ export function OrderSuccess() {
   const navigation = useNavigation();
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.COLORS.BACKGROUND_LIGHT }}>
+    <ScrollView style={{ flex: 1, backgroundColor: theme.COLORS.BACKGROUND_LIGHT }}>
       <Header
         bgColor={theme.COLORS.BACKGROUND}
         onPressLeftButton={() => {
@@ -25,7 +25,7 @@ export function OrderSuccess() {
       />
       <Container>
         <Title>Pedido realizado!</Title>
-        <Image source={require('../../assets/orderSuccess.png')} />
+        <Image source={require('../../assets/orderSuccess.png')} style={{alignSelf: 'center'}} />
         <Description>
           Agradecemos a preferência! Em breve você receberá atualizações sobre o
           status do seu pedido!
@@ -41,6 +41,6 @@ export function OrderSuccess() {
           }}
         />
       </BtnView>
-    </View>
+    </ScrollView>
   );
 }
