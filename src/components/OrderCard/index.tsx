@@ -21,8 +21,8 @@ interface Props {
   src: string;
   name: string;
   id: number;
-  date: Date;
-  quantityAndName?: string;
+  date: string;
+  quantityAndName?: any;
   status: string;
 }
 
