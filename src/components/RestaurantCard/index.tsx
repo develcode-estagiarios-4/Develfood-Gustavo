@@ -21,7 +21,7 @@ import { useGet } from '../../services';
 import theme from '../../theme';
 interface Props extends TouchableOpacityProps {
   name: string;
-  src: any;
+  src: string;
   foodType: string;
   id: number;
   evaluation?: number;

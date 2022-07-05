@@ -25,7 +25,7 @@ interface Props {
   totalItems: number;
   name: string;
   description: string;
-  platePhoto: any;
+  platePhoto: string;
   restaurantId: number;
   restaurantPhoto: string;
   restaurantName: string;
@@ -62,7 +62,7 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
   const [totalItems, setTotalItems] = useState<number>(0);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [platePhoto, setPlatePhoto] = useState<any>('');
+  const [platePhoto, setPlatePhoto] = useState<string>('');
   const [plateId, setPlateId] = useState<number>(0);
   const [restaurantId, setRestaurantId] = useState<number>(0);
   const [restaurantPhoto, setRestaurantPhoto] = useState<string>('');
@@ -76,9 +76,9 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
     price: number,
     name: string,
     description: string,
-    platePhoto: any,
+    platePhoto: string,
     restaurantId: number,
-    restaurantPhoto: any,
+    restaurantPhoto: string,
     restaurantName: string,
     restaurantFoodType: string,
   ) {

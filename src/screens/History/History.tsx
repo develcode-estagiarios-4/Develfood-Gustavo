@@ -32,6 +32,7 @@ interface Restaurant {
 }
 
 interface Plate {
+  id: number;
   plateDTO: PlateInfo;
   quantity: number;
 }
@@ -93,6 +94,23 @@ export const History: React.FC<undefined> = () => {
     });
     setHistoricSections(historicFormatted);
   }
+
+  const listItems = (item: Order) => {
+    let quantityVisible = item.requestItems.map((requestItem: Plate, index) => {
+      if (requestItem.quantity > 1) {
+        return index != 0
+          ? ' + ' + requestItem.quantity + ' ' + requestItem.plateDTO.name
+          : requestItem.quantity + ' ' + requestItem.plateDTO.name;
+      } else {
+        return index != 0
+          ? ' + ' + requestItem?.plateDTO.name
+          : requestItem?.plateDTO.name;
+      }
+    });
+
+    return quantityVisible;
+  };
+
   useEffect(() => {
     dataGet?.content && sectionDataFormatter([...orders, ...dataGet?.content]);
   }, [dataGet]);
@@ -151,27 +169,7 @@ export const History: React.FC<undefined> = () => {
               src={item.restaurant.photo_url}
               id={item.id}
               date={item.date}
-              quantityAndName={`${
-                item.requestItems[0].quantity > 1
-                  ? item.requestItems[0].quantity + ' '
-                  : ''
-              }${item.requestItems[0].plateDTO.name} ${
-                item.requestItems[1]
-                  ? ` + ${
-                      item.requestItems[1].quantity > 1
-                        ? item.requestItems[1].quantity
-                        : ''
-                    } ${item.requestItems[1].plateDTO.name}`
-                  : ''
-              } ${
-                item.requestItems[2]
-                  ? ` + ${
-                      item.requestItems[2].quantity > 1
-                        ? item.requestItems[2].quantity
-                        : ''
-                    } ${item.requestItems[2].plateDTO.name}`
-                  : ''
-              }${item.requestItems[3] ? '...' : ''}`}
+              quantityAndName={listItems(item)}
             />
           </>
         )}
