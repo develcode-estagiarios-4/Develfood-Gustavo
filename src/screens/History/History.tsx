@@ -7,7 +7,12 @@ import { useAuth } from '../../hooks/auth';
 import { useGet } from '../../services';
 import theme from '../../theme';
 import { Title, OrderList } from './styles';
-
+import moment from 'moment';
+import 'moment/locale/pt-br';
+interface SectionListData {
+  title: string;
+  data: Order[];
+}
 interface UserOrders {
   content?: Order[];
   totalPages: number;
@@ -16,8 +21,9 @@ interface UserOrders {
 interface Order {
   id: number;
   restaurant: Restaurant;
-  date: Date;
+  date: string;
   requestItems: Plate[];
+  status: string;
 }
 
 interface Restaurant {
@@ -26,6 +32,7 @@ interface Restaurant {
 }
 
 interface Plate {
+  id: number;
   plateDTO: PlateInfo;
   quantity: number;
 }
@@ -39,6 +46,9 @@ export const History: React.FC<undefined> = () => {
 
   const [orders, setOrders] = useState<Order[]>([]);
   const [page, setPage] = useState(0);
+  const [historicSections, setHistoricSections] = useState<SectionListData[]>(
+    [],
+  );
 
   const {
     data: dataGet,
@@ -52,13 +62,12 @@ export const History: React.FC<undefined> = () => {
     },
   });
 
-  function onSuccessLoad(data?: any) {
+  function onSuccessLoad(data?: UserOrders) {
     setOrders([...orders, ...(data?.content as Order[])]);
   }
 
   useEffect(() => {
     (async () => await fetchData(onSuccessLoad))();
-    // console.log(dataGet.content[5].requestItems[0].quantity)
   }, [page]);
 
   async function handleEndReached() {
@@ -67,6 +76,44 @@ export const History: React.FC<undefined> = () => {
     }
   }
 
+  function sectionDataFormatter(data: Order[]) {
+    const historicFormatted: SectionListData[] = [];
+    data.forEach((order: Order) => {
+      const sectionFound = historicFormatted.find(
+        (historicSections: SectionListData) =>
+          historicSections.title === order.date,
+      );
+      if (sectionFound) {
+        sectionFound.data.push(order);
+      } else {
+        historicFormatted.push({
+          title: order.date,
+          data: [order],
+        });
+      }
+    });
+    setHistoricSections(historicFormatted);
+  }
+
+  const listItems = (item: Order) => {
+    let quantityVisible = item.requestItems.map((requestItem: Plate, index) => {
+      if (requestItem.quantity > 1) {
+        return index != 0
+          ? ' + ' + requestItem.quantity + ' ' + requestItem.plateDTO.name
+          : requestItem.quantity + ' ' + requestItem.plateDTO.name;
+      } else {
+        return index != 0
+          ? ' + ' + requestItem?.plateDTO.name
+          : requestItem?.plateDTO.name;
+      }
+    });
+
+    return quantityVisible;
+  };
+
+  useEffect(() => {
+    dataGet?.content && sectionDataFormatter([...orders, ...dataGet?.content]);
+  }, [dataGet]);
   return (
     <>
       <StatusBar
@@ -83,6 +130,7 @@ export const History: React.FC<undefined> = () => {
       />
 
       <OrderList
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           dataGet.totalElements > 0 ? <Title>Histórico</Title> : null
         }
@@ -107,17 +155,21 @@ export const History: React.FC<undefined> = () => {
           ) : null
         }
         contentContainerStyle={{ paddingHorizontal: RFValue(20) }}
-        data={orders}
+        sections={historicSections}
+        renderSectionHeader={({ section: { title } }: any) => (
+          <Text>{moment(title).format('llll').slice(0, -9)}</Text>
+        )}
         keyExtractor={(item: any) => item?.id}
+        initialNumToRender={dataGet.totalElements}
         renderItem={({ item }: any) => (
           <>
             <OrderCard
               name={item.restaurant.name}
+              status={item.status}
               src={item.restaurant.photo_url}
               id={item.id}
               date={item.date}
-              quantity={item.requestItems[0].quantity}
-              plateName={item.requestItems[0].plateDTO.name}
+              quantityAndName={listItems(item)}
             />
           </>
         )}

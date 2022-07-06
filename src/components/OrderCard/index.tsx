@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  DateText,
   Container,
   RestaurantPhoto,
   InfoWrapper,
@@ -10,19 +9,21 @@ import {
   OrderWrapper,
   PlatesLabel,
   Title,
+  RightSideContainer,
 } from './styles';
 
 import { useAuth } from '../../hooks/auth';
 import { useGet } from '../../services';
 import theme from '../../theme';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 interface Props {
   src: string;
   name: string;
   id: number;
-  date: Date;
-  quantity: number;
-  plateName: string;
+  date: string;
+  quantityAndName?: any;
+  status: string;
 }
 
 interface Photos {
@@ -35,16 +36,13 @@ export function OrderCard({
   src,
   id,
   date,
-  quantity,
-  plateName,
+  status,
+  quantityAndName,
   ...rest
 }: Props) {
   const { token } = useAuth();
 
-  const {
-    data: dataGet,
-    fetchData,
-  } = useGet<Photos>(src, {
+  const { data: dataGet, fetchData } = useGet<Photos>(src, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -62,7 +60,6 @@ export function OrderCard({
 
   return (
     <>
-      <DateText>{date.toString()}</DateText>
       <Container>
         <RestaurantPhoto
           source={
@@ -70,15 +67,29 @@ export function OrderCard({
           }
         />
         <InfoWrapper>
-          <Title>{name}</Title>
-          <OrderWrapper>
-            <CheckImage source={require('../../assets/checkorder.png')} />
-            <OrderStatus>    Pedido finalizado N°</OrderStatus>
-            <OrderId> {id}</OrderId>
-          </OrderWrapper>
-          <PlatesLabel>
-            {quantity > 1 && quantity} {plateName}
-          </PlatesLabel>
+          <RightSideContainer height={25} width={100}>
+            <Title>{name}</Title>
+          </RightSideContainer>
+
+          <RightSideContainer height={24} width={100}>
+            <OrderWrapper>
+              <CheckImage source={require('../../assets/checkorder.png')} />
+              <OrderStatus>
+                {'    ' + status.charAt(0).toUpperCase() +
+                  status
+                    .slice(1)
+                    .toLowerCase()
+                    .replace('_', ' ')
+                    .replace('_', ' ')}{' '}
+                N°
+              </OrderStatus>
+              <OrderId> {id}</OrderId>
+            </OrderWrapper>
+          </RightSideContainer>
+
+          <RightSideContainer height={42} width={RFPercentage(13.718)}>
+            <PlatesLabel>{quantityAndName}</PlatesLabel>
+          </RightSideContainer>
         </InfoWrapper>
       </Container>
     </>

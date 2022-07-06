@@ -175,7 +175,7 @@ export function PlateCard({
                       >
                         <AddLabel>
                           {shopping.find((item: ItemProps) => item?.id == id)
-                            ?.quantity == 1 ? (
+                            ?.quantity ==  1 && !isSwipeable ? (
                             <Image
                               resizeMode="cover"
                               source={theme.ICONS.TRASH}
