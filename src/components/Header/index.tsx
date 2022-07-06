@@ -43,7 +43,7 @@ export function Header({
         <LeftIconButton resizeMode="contain" source={srcLeftIcon} style={{tintColor: tint}} />
       </LeftButton>
 
-      {name === 'Cadastro' || name == 'Order' && (
+      {(name === 'Cadastro' || name == 'Order' ) && (
         <Title style={{ color: fontColor, fontWeight: fontWeight }}>
           {title}
         </Title>
