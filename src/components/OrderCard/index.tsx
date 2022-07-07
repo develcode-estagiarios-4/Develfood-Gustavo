@@ -22,7 +22,7 @@ interface Props {
   name: string;
   id: number;
   date: string;
-  quantityAndName?: any;
+  quantityAndName?: string[];
   status: string;
 }
 
@@ -88,7 +88,7 @@ export function OrderCard({
           </RightSideContainer>
 
           <RightSideContainer height={42} width={RFPercentage(13.718)}>
-            <PlatesLabel>{quantityAndName}</PlatesLabel>
+            <PlatesLabel numberOfLines={3}>{quantityAndName}</PlatesLabel>
           </RightSideContainer>
         </InfoWrapper>
       </Container>

@@ -27,7 +27,7 @@ interface Props extends TouchableOpacityProps {
   evaluation?: number;
 }
 
-interface Photos {
+export interface Photos {
   id: number;
   code: string;
 }

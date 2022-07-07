@@ -35,6 +35,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDebouncedCallback } from 'use-debounce';
 import theme from '../../theme';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { PhotoSlider } from '../../components/PhotoSlider';
 
 interface FoodTypes {
   id: number;
@@ -172,11 +173,7 @@ export const Home: React.FC<undefined> = () => {
                 <LocalImage source={require('../../assets/localHeader.png')} />
                 <Address> rua Arcy da Rocha Nóbrega 667, Panazollo</Address>
               </HeaderHome>
-              <Banners horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Banner source={theme.IMAGES.BANNER} />
-                <Banner source={theme.IMAGES.BANNER} />
-                <Banner source={theme.IMAGES.BANNER} />
-              </Banners>
+              <PhotoSlider />
 
               <TitleView>
                 <Title>Categorias</Title>
