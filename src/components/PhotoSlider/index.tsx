@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, ViewToken } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -15,7 +16,7 @@ interface BannersResponse {
 }
 
 interface BannerData {
-  id: string;
+  id: number;
   name: string;
   percent: number;
   dateInitial: string;
@@ -24,10 +25,16 @@ interface BannerData {
   photo_url: string;
 }
 
+interface FoodTypes {
+  id: number;
+  name: string;
+}
+
 interface Restaurant {
   id: number;
   name: string;
   photo_url: string;
+  food_types: FoodTypes[];
 }
 
 export function PhotoSlider() {
@@ -39,6 +46,7 @@ export function PhotoSlider() {
   });
 
   const { token } = useAuth();
+  const navigation = useNavigation();
 
   const { data: dataGetBanners, fetchData: fetchDataBanners } =
     useGet<BannersResponse>('/restaurantPromotion?page=0&quantity=x', {
@@ -51,6 +59,23 @@ export function PhotoSlider() {
     (async () => await fetchDataBanners())();
   }, []);
 
+  function handleRestaurant(
+    id: number,
+    name: string,
+    photo_url: any,
+    food_types: string,
+  ) {
+    navigation.navigate(
+      'RestaurantProfile' as never,
+      {
+        id,
+        name,
+        photo_url,
+        food_types,
+      } as never,
+    );
+  }
+
   return (
     <Container>
       <Banners>
@@ -59,8 +84,22 @@ export function PhotoSlider() {
           horizontal
           showsHorizontalScrollIndicator={false}
           data={dataGetBanners.content}
-          keyExtractor={(item) => item?.id}
-          renderItem={({ item }) => <Banner src={item.photo_url} />}
+          keyExtractor={(item) => item?.id.toString()}
+          renderItem={({ item }) => (
+            <Banner
+              onPressed={() => {
+                handleRestaurant(
+                  item.restaurant.id,
+                  item.restaurant.name,
+                  item.restaurant.photo_url,
+                  item.restaurant.food_types.length > 0
+                    ? item.restaurant.food_types[0].name
+                    : '',
+                );
+              }}
+              src={item.photo_url}
+            />
+          )}
           onViewableItemsChanged={indexChanged.current}
           viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
         />

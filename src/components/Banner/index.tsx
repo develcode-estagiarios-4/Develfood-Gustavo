@@ -8,9 +8,10 @@ import { BannerImage } from './styles';
 
 interface BannerProps {
   src: string;
+  onPressed: Function;
 }
 
-export function Banner({ src }: BannerProps) {
+export function Banner({ src, onPressed }: BannerProps) {
   const { token } = useAuth();
 
   const [photos, setPhotos] = useState<Photos[]>([]);
@@ -32,7 +33,7 @@ export function Banner({ src }: BannerProps) {
   });
 
   return (
-    <TouchableOpacity activeOpacity={0.9}>
+    <TouchableOpacity onPress={() => onPressed()} activeOpacity={0.9}>
       <BannerImage
         source={data.code ? { uri: `${data.code}` } : theme.IMAGES.NOIMAGE}
       />
