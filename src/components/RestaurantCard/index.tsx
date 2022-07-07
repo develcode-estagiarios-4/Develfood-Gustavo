@@ -27,7 +27,7 @@ interface Props extends TouchableOpacityProps {
   evaluation?: number;
 }
 
-interface Photos {
+export interface Photos {
   id: number;
   code: string;
 }
@@ -80,7 +80,7 @@ export function RestaurantCard({
   }, [id]);
 
   return (
-    <Container activeOpacity={0.1} {...rest}>
+    <Container activeOpacity={0.9} {...rest}>
       <FavoriteView>
         <BtnFavorite onPress={() => setFocused(!focused)}>
           <Heart

@@ -177,7 +177,7 @@ export const Home: React.FC<undefined> = () => {
                 <Address> rua Arcy da Rocha Nóbrega 667, Panazollo</Address>
               </HeaderHome>
               
-              <PhotoSlider photosUri={photosUri} />
+              <PhotoSlider />
 
               <TitleView>
                 <Title>Categorias</Title>
