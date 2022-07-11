@@ -172,7 +172,6 @@ export default function ShoppingProvider({ children }: AuthProviderProps) {
     fetchData();
   }, []);
 
-  // const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState({} as RequestProps);
 
   const {

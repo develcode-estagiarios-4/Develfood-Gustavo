@@ -56,13 +56,6 @@ export function Order() {
     },
   );
 
-  const { data: dataGetPlatePhoto, fetchData: fetchDataPlatePhoto } =
-    useGet<Photo>(platePhoto, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
   useEffect(() => {
     (async () => await fetchDataPhoto())();
   }, []);

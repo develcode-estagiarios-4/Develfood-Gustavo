@@ -19,7 +19,7 @@ export default function RestaurantRoutes() {
         barStyle={'dark-content'}
       />
       <ShoppingProvider>
-        <Navigator screenOptions={{ headerShown: false }}>
+        <Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
           <Screen name="Home" component={AppRoutes} />
           <Screen name="RestaurantProfile" component={RestaurantProfile} />
           <Screen name="Order" component={Order} />
