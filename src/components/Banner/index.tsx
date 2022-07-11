@@ -38,6 +38,7 @@ export function Banner({ src, onPressed }: BannerProps) {
     <TouchableOpacity onPress={() => onPressed()} activeOpacity={0.9}>
       <BannerImage
         source={data.code ? { uri: `${data.code}` } : theme.IMAGES.NOIMAGE}
+        resizeMode='stretch'
       />
     </TouchableOpacity>
   );

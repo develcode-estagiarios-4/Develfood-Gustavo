@@ -32,7 +32,6 @@ export default function AppRoutes() {
       )}
       <Tab.Navigator
         screenOptions={{
-          unmountOnBlur: true,
           headerShown: false,
           tabBarActiveTintColor: theme.COLORS.PRIMARY_900,
           tabBarStyle: { marginTop: 5, zIndex: 1 },
@@ -77,6 +76,7 @@ export default function AppRoutes() {
           name="Pedidos"
           component={History}
           options={{
+            unmountOnBlur:true,
             tabBarIcon: ({ focused }) => {
               return (
                 <TabBarIcon
